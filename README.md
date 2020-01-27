@@ -1,4 +1,4 @@
-![alt-text](https://github.com/erikgustavalm/icebreaker/ICEBREAKER.png)
+![alt-text](/ICEBREAKER.png)
 
 # icebreaker
 speed dating app 
