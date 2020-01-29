@@ -1,4 +1,4 @@
-![alt-text](/ICEBREAKER.png)
+![alt-text](/icebreaker_1.png)
 
 # icebreaker
-speed dating app 
+speed dating app
