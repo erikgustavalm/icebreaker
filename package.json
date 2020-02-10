@@ -1,0 +1,30 @@
+{
+  "name": "icebreaker",
+  "version": "1.0.0",
+  "description": "dating app",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint app.js public/js/*.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/erikgustavalm/icebreaker.git"
+  },
+  "author": "CSS Enterprise",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/erikgustavalm/icebreaker/issues"
+  },
+  "homepage": "https://github.com/erikgustavalm/icebreaker#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "socket.io": "^2.0.4",
+    "vue": "^2.5.2"
+  },
+  "devDependencies": {
+    "eslint": "^6.8.0",
+    "eslint-config-strongloop": "^2.1.0",
+    "eslint-plugin-vue": "^6.1.2"
+  }
+}
