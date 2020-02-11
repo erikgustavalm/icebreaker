@@ -10,31 +10,37 @@
     <title>My Speed Dating App</title>
   </head>
   <body>
-    <header>
-      <div id="app-start-header">
-        <img
-          id="app-start-logo"
-          src="./img/icebreaker_1.png"
-          alt="Icebreaker logo"
-          width="800"
-        />
+    <div id="app-container">
+      <div class="cell-header-logo">
+        <div id="app-start-header">
+          <img
+            id="app-start-logo"
+            src="./img/LOGO2.png"
+            alt="Icebreaker logo"
+            width="600"
+          />
+        </div>
       </div>
-    </header>
-    <main>
-      <div id="app-buttons-wrapper">
-        <button
-          id="join-room-button"
-          v-on:click=" goToSite('./user/join.html')"
-        >
-          Join Room
-        </button>
-        <button
-          id="host-room-button"
-          v-on:click="goToSite('./manager/host.html')"
-        >
-          Host Room
-        </button>
+
+      <div class="cell-center-photo">
+        <img  class="center-photo" src="./img/undraw_intense_feeling_ft9s.svg" alt="intense feeling photo" />
       </div>
-    </main>
+      <div class="cell-start-buttons">
+        <div id="app-buttons-wrapper">
+          <button
+            id="join-room-button"
+            v-on:click=" goToSite('./user/join.html')"
+          >
+            Join Room
+          </button>
+          <button
+            id="host-room-button"
+            v-on:click="goToSite('./manager/host.html')"
+          >
+            Host Room
+          </button>
+        </div>
+      </div>
+    </div>
   </body>
 </html>
