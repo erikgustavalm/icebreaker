@@ -3,15 +3,44 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <script src="https://vuejs.org/js/vue.js" defer></script>
-    <link rel="stylesheet" type="text/css" href="css/reset.css?version=10" />
-    <link rel="stylesheet" type="text/css" href="css/join.css?version=10" />
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js" defer></script>
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="/css/reset.css?version=1"
+      defer
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="/css/join.css?version=2"
+      defer
+    />
+    <script src="/js/join.js" defer></script>
     <title></title>
     <meta name="description" content="The HTML5 Herald" />
     <meta name="author" content="SitePoint" />
   </head>
-
+  <header>
+    <div id="app-start-header">
+      <img
+        id="app-start-logo"
+        src="../img/icebreaker_1.png"
+        alt="Icebreaker logo"
+      />
+    </div>
+  </header>
   <body>
-    <script src="js/scripts.js"></script>
+    <main>
+      <div id="joinWrapper">
+        <label for="roomKey">{{roomKey}}</label>
+        <input v-model="enteredKey" type="text" id="roomKey" name="roomKey"/>
+      </div>
+      <div id="buttonWrapper">
+        <button id="submitKey" v-on:click=" goToSite('../user/user_profile_screen.html')">
+          Join Room
+        </button>
+      </div>
+    </main>
   </body>
 </html>
