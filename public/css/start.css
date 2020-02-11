@@ -1,0 +1,52 @@
+/* ##################################### */
+
+*,
+*:after,
+*:before {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+html {
+  box-sizing: border-box;
+}
+
+/* ##################################### */
+
+body {
+  background-color: #9bcae1;
+}
+
+#join-room-button, #host-room-button {
+    width: 350px; /* related to logo img size  - if img size is changed then we need to change this size aswell*/
+    height: 2em;
+    background-color: #e5e3e3;
+    font-size: 26px;
+    margin: 12.5px;
+    border-radius: 12px;
+    cursor: pointer;
+    border: none;
+}
+
+#join-room-button {
+
+}
+
+#host-room-button {
+
+}
+
+#app-buttons-wrapper {
+
+  
+  margin-top: 30vh;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+#app-start-header {
+  margin: 0 auto;
+  text-align: center;
+}

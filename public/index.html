@@ -1,11 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" type="text/css" href="css/reset.css" />
+    <link rel="stylesheet" type="text/css" href="css/start.css" />
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js" defer></script>
+    <script src="./js/start.js" defer></script>
     <title>My Speed Dating App</title>
-</head>
-<body>
-    <header><h1>HELLO MY FRIEND</h1></header>
-</body>
+  </head>
+  <body>
+    <header>
+      <div id="app-start-header">
+        <img
+          id="app-start-logo"
+          src="./img/icebreaker_1.png"
+          alt="Icebreaker logo"
+          width="800"
+        />
+      </div>
+    </header>
+    <main>
+      <div id="app-buttons-wrapper">
+        <button
+          id="join-room-button"
+          v-on:click=" goToSite('./user/join.html')"
+        >
+          Join Room
+        </button>
+        <button
+          id="host-room-button"
+          v-on:click="goToSite('./manager/host.html')"
+        >
+          Host Room
+        </button>
+      </div>
+    </main>
+  </body>
 </html>
