@@ -1,0 +1,1 @@
+This folder contains all javascript/Vue/JSON scripts for the app.
