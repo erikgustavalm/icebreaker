@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="en">
   <head>
     <meta charset="UTF-8">
@@ -8,13 +9,35 @@
     <script src="../js/manager-main.js" defer></script>
     <script src="../js/manager-vue.js" defer></script>
     <title>Icebreaker manager</title>
+    <script>
+      function allowDrop(ev) {
+	    ev.preventDefault();
+      }
+      function drag(ev) {
+	    ev.dataTransfer.setData("text", ev.target.id);
+      }
+      function drop(ev) {
+	    ev.preventDefault();
+	    var data = ev.dataTransfer.getData("text");
+	    ev.target.appendChild(document.getElementById(data));
+      }
+    </script>
   </head>
   <body>
     <div id="manager-wrapper">
       <div id="manager-user-list-wrapper">
 	manager-user-list
       </div>
+
       <div id="manager-pairs-wrapper">
+	<div v-for="s in slots" class="manager-user-slot">
+	  <div id="s" ondrop="drop(event)" ondragover="allowDrop(event)">
+	  </div>
+	</div>
+	<div v-for="user in users">
+	  <img v-bind:src="user.img" v-bind:id="user.name" draggable="true" ondragstart="drag(event)" class="manager-user">
+	</div>
+
 	manager-pairs-wrapper
       </div>
       <div id="manager-control-panel-wrapper">
