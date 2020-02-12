@@ -51,6 +51,5 @@ function onDrop(event) {
     const dropzone = event.target;
 
     dropzone.appendChild(draggableElement);
-    dropzone.style.backgroundColor = "red";
-    //event.dataTransfer.clearData();
+     //event.dataTransfer.clearData();
 }

@@ -23,19 +23,17 @@
 	<div v-for="table in tables" class="manager-table" >
 	  <div
 	    :id="table.id1"
-	    class="manager-table-empty"
+	    class="manager-slot-empty"
 	    ondragover="onDragOver(event)"
 	    ondrop="onDrop(event)">
-	    {{table.id1}}
-	    {{table.name1}}
+	    <!-- <h2>{{table.id1}}</h2> -->
 	  </div>
 	  <div
 	    :id="table.id2"
-	    class="manager-table-empty"
+	    class="manager-slot-empty"
 	    ondragover="onDragOver(event)"
 	    ondrop="onDrop(event)">
-	    {{table.id2}}
-	    {{table.name2}}
+	    <!-- <h2>{{table.id2}}</h2> -->
 	  </div>
 	</div>
       </div>
