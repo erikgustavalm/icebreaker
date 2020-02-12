@@ -55,23 +55,40 @@ body {
 #manager-pairs-wrapper {
     box-sizing: border-box;
     display: grid;
-    width: 600px;
-    height: 400px;
-    margin-left: 300px;
+    width: 1200px;
+    height: 800px;
+    margin-left: 600px;
     margin-top: 10px;
+    border-radius: 10px;
     grid-template-columns: repeat(5, 1fr);
-    grid-column-gap: 0.4em;
-    grid-row-gap: 0.4em;
-    grid-template-rows: repeat(4, 1fr);
+    grid-column-gap: 0.1em;
+    grid-row-gap: 0.7em;
+    grid-template-rows: repeat(2, 1fr);
     background-color: #393939;
 }
 
-.manager-user-slot {
-    background-color: #e5e3e3;
-    border-radius: 30px;
+.manager-table {
+    background-color: #d4d2d2;
+    border-radius: 5px;
     margin: 10px;
+    display: grid;
+    grid-template-columns: 1;
+    grid-row-gap: 1em;
+    grid-template-rows: repeat(2, 1fr);
 }
-.manager-user {
+
+.manager-slot-empty {
+    background-color: #e5e3e3;
+    border-radius: 5px;
+    width: 100%;
+    height: auto;
+    text-align: center;
+}
+
+.manager-slot-taken {
+    background-color: blue;
+    border-style: 3px dashed red;
+    border-radius: 5px;
     width: 50px;
     height: 50px;
 }
