@@ -10,11 +10,22 @@
     <title>Icebreaker manager</title>
   </head>
   <body>
+    <!-- profile modal popup on click -->
+    <div class="manager-profile-popup-bg">
+     
+      <div class="manager-profile-popup-content">
+	 <div onclick="closeProfile()" class="manager-profile-popup-close">+</div>
+	    <p>Joakim Hansson</p>
+	    <p>Male</p>
+	    <p>Lat</p>
+	  </div>
+	</div>
     <div id="manager-wrapper">
       <div id="manager-user-list-wrapper">
 	manager-user-list
       </div>
       <div id="manager-pairs-wrapper">
+	<button onclick="openProfile()" id="manager-profile-popup-btn">Joakim Hansson</button>
 	manager-pairs-wrapper
       </div>
       <div id="manager-control-panel-wrapper">
