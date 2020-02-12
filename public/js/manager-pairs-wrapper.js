@@ -1,8 +1,7 @@
-const mpw = new Vue({
+new Vue({
     el: "#manager-pairs-wrapper",
     data: {
-	users: users_json,
-	slots: slots,
+	tables: tables,
     },
     methods: {
 

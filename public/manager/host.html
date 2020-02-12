@@ -10,23 +10,8 @@
 
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js" defer></script>
     <script src="../js/users_json.js" defer></script>
-    <script src="../js/slots.js" defer></script>
     <script src="../js/manager-main.js" defer></script>
     <script src="../js/manager-vue.js" defer></script>
-
-    <script>
-      function allowDrop(ev) {
-	    ev.preventDefault();
-      }
-      function drag(ev) {
-	    ev.dataTransfer.setData("text", ev.target.id);
-      }
-      function drop(ev) {
-	    ev.preventDefault();
-	    var data = ev.dataTransfer.getData("text");
-	    ev.target.appendChild(document.getElementById(data));
-      }
-    </script>
   </head>
   <body>
     <div id="manager-wrapper">
@@ -35,24 +20,23 @@
       </div>
 
       <div id="manager-pairs-wrapper">
-	<div v-for="slot in slots" class="manager-table" >
+	<div v-for="table in tables" class="manager-table" >
 	  <div
-	    :id="slot.id1"
-	    class="manager-slot-empty"
+	    :id="table.id1"
+	    class="manager-table-empty"
 	    ondragover="onDragOver(event)"
 	    ondrop="onDrop(event)">
-	    {{slot.id1}}
-	    {{slot.name1}}
+	    {{table.id1}}
+	    {{table.name1}}
 	  </div>
 	  <div
-	    :id="slot.id2"
-	    class="manager-slot-empty"
+	    :id="table.id2"
+	    class="manager-table-empty"
 	    ondragover="onDragOver(event)"
 	    ondrop="onDrop(event)">
-	    {{slot.id2}}
-	    {{slot.name2}}
+	    {{table.id2}}
+	    {{table.name2}}
 	  </div>
-	  manager-pairs-wrapper
 	</div>
       </div>
 
@@ -60,12 +44,13 @@
 	manager-control-panel
       </div>
 
-    </div>
     <div
       id="testID"
       class="manager-slot-taken"
       draggable="true"
       ondragstart="onDragStart(event)">
+    </div>
+
     </div>
   </body>
 </html>
