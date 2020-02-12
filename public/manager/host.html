@@ -4,11 +4,16 @@
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Icebreaker manager</title>
+
     <link rel="stylesheet" type="text/css" href="../css/host.css" />
+
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js" defer></script>
+    <script src="../js/users_json.js" defer></script>
+    <script src="../js/slots.js" defer></script>
     <script src="../js/manager-main.js" defer></script>
     <script src="../js/manager-vue.js" defer></script>
-    <title>Icebreaker manager</title>
+
     <script>
       function allowDrop(ev) {
 	    ev.preventDefault();
@@ -30,19 +35,37 @@
       </div>
 
       <div id="manager-pairs-wrapper">
-	<div v-for="s in slots" class="manager-user-slot">
-	  <div id="s" ondrop="drop(event)" ondragover="allowDrop(event)">
+	<div v-for="slot in slots" class="manager-table" >
+	  <div
+	    :id="slot.id1"
+	    class="manager-slot-empty"
+	    ondragover="onDragOver(event)"
+	    ondrop="onDrop(event)">
+	    {{slot.id1}}
+	    {{slot.name1}}
 	  </div>
+	  <div
+	    :id="slot.id2"
+	    class="manager-slot-empty"
+	    ondragover="onDragOver(event)"
+	    ondrop="onDrop(event)">
+	    {{slot.id2}}
+	    {{slot.name2}}
+	  </div>
+	  manager-pairs-wrapper
 	</div>
-	<div v-for="user in users">
-	  <img v-bind:src="user.img" v-bind:id="user.name" draggable="true" ondragstart="drag(event)" class="manager-user">
-	</div>
-
-	manager-pairs-wrapper
       </div>
+
       <div id="manager-control-panel-wrapper">
 	manager-control-panel
       </div>
+
+    </div>
+    <div
+      id="testID"
+      class="manager-slot-taken"
+      draggable="true"
+      ondragstart="onDragStart(event)">
     </div>
   </body>
 </html>
