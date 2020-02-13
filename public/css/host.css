@@ -35,6 +35,7 @@ body {
 }
 
 .manager-slot-empty {
+    box-sizing: border-box;
     background-color: white;
     text-align: center;
     margin:10px;
@@ -48,6 +49,9 @@ body {
     width: auto;
     height: 200px;
     cursor: grab;
+}
+.manager-slot-hover {
+    border: 3px dashed #fe4444;
 }
 #manager-control-panel-wrapper {
     grid-column: 4 / 5;
