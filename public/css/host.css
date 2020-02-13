@@ -19,9 +19,40 @@ body {
 #manager-pairs-wrapper {
     grid-column: 4 / 5;
     grid-row: 2 / 3;
+    background-color: #9bcae1;
+    display: grid;
+    grid-row-gap: 40px;
+    /*grid-column-gap: 15px;*/
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    justify-content: space-evenly;
+}
+
+.manager-table {
+    width: auto;
+    height: fill;
     background-color: #393939;
 }
 
+.manager-slot-empty {
+    box-sizing: border-box;
+    background-color: white;
+    text-align: center;
+    margin:10px;
+    width: auto;
+    height: 200px;
+    justify-content: center;
+}
+
+.manager-slot-taken {
+    background-color: blue;
+    width: auto;
+    height: 200px;
+    cursor: grab;
+}
+.manager-slot-hover {
+    border: 3px dashed #fe4444;
+}
 #manager-control-panel-wrapper {
     grid-column: 4 / 5;
     grid-row: 4 / 5;

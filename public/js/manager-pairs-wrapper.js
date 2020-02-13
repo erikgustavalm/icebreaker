@@ -1,9 +1,9 @@
 new Vue({
-    el: "#manager-wrapper",
+    el: "#manager-pairs-wrapper",
     data: {
 	tables: tables,
-	users: users_json,
     },
     methods: {
+
     },
 })
