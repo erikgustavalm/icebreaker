@@ -1,11 +1,29 @@
+html {
+  box-sizing: border-box;
+}
 header img {
   width: 90%;
   margin-left: 3.3em;
   text-align: center;
 }
 body {
-  background-color: #9bcae1;
+  background-color: #393939;
 }
+
+#app-container {
+  display: flex;
+  flex-direction: column;
+}
+
+#app-start-header {
+  text-align: center;
+}
+#app-start-logo{
+  margin-top: 10px;
+  padding-top: 2em;
+  width: 350px
+}
+
 label {
   margin-top: 12em;
   font-size: 3em;
@@ -23,16 +41,15 @@ label {
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: center;
-  
 }
 
 #submitKey {
-  width: 8em; /* related to logo img size  - if img size is changed then we need to change this size aswell*/
+  width: 400px;
   height: 2em;
-  background-color: #e5e3e3;
-  font-size: 4em;
+  background-color: #fff;
+  font-size: 26px;
   margin: 12.5px;
-  border-radius: 12px; 
+  border-radius: 12px;
   cursor: pointer;
   border: none;
 }
