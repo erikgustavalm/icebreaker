@@ -1,8 +1,8 @@
 const vm = new Vue({
-  el: "main",
+  el: "#join-room-container",
   data: {
-    roomKey: "Room Key: nitram",
-    enteredKey: [],
+    roomKey: "Enter room key:",
+    enteredKey: "",
     
   },
   methods: {
