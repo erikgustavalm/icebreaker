@@ -14,39 +14,74 @@ html {
 /* ##################################### */
 
 body {
-  background-color: #9bcae1;
+  background-color: #393939;
 }
 
-#join-room-button, #host-room-button {
-    width: 350px; /* related to logo img size  - if img size is changed then we need to change this size aswell*/
-    height: 2em;
-    background-color: #e5e3e3;
-    font-size: 26px;
-    margin: 12.5px;
-    border-radius: 12px;
-    cursor: pointer;
-    border: none;
-}
-
-#join-room-button {
+#app-start-logo {
 
 }
 
+#join-room-button,
 #host-room-button {
-
+  width: 400px;
+  height: 2em;
+  background-color: #fff;
+  font-size: 26px;
+  margin: 12.5px;
+  border-radius: 12px;
+  cursor: pointer;
+  border: none;
 }
 
 #app-buttons-wrapper {
-
-  
-  margin-top: 30vh;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   flex-wrap: wrap;
   justify-content: center;
 }
 
 #app-start-header {
-  margin: 0 auto;
   text-align: center;
+}
+
+.center-photo {
+  width: 450px;
+}
+
+#app-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.cell-center-photo {
+  padding: 5em 0;
+  align-self: center;
+}
+.cell-start-buttons {
+  align-self: center;
+}
+
+.cell-header-logo {
+  background-color: #fff;
+}
+
+@media only screen and (max-width: 600px) {
+  #join-room-button,
+  #host-room-button {
+    width: 340px;
+  }
+
+  .center-photo {
+    width: 350px;
+  }
+
+  .cell-center-photo {
+    padding: 4em 0;
+  }
+
+  #app-start-logo{
+    margin-top: 10px;
+    padding-top: 2em;
+    width: 350px
+  }
 }
