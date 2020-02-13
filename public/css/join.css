@@ -23,7 +23,9 @@ label {
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: center;
+  
 }
+
 #submitKey {
   width: 8em; /* related to logo img size  - if img size is changed then we need to change this size aswell*/
   height: 2em;
