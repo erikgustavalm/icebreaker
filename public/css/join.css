@@ -1,0 +1,85 @@
+/* ##################################### */
+
+*,
+*:after,
+*:before {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+html {
+  box-sizing: border-box;
+}
+
+/* ##################################### */
+
+body {
+  background-color: #393939;
+}
+
+#join-room-container {
+  display: flex;
+  flex-direction: column;
+}
+
+#join-room-header {
+  background-color: #fff;
+  text-align: center;
+}
+
+#join-submit-key {
+  width: 400px;
+  height: 2em;
+  background-color: #fff;
+  font-size: 26px;
+  margin: 12.5px;
+  border-radius: 12px;
+  cursor: pointer;
+  border: none;
+}
+
+#join-center-photo {
+  padding: 5em 0;
+  align-self: center;
+}
+
+#join-room-button {
+
+  align-self: center;
+}
+
+#join-room-input {
+
+  align-self: center;
+}
+
+#join-room-key {
+  height: 50px;
+  width: 500px;
+  font-size: large;
+}
+
+.center-photo {
+  width: 450px;
+}
+
+@media only screen and (max-width: 600px) {
+  #join-submit-key {
+    width: 340px;
+  }
+
+  #join-room-key {
+    height: 50px;
+    width: 380px;
+  }
+
+  .center-photo {
+    width: 350px;
+  }
+  #join-room-logo{
+    margin-top: 10px;
+    padding-top: 2em;
+    width: 350px
+  }
+  
+}
