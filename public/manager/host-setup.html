@@ -11,22 +11,56 @@
   <body>
     <div id="manager-host-session-wrapper">
       <div id="manager-host-session-form">
-	<h1>HOST SESSION</h1>
-	<label for="room-name">Room name:</label>
-	<input type="text" label="room-name" v-model="session.name"></input></br>
+	<h1
+	  style="text-align: center">HOST SESSION</h1>
+	<label
+	  class="manager-host-left"
+	  for="room-name">ROOM NAME:</label>
+	<input
+	  type="text"
+	  label="room-name"
+	  size="16"
+	  v-model="session.name"></input>
 
-	<button v-on:click="addQuote()">
-	  ADD
-	</button>
-	<input type="text" v-model="newQuote"></input>
-
-	<div v-for="quote in quotes">
-	  {{quote}}
-	</div>
-
-	<button v-on:click="formDone">
+	<button
+	  class="manager-host-left"
+	  v-on:click="formDone">
 	  DONE
 	</button>
+
+	<div
+	  class="manager-host-left">
+	  <h3>
+	    Custom Icebreaker questions
+	  </h3>
+	  <p
+	    style="font-weight: normal">
+	    If you want your room to have specialized icebreakers.
+	  </p>
+	</div>
+
+
+	<div
+	  id="manager-host-quotes">
+	  <div
+	    v-for="quote in quotes">
+	    <p>- {{quote}}</p>
+	  </div>
+	</div>
+
+
+	<input
+	  class="manager-host-left"
+	  type="text"
+	  size="28"
+	  v-model="newQuote"
+	  placeholder="new icebreaker"></input>
+	<input
+	  class="manager-host-left"
+	  type="button"
+	  v-on:click="addQuote"
+	  value="ADD"></input>
+
       </div>
     </div>
   </body>

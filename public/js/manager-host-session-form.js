@@ -9,6 +9,7 @@ const mhsf = new Vue({
 	addQuote: function() {
 	    this.quotes.push(this.newQuote);
 	    this.newQuote = "";
+	    console.log(this.quotes);
 	},
 	formDone: function() {
 	    if (this.session.name != "") {
