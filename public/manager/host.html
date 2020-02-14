@@ -1,26 +1,55 @@
 <!DOCTYPE html>
+
 <html lang="en">
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Icebreaker manager</title>
     <link rel="stylesheet" type="text/css" href="../css/reset.css" />
     <link rel="stylesheet" type="text/css" href="../css/host.css" />
+
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js" defer></script>
+    <script src="../js/users_json.js" defer></script>
     <script src="../js/manager-main.js" defer></script>
     <script src="../js/manager-vue.js" defer></script>
-    <title>Icebreaker manager</title>
   </head>
   <body>
     <div id="manager-wrapper">
       <div id="manager-user-list-wrapper">
 	manager-user-list
       </div>
+
       <div id="manager-pairs-wrapper">
-	manager-pairs-wrapper
+	<div v-for="table in tables" class="manager-table" >
+	  <div
+	    :id="table.id1"
+	    class="manager-slot-empty"
+	    ondragover="onDragOver(event)"
+	    ondragexit="onDragExit(event)"
+	    ondrop="onDrop(event)">
+	    <!-- <h2>{{table.id1}}</h2> -->
+	  </div>
+	  <div
+	    :id="table.id2"
+	    class="manager-slot-empty"
+	    ondragover="onDragOver(event)"
+	    ondragexit="onDragExit(event)"
+	    ondrop="onDrop(event)">
+	    <!-- <h2>{{table.id2}}</h2> -->
+	  </div>
+	</div>
       </div>
+
       <div id="manager-control-panel-wrapper">
 	manager-control-panel
       </div>
+      <!-- ONLY FOR DEMONSTRATION PURPOSE -->
+      <!-- <div -->
+      <!--   id="testID" -->
+      <!--   class="manager-slot-taken" -->
+      <!--   draggable="true" -->
+      <!--   ondragstart="onDragStart(event)"> -->
+      <!-- </div> -->
     </div>
   </body>
 </html>

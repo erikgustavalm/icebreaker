@@ -1,6 +1,4 @@
-// Here we write json and functionalities.
-
-let tables = [
+let slots = [
     {
 	id1: 1, user1: "", id2: 2, user2: ""
     },
@@ -40,15 +38,8 @@ function onDragStart(event) {
 
 function onDragOver(event) {
     event.preventDefault();
-    const dropzone = event.target;
-    dropzone.classList.add("manager-slot-hover");
 }
 
-function onDragExit(event) {
-    event.preventDefault();
-    const dropzone = event.target;
-    dropzone.classList.remove("manager-slot-hover");
-}
 function onDrop(event) {
     event.preventDefault();
     const id = event.dataTransfer.getData("text");
@@ -56,7 +47,8 @@ function onDrop(event) {
     const draggableElement = document.getElementById(id);
     draggableElement.style.backgroundColor = "blue";
     const dropzone = event.target;
-    dropzone.classList.remove("manager-slot-hover");
+
     dropzone.appendChild(draggableElement);
-     //event.dataTransfer.clearData();
+    dropzone.style.backgroundColor = "red";
+    //event.dataTransfer.clearData();
 }
