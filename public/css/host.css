@@ -50,11 +50,32 @@ body {
     height: 200px;
     cursor: grab;
 }
+
 .manager-slot-hover {
     border: 3px dashed #fe4444;
 }
+
 #manager-control-panel-wrapper {
     grid-column: 4 / 5;
     grid-row: 4 / 5;
     background-color: #393939;
+}
+
+#manager-host-session-wrapper {
+    display: grid;
+    grid-template-columns: auto 500px auto;
+}
+
+#manager-host-session-form {
+    background-color: #e3e3e3;
+    text-align: center;
+    color: #393939;
+    margin-top: 100px;
+    border-radius: 5px;
+    border: 5px solid #393939;
+    padding-bottom: 25px;
+    width: 100%;
+    height: auto;
+    grid-column: 2 / 3;
+    font-weight: bold;
 }

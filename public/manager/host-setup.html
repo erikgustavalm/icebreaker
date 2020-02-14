@@ -1,12 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+  <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="css/reset.css" />
-    <title>Document</title>
-</head>
-<body>
-    HERE GOES THE SET UP SETTINGS OF THE HOSTED ROOM/EVENT
-</body>
+    <link rel="stylesheet" type="text/css" href="../css/host.css" />
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js" defer></script>
+    <script src="../js/manager-host-session-form.js" defer ></script>
+    <title>Session Settings</title>
+  </head>
+  <body>
+    <div id="manager-host-session-wrapper">
+      <div id="manager-host-session-form">
+	<h1>HOST SESSION</h1>
+	<label for="room-name">Room name:</label>
+	<input type="text" label="room-name" v-model="session.name"></input></br>
+
+	<button v-on:click="addQuote()">
+	  ADD
+	</button>
+	<input type="text" v-model="newQuote"></input>
+
+	<div v-for="quote in quotes">
+	  {{quote}}
+	</div>
+
+	<button v-on:click="formDone">
+	  DONE
+	</button>
+      </div>
+    </div>
+  </body>
 </html>
