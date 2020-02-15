@@ -44,10 +44,12 @@ body {
 }
 
 #join-room-button {
+
   align-self: center;
 }
 
 #join-room-input {
+
   align-self: center;
 }
 
@@ -74,9 +76,11 @@ body {
   .center-photo {
     width: 350px;
   }
-  #join-room-logo {
+
+  #join-room-logo{
     margin-top: 10px;
     padding-top: 2em;
-    width: 350px;
+    width: 350px
   }
+  
 }
