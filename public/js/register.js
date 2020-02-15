@@ -6,12 +6,22 @@ const vm = new Vue({
         email: '',
         gender: '',
         age: 0,
-        
+
 
     },
     methods: {
         checkData: function(){
             result = true;
+
+            if(!document.getElementById("username").value) {
+                alert("Please enter your first name.");
+
+                result = false;
+            }
+            else if(!document.getElementById("password").value) {
+                alert("Please enter your last name.");
+                result=false;
+            }
             if(!document.getElementById("firstname").value) {
                 alert("Please enter your first name.");
                 result = false;
@@ -38,7 +48,8 @@ const vm = new Vue({
             let firstname = document.getElementById("firstname").value;
             let lastname = document.getElementById("lastname").value;
             let email = document.getElementById("email").value;
-            
+            let username = document.getElementById("username").value;
+            let password = document.getElementById("password").value;
             let gender = "male";
 
             if(document.getElementById("female").checked){
@@ -48,21 +59,23 @@ const vm = new Vue({
                 gender = "other";
             }
 
+            this.username = username;
+            this.password = password;
             this.firstname = firstname;
             this.lastname = lastname;
             this.email = email;
             this.gender = gender;
             this.age = age;
 
-            this.goToSite("../user/join.html");
+            this.goToSite("../index.html")
         },
         addPicture: function(){
             let image = document.getElementById("profilePic");
             image.src = "../img/testPic.jpeg";
         },
-        goToSite: function (link){ //" goToSite('./user/join.html')"
-            window.location.href = link
-        },
+        goToSite: function(link) {
+            window.location.href = link;
+        }
     }
 })
 

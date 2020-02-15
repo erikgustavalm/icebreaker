@@ -21,25 +21,51 @@
           />
         </div>
       </div>
-
       <div class="cell-center-photo">
-        <img  class="center-photo" src="./img/undraw_intense_feeling_ft9s.svg" alt="intense feeling photo" />
+        <img
+          class="center-photo"
+          src="./img/undraw_intense_feeling_ft9s.svg"
+          alt="intense feeling photo"
+        />
       </div>
+
       <div class="cell-start-buttons">
         <div id="app-buttons-wrapper">
-          <button
-            id="join-room-button"
-            v-on:click=" goToSite('./user/join.html')"
-          >
-            Join Room
-          </button>
           <button
             id="host-room-button"
             v-on:click="goToSite('./manager/host-setup.html')"
           >
             Host Room
           </button>
+          <button
+            v-if="userLoggedIn"
+            id="join-room-button"
+            v-on:click=" goToSite('./user/join.html')"
+          >
+            Join Room
+          </button>
+          <button
+            v-if="userLoggedIn == false"
+            id="user-account-button"
+            v-on:click="pullDown()"
+          >
+            My Account
+          </button>
         </div>
+      </div>
+      <div
+        id="account-section"
+        v-if="isHidden == false"
+        v-on:click="pullDown()"
+      ></div>
+      <div id="login-form" v-if="isHidden == false">
+        <h3>Login</h3>
+        <label id="user-label" for="Username"> Username</label>
+        <input id="username-input" type="text" v-model="username" />
+        <label id="pwd-label" for="Password">Password</label>
+        <input id="password-input" type="password" v-model="password" />
+        <button id="login-button" v-on:click="loginUser()">Login</button>
+        <button id="register-button" v-on:click=" goToSite('./user/register.html')">Register</button>
       </div>
     </div>
   </body>

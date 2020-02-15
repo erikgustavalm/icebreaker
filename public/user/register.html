@@ -6,9 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" type="text/css" href="../css/reset.css" />
     <link rel="stylesheet" type="text/css" href="../css/start.css" />
-    <link rel="stylesheet" type="text/css" href="../css/user_profile_screen.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/register.css"/>
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js" defer></script>
-    <script src="../js/user_profile_screen.js" defer></script>
+    <script src="../js/register.js" defer></script>
     
     
     <title>My Speed Dating App</title>
@@ -23,6 +23,15 @@
 
               <button v-on:click= "addPicture()" type="submit" id="addPicture"><img id="profilePic" src="../img/upload_picture.png"/></button>
               
+              <p>
+                <label for="username">Username</label><br>
+                <input type="text" id="username" required="required" />
+              </p>
+              <p>
+                <label for="firstname">First name</label><br>
+                <input type="password" id="password" required="required" />
+              </p>
+
               <p>
                 <label for="firstname">First name</label><br>
                 <input type="text" id="firstname" required="required" placeholder="First name" />
@@ -49,12 +58,11 @@
                 <input type="radio" class="gender" id="female" name="gender" value="female"> Female<br>
                 <input type="radio" class="gender " id="other" name="gender" value="other"> Other
               </p>
-
-              <button
-                 id="submitKey"
-                 v-on:click= " checkData()"
-                 >Next step</button>
             </form>
+            <button
+            id="submitKey"
+            v-on:click= "checkData()"
+            >Done</button>
           </div>
     </main>
   </body>
