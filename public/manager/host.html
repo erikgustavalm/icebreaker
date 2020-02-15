@@ -13,18 +13,38 @@
     <script src="../js/manager-vue.js" defer></script>
   </head>
   <body>
-        <!-- profile modal popup on click -->
-    <div id="manager-profile-popup" class="manager-profile-popup-bg">
-      <div class="manager-profile-popup-content">
-	<div onclick="closeProfile(event)" class="manager-profile-popup-close">+</div>
-	<p>Joakim Hansson</p>
-	<p>Male</p>
-	<p>Lat</p>
+    
+    <!-- profile modal popup on click -->    
+    <div
+      id="manager-profile-popup"
+      onmouseleave="closeProfile(event)"
+      onclick="closeProfile(event)"
+      class="manager-profile-popup">
+      <div>
+	<div
+	  onclick="closeProfile(event, false)"
+	  class="manager-profile-popup-close">
+	  +
+	</div>
+	<img
+	  id="manager-profile-popup-img"
+	  src=""
+	  style="width:80%; border-radius: 50%;"> 
+	<p id="manager-profile-popup-name"> </p>
+	<p id="manager-profile-popup-age"> </p>
+	<p></p>
       </div>
     </div>
-
     <div id="manager-wrapper">
       <div id="manager-user-list-wrapper">
+	<div v-for="user in users"
+             :id="user.id"
+	     onclick="openProfile(event)"
+             class="manager-slot-taken"
+             draggable="true"
+             ondragstart="onDragStart(event)">
+	  <!-- <p onclick="openProfile(event)">{{ user.name }}</p> -->
+	</div>
       </div>
       <div id="manager-pairs-wrapper">
 	<div v-for="table in tables" class="manager-table" >
@@ -49,14 +69,6 @@
 
       <div id="manager-control-panel-wrapper">
 	manager-control-panel
-      </div>
-      <!-- ONLY FOR DEMONSTRATION PURPOSE -->
-      <div
-        id="testID"
-	onclick="openProfile(event)"
-        class="manager-slot-taken"
-        draggable="true"
-        ondragstart="onDragStart(event)">
       </div>
     </div>
   </body>

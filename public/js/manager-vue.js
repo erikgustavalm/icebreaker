@@ -1,4 +1,4 @@
-new Vue({
+const wrapper = new Vue({
     el: "#manager-wrapper",
     data: {
 	tables: tables,
@@ -6,4 +6,5 @@ new Vue({
     },
     methods: {
     },
-})
+});
+
