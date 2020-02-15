@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js" defer></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="/css/reset.css?version=1"
+      defer
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="/css/rating.css?version=2"
+      defer
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Sail&display=swap"
+      rel="stylesheet"
+    />
+    <script src="/js/rating.js" defer></script>
+    <title>Rate your match!</title>
+  </head>
+  <body>
+    <main id="rate-date-container">
+      <h1 id="rate-header">Rate your date!</h1>
+      <div id="current-date">
+        <img
+          id="current-date-img"
+          src="https://st2.depositphotos.com/4196725/7109/i/950/depositphotos_71095139-stock-photo-blond-happy-man.jpg"
+          alt="your date"
+          @click="fadeImg"
+        />
+      </div>
+      <div
+        id="slide-container"
+        v-if="hideImg"
+        v-for="(item,index) in questions"
+      >
+        <p>{{item}}</p>
+        <div class="rangeslider">
+          <input
+            type="range"
+            min="1"
+            max="10"
+            step="1"
+            v-model="rating[index]"
+            id="fstAttribute"
+          />
+        </div>
+        <p>{{rating[index]}}</p>
+      </div>
+      <div id="button-container">
+        <button id="submit-rating-button" v-if="hideImg" @click="submitRating">
+          Done!
+        </button>
+      </div>
+    </main>
+  </body>
+</html>

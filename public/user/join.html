@@ -5,34 +5,36 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js" defer></script>
-    <link
-      rel="stylesheet"
-      type="text/css"
-      href="../css/reset.css"
-    />
-    <link
-      rel="stylesheet"
-      type="text/css"
-      href="../css/join.css"
-    />
+    <link rel="stylesheet" type="text/css" href="../css/reset.css" />
+    <link rel="stylesheet" type="text/css" href="../css/join.css" />
     <script src="../js/join.js" defer></script>
     <title>Join room</title>
   </head>
   <body>
-<div id="join-room-container">
+    <div id="join-room-container">
       <div id="join-room-header">
-          <img
-            id="join-room-logo"
-            src="../img/LOGO2.png"
-            alt="Icebreaker logo"
-            width="600"
-          />
-        </div>
-        <div id="join-center-photo">
-          <img  class="center-photo" src="../img/undraw_spread_love_r9jb.svg" alt="spread love photo" />
-        </div>
+        <img
+          id="join-room-logo"
+          src="../img/LOGO2.png"
+          alt="Icebreaker logo"
+          width="600"
+        />
+      </div>
+      <div id="join-center-photo">
+        <img
+          class="center-photo"
+          src="../img/undraw_spread_love_r9jb.svg"
+          alt="spread love photo"
+        />
+      </div>
       <div id="join-room-input">
-        <input v-model="enteredKey" type="text" id="join-room-key" name="room-key" placeholder="Enter room key..." />
+        <input
+          v-model="enteredKey"
+          type="text"
+          id="join-room-key"
+          name="room-key"
+          placeholder="Enter room key..."
+        />
       </div>
       <div id="join-room-button">
         <button
