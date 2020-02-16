@@ -18,12 +18,9 @@ body {
   background-color: #393939;
 }
 
-#app-start-logo {
-
-}
-
 #join-room-button,
-#host-room-button {
+#host-room-button,
+#user-account-button {
   width: 400px;
   height: 2em;
   background-color: #fff;
@@ -32,6 +29,9 @@ body {
   border-radius: 12px;
   cursor: pointer;
   border: none;
+}
+#join-room-button {
+  background-color: #9BCAE1;
 }
 
 #app-buttons-wrapper {
@@ -44,7 +44,6 @@ body {
 #app-start-header {
   text-align: center;
 }
-
 
 .center-photo {
   width: 450px;
@@ -67,9 +66,86 @@ body {
   background-color: #fff;
 }
 
+#account-section {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #fff;
+  opacity: 0.5;
+  z-index: 2;
+  cursor: pointer;
+}
+
+#login-form {
+  padding: 2em;
+  opacity: 1;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  background-color: #fff;
+  transform: translate(-50%,-50%);
+  -ms-transform: translate(-50%,-50%);
+  z-index: 3;
+  width: 50vh;
+}
+
+#login-form h3 {
+  text-align: center;
+  font-size: 2em;
+  margin-bottom: 1em;
+}
+
+
+#username-input,
+#password-input {
+  width: 100%;
+  height: 2.5em;
+}
+
+#user-label,
+#pwd-label {
+  display: block;
+  margin-top: 1em;
+  font-size: 18px;
+}
+
+#register-button{
+  margin-top: 1em;
+  font-size: 18px;
+  width: 40%;
+  height: 2em;
+  cursor: pointer;
+  border: none;
+  background: none;
+  border-radius: 12px;
+}
+#login-button{
+  margin-top: 1em;
+  font-size: 18px;
+  width: 50%;
+  height:2em;
+  cursor: pointer;
+  background-color: #9BCAE1;
+  border: none;
+  border-radius: 12px;
+}
+
+#login-button:hover{
+  opacity: 0.8;
+}
+
+#register-button:hover {
+  background-color: whitesmoke;
+}
+
 @media only screen and (max-width: 600px) {
   #join-room-button,
-  #host-room-button {
+  #host-room-button,
+  #user-account-button {
     width: 340px;
   }
 
@@ -81,9 +157,10 @@ body {
     padding: 4em 0;
   }
 
-  #app-start-logo{
+  #app-start-logo {
     margin-top: 10px;
     padding-top: 2em;
-    width: 350px
+    width: 350px;
   }
+
 }
