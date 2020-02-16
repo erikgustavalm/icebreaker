@@ -20,7 +20,8 @@ body {
 
 #join-room-button,
 #host-room-button,
-#user-account-button {
+#user-account-button,
+#user-matches-button {
   width: 400px;
   height: 2em;
   background-color: #fff;
@@ -30,8 +31,10 @@ body {
   cursor: pointer;
   border: none;
 }
-#join-room-button {
-  background-color: #9BCAE1;
+#join-room-button,
+#user-matches-button,
+#user-account-button {
+  background-color: #9bcae1;
 }
 
 #app-buttons-wrapper {
@@ -87,8 +90,8 @@ body {
   top: 50%;
   left: 50%;
   background-color: #fff;
-  transform: translate(-50%,-50%);
-  -ms-transform: translate(-50%,-50%);
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
   z-index: 3;
   width: 50vh;
 }
@@ -98,7 +101,6 @@ body {
   font-size: 2em;
   margin-bottom: 1em;
 }
-
 
 #username-input,
 #password-input {
@@ -113,7 +115,7 @@ body {
   font-size: 18px;
 }
 
-#register-button{
+#register-button {
   margin-top: 1em;
   font-size: 18px;
   width: 40%;
@@ -123,18 +125,18 @@ body {
   background: none;
   border-radius: 12px;
 }
-#login-button{
+#login-button {
   margin-top: 1em;
   font-size: 18px;
   width: 50%;
-  height:2em;
+  height: 2em;
   cursor: pointer;
-  background-color: #9BCAE1;
+  background-color: #9bcae1;
   border: none;
   border-radius: 12px;
 }
 
-#login-button:hover{
+#login-button:hover {
   opacity: 0.8;
 }
 
@@ -145,8 +147,10 @@ body {
 @media only screen and (max-width: 600px) {
   #join-room-button,
   #host-room-button,
-  #user-account-button {
+  #user-account-button,
+  #user-matches-button {
     width: 340px;
+    margin: 10px;
   }
 
   .center-photo {
@@ -162,5 +166,4 @@ body {
     padding-top: 2em;
     width: 350px;
   }
-
 }
