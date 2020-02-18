@@ -10,68 +10,140 @@
     <title>My Speed Dating App</title>
   </head>
   <body>
-    <div id="app-container">
-      <div class="cell-header-logo">
-        <div id="app-start-header">
+    <div id="start-site">
+      <div id="app-container" v-if="registrationHidden">
+        <div class="cell-header-logo">
+          <div id="app-start-header">
+            <img
+              id="app-start-logo"
+              src="./img/LOGO2.png"
+              alt="Icebreaker logo"
+              width="600"
+            />
+          </div>
+        </div>
+        <div class="cell-center-photo">
           <img
-            id="app-start-logo"
-            src="./img/LOGO2.png"
-            alt="Icebreaker logo"
-            width="600"
+            class="center-photo"
+            src="./img/undraw_intense_feeling_ft9s.svg"
+            alt="intense feeling photo"
           />
         </div>
-      </div>
-      <div class="cell-center-photo">
-        <img
-          class="center-photo"
-          src="./img/undraw_intense_feeling_ft9s.svg"
-          alt="intense feeling photo"
-        />
-      </div>
-
-      <div class="cell-start-buttons">
-        <div id="app-buttons-wrapper">
-          <button
-            id="host-room-button"
-            v-on:click="goToSite('./manager/host-setup.html')"
-          >
-            Host Room
+        <div class="cell-start-buttons">
+          <div id="app-buttons-wrapper">
+            <button
+              id="host-room-button"
+              v-if="userLoggedIn == false"
+              v-on:click="goToSite('./manager/host-setup.html')"
+            >
+              Host Room
+            </button>
+            <button
+              v-if="userLoggedIn"
+              id="join-room-button"
+              v-on:click=" goToSite('./user/join.html')"
+            >
+              Join Room
+            </button>
+            <button
+              v-if="userLoggedIn == false"
+              id="user-account-button"
+              v-on:click="pullDown()"
+            >
+              My Account
+            </button>
+            <button v-if="userLoggedIn" id="user-matches-button">
+              Your Matches
+            </button>
+            <button
+              v-if="userLoggedIn"
+              id="user-logout-button"
+              v-on:click="logoutUser()"
+            >
+              Logout
+            </button>
+          </div>
+        </div>
+        <div
+          id="account-section"
+          v-if="isHidden == false"
+          v-on:click="pullDown()"
+        ></div>
+        <div id="login-form" v-if="isHidden == false">
+          <h3>Login</h3>
+          <label id="user-label" for="Username"> Username</label>
+          <input id="username-input" type="text" v-model="username" />
+          <label id="pwd-label" for="Password">Password</label>
+          <input id="password-input" type="password" v-model="password" />
+          <button id="login-button" v-on:click="loginUser()">Login</button>
+          <button id="register-button" v-on:click="setRegistration()">
+            Register
           </button>
-          <button
-            v-if="userLoggedIn"
-            id="join-room-button"
-            v-on:click=" goToSite('./user/join.html')"
-          >
-            Join Room
-          </button>
-          <button
-            v-if="userLoggedIn == false"
-            id="user-account-button"
-            v-on:click="pullDown()"
-          >
-            My Account
-          </button>
-          <button
-          v-if="userLoggedIn"
-          id="user-matches-button"
-        >
-          Your Matches
-        </button>
         </div>
       </div>
-      <div
-        id="account-section"
-        v-if="isHidden == false"
-        v-on:click="pullDown()"
-      ></div>
-      <div id="login-form" v-if="isHidden == false">
-        <h3>Login</h3>
-        <label id="user-label" for="Username"> Username</label>
-        <input id="username-input" type="text" v-model="username" />
-        <label id="pwd-label" for="Password">Password</label>
-        <input id="password-input" type="password" v-model="password" />
-        <button id="login-button" v-on:click="loginUser()">Login</button>
-        <button id="register-button" v-on:click=" goToSite('./user/register.html')">Register</button>
+      <div id="registration-container" v-if="registrationHidden == false">
+        <div id="register" v-if="accountDetails">
+          <h2 id="account-details-title">Account Details</h2>
+          <a href="#" v-on:click="abortRegistration()" class="close"></a>
+          <form>
+            <input
+              type="text"
+              id="username"
+              required="required"
+              placeholder="USERNAME"
+            />
+            <br />
+            <input
+              type="password"
+              id="password"
+              required="required"
+              placeholder="PASSWORD"
+            />
+            <br />
+            <input type="email" id="email" name="ln" placeholder="EMAIL" />
+          </form>
+          <div id="next-button-holder">
+            <button id="register-next-key" v-on:click="regProfile()">
+              NEXT
+            </button>
+          </div>
+        </div>
+        <div id="profile" v-if="accountDetails == false">
+          <h2 id="profile-details-title">Your Profile</h2>
+          <a href="#" v-on:click="abortRegistration()" class="close"></a>
+          <form>
+            <button type="submit" id="addPicture">
+              <img id="profile-pic" src="./img/upload_picture.png" />
+            </button>
+            <input
+              type="text"
+              id="name"
+              required="required"
+              placeholder="FULL NAME"
+            />
+            <br />
+            <input
+              type="number"
+              id="age"
+              required="required"
+              placeholder="AGE"
+            />
+            <br />
+            <label id="gender-label" for="gender">GENDER</label>
+            <select id="gender">
+              <option value="male">FEMALE</option>
+              <option value="female">MALE</option>
+            </select>
+          </form>
+          <div id="back-next-button-holder" v-on>
+            <button id="profile-back-key" v-on:click="backToAccountDetails()">
+              BACK
+            </button>
+            <button id="profile-done-key" v-on:click="doneWithRegistration()">
+              SIGN UP
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   </body>
