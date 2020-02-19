@@ -13,7 +13,7 @@ const vm = new Vue({
       password: "",
       email: "",
       fullname: "",
-      age: 0,
+      age: "",
       gender: "",
       imgPath:"",
       totalMatches: []
@@ -95,7 +95,7 @@ const vm = new Vue({
       this.newUser.password = "";
       this.newUser.email = "";
       this.newUser.fullname = "";
-      this.newUser.age = 0;
+      this.newUser.age = "";
       this.newUser.gender = "";
     },
     inputCheckerAccount: function() {
