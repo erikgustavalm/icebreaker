@@ -39,7 +39,7 @@ body {
 }
 
 #user-logout-button {
-  background-color: #E19BA7;
+  background-color: #e19ba7;
 }
 
 #app-buttons-wrapper {
@@ -74,7 +74,7 @@ body {
   background-color: #fff;
 }
 
-#account-section {
+.overlay {
   position: fixed;
   width: 100%;
   height: 100%;
@@ -83,7 +83,7 @@ body {
   right: 0;
   bottom: 0;
   background-color: #fff;
-  opacity: 0.5;
+  opacity: 0.75;
   z-index: 2;
   cursor: pointer;
 }
@@ -95,6 +95,7 @@ body {
   top: 50%;
   left: 50%;
   background-color: #fff;
+  box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);
   transform: translate(-50%, -50%);
   -ms-transform: translate(-50%, -50%);
   z-index: 3;
@@ -174,14 +175,7 @@ body {
   }
 }
 
-
-
-
 /*! REGISTRATION CSS */
-
-#registration-container{
-
-}
 
 #register,
 #profile {
@@ -191,11 +185,13 @@ body {
   top: 50%;
   left: 50%;
   background-color: #fff;
+  box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);
   transform: translate(-50%, -50%);
   -ms-transform: translate(-50%, -50%);
   z-index: 3;
   width: 50vh;
 }
+
 
 #email,
 #username,
@@ -211,7 +207,7 @@ body {
   font-size: 1em;
 }
 
-#account-details-title{
+#account-details-title {
   font-size: 28px;
 }
 
@@ -220,7 +216,7 @@ body {
   margin-bottom: 1em;
 }
 
-#gender{
+#gender {
   width: 50%;
   border-top: none;
   border-left: none;
@@ -237,7 +233,7 @@ body {
 }
 
 #register-next-key,
-#profile-done-key{
+#profile-done-key {
   margin-top: 1em;
   background-color: #9bcae1;
   border: none;
@@ -248,7 +244,7 @@ body {
   height: 2em;
 }
 
-#profile-pic{
+#profile-pic {
   width: 200px;
   height: 200px;
   margin: 10px;
@@ -257,7 +253,7 @@ body {
 #profile-back-key {
   margin-top: 1em;
   margin-right: 5px;
-  background-color: #E19BA7;
+  background-color: #e19ba7;
   border: none;
   border-radius: 12px;
   cursor: pointer;
@@ -276,14 +272,12 @@ body {
 }
 
 @media only screen and (max-width: 600px) {
-
-  #profile-pic{
+  #profile-pic {
     width: 150px;
     height: 150px;
     margin: 10px;
-  } 
+  }
 }
-
 
 /* ! close cross button on forms - styles */
 .close {
@@ -297,10 +291,11 @@ body {
 .close:hover {
   opacity: 1;
 }
-.close:before, .close:after {
+.close:before,
+.close:after {
   position: absolute;
   left: 15px;
-  content: ' ';
+  content: " ";
   height: 33px;
   width: 2px;
   background-color: #333;
@@ -312,11 +307,12 @@ body {
   transform: rotate(-45deg);
 }
 
-.unfilled-entry{
-  border-color: #ED1C24;
+/* ! incorrect input on forms  */
+.unfilled-entry {
+  border-color: #ed1c24;
 }
 
 #incorrect-login {
-  color:  #ED1C24;
+  color: #ed1c24;
   font-size: 0.7em;
 }

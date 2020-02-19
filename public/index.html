@@ -11,7 +11,7 @@
   </head>
   <body>
     <div id="start-site">
-      <div id="app-container" v-if="registrationHidden">
+      <div id="app-container" >
         <div class="cell-header-logo">
           <div id="app-start-header">
             <img
@@ -65,11 +65,11 @@
           </div>
         </div>
         <div
-          id="account-section"
+          class="overlay"
           v-if="isHidden == false"
           v-on:click="pullDown()"
         ></div>
-        <div id="login-form" v-if="isHidden == false">
+        <div id="login-form" v-if="isHidden == false && registrationHidden">
           <h3>Login</h3>
           <label id="user-label" for="Username"> Username</label>
           <input
@@ -130,9 +130,9 @@
         <div id="profile" v-if="accountDetails == false">
           <h2 id="profile-details-title">Your Profile</h2>
           <a href="#" v-on:click="abortRegistration()" class="close"></a>
-          <button v-on:click= "addPicture()" type="submit" id="addPicture">
+          <button v-on:click="addPicture()" type="submit" id="addPicture">
             <img id="profile-pic" src="./img/upload_picture.png" />
-          </button> 
+          </button>
           <form>
             <input
               type="text"
