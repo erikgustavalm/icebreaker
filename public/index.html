@@ -130,10 +130,10 @@
         <div id="profile" v-if="accountDetails == false">
           <h2 id="profile-details-title">Your Profile</h2>
           <a href="#" v-on:click="abortRegistration()" class="close"></a>
+          <button v-on:click= "addPicture()" type="submit" id="addPicture">
+            <img id="profile-pic" src="./img/upload_picture.png" />
+          </button>
           <form>
-            <button v-on:click= "addPicture()" type="submit" id="addPicture">
-              <img id="profile-pic" src="./img/upload_picture.png" />
-            </button>
             <input
               type="text"
               id="name"
