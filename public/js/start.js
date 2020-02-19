@@ -7,6 +7,7 @@ const vm = new Vue({
     username: "",
     registrationHidden: true,
     accountDetails: true,
+    incorrectLogin: false,
     newUser: {
       username: "",
       password: "",
@@ -14,6 +15,7 @@ const vm = new Vue({
       fullname: "",
       age: 0,
       gender: "",
+      imgPath:"",
       totalMatches: []
     },
     loggedInUser: {}
@@ -23,6 +25,7 @@ const vm = new Vue({
       window.location.href = link;
     },
     pullDown: function() {
+      this.incorrectLogin = false;
       console.log("my account button clicked!");
       if (this.isHidden) {
         this.isHidden = false;
@@ -45,6 +48,7 @@ const vm = new Vue({
           this.password = "";
         }
       }
+      this.incorrectLogin = true;
     },
     logoutUser: function() {
       this.userLoggedIn = false;
@@ -52,6 +56,7 @@ const vm = new Vue({
       console.log("user logged out successfully!");
     },
     setRegistration: function() {
+      this.incorrectLogin = false;
       this.registrationHidden = false;
       console.log("sign up button clicked!");
     },
@@ -81,6 +86,9 @@ const vm = new Vue({
         this.isHidden = true;
         console.log("Registration successfull!");
       }
+    },
+    resetIncorrectLogin: function() {
+      this.incorrectLogin = false;
     },
     emptyUserFields: function() {
       this.newUser.username = "";
@@ -142,6 +150,11 @@ const vm = new Vue({
         document.getElementById("age").classList.remove("unfilled-entry");
         document.getElementById("gender").classList.remove("unfilled-entry");
       }
+    },
+    addPicture: function() {
+      let image = document.getElementById("profile-pic");
+      this.newUser.imgPath = "./img/testPic.jpeg";
+      image.src = this.newUser.imgPath;
     }
   }
 });

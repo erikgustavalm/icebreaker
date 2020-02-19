@@ -315,3 +315,8 @@ body {
 .unfilled-entry{
   border-color: #ED1C24;
 }
+
+#incorrect-login {
+  color:  #ED1C24;
+  font-size: 0.7em;
+}
