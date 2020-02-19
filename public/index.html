@@ -89,18 +89,24 @@
             <input
               type="text"
               id="username"
-              required="required"
               placeholder="USERNAME"
+              v-model="newUser.username"
             />
             <br />
             <input
               type="password"
               id="password"
-              required="required"
               placeholder="PASSWORD"
+              v-model="newUser.password"
             />
             <br />
-            <input type="email" id="email" name="ln" placeholder="EMAIL" />
+            <input
+              type="email"
+              id="email"
+              name="ln"
+              placeholder="EMAIL"
+              v-model="newUser.email"
+            />
           </form>
           <div id="next-button-holder">
             <button id="register-next-key" v-on:click="regProfile()">
@@ -118,24 +124,25 @@
             <input
               type="text"
               id="name"
-              required="required"
               placeholder="FULL NAME"
+              v-model="newUser.fullname"
             />
             <br />
             <input
               type="number"
               id="age"
-              required="required"
               placeholder="AGE"
+              v-model="newUser.age"
             />
             <br />
             <label id="gender-label" for="gender">GENDER</label>
-            <select id="gender">
-              <option value="male">FEMALE</option>
-              <option value="female">MALE</option>
+            <select id="gender" v-model="newUser.gender">
+              <option disabled value="">Please select one</option>
+              <option value="male">Female</option>
+              <option value="female">Male</option>
             </select>
           </form>
-          <div id="back-next-button-holder" v-on>
+          <div id="back-next-button-holder">
             <button id="profile-back-key" v-on:click="backToAccountDetails()">
               BACK
             </button>

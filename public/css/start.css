@@ -311,3 +311,7 @@ body {
 .close:after {
   transform: rotate(-45deg);
 }
+
+.unfilled-entry{
+  border-color: #ED1C24;
+}
