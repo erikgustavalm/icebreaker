@@ -14,8 +14,8 @@
     <script src="../js/manager-vue.js" defer></script>
   </head>
   <body>
-    
-    <!-- profile modal popup on click -->    
+
+    <!-- profile modal popup on click -->
     <div
       id="manager-profile-popup"
       onmouseleave="closeProfile(event)"
@@ -30,13 +30,39 @@
 	<img
 	  id="manager-profile-popup-img"
 	  src=""
-	  style="width:80%; border-radius: 50%;"> 
+	  style="width:80%; border-radius: 50%;">
 	<p id="manager-profile-popup-name"> </p>
 	<p id="manager-profile-popup-age"> </p>
 	<p></p>
       </div>
     </div>
     <div id="manager-wrapper">
+      <div
+	v-if="showHelp"
+	v-on:click="switchShowHelp"
+	id="manager-help-overlay"
+	>
+      </div>
+      <div
+	v-if="showHelp"
+	id="manager-help"
+	>
+	<h2>HELP</h2>
+	<h1>Matching</h1>
+	<p>
+	  lorem ipsum matching
+	</p>
+
+	<h1>Drag & Drop</h1>
+	<p>
+	  lorem ipsum dragus dropicus
+	</p>
+
+	<h1>Starting timer</h1>
+	<p>
+	  lorem ipsum startikem timerius
+	</p>
+      </div>
       <div id="manager-user-list-wrapper">
 	<div v-for="user in users"
              :id="user.id"
@@ -66,11 +92,32 @@
 	    ondrop="onDrop(event)">
 	    <!-- <h2>{{table.id2}}</h2> -->
 	  </div>
+
 	</div>
       </div>
 
       <div id="manager-control-panel-wrapper">
-	manager-control-panel
+	<button
+	  class="control-panel-btn"
+	  >
+	  START TIMER
+	</button>
+	<button
+	  class="control-panel-btn"
+	  >
+	  AUTO MATCH
+	</button>
+	<button
+	  class="control-panel-btn"
+	  v-on:click="switchShowHelp"
+	  >
+	  HELP
+	</button>
+	<button
+	  class="control-panel-btn"
+	  >
+	  QUIT
+	</button>
       </div>
       <!-- ONLY FOR DEMONSTRATION PURPOSE -->
       <!-- <div -->
