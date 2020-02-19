@@ -21,7 +21,8 @@ body {
 #join-room-button,
 #host-room-button,
 #user-account-button,
-#user-matches-button {
+#user-matches-button,
+#user-logout-button {
   width: 400px;
   height: 2em;
   background-color: #fff;
@@ -35,6 +36,10 @@ body {
 #user-matches-button,
 #user-account-button {
   background-color: #9bcae1;
+}
+
+#user-logout-button {
+  background-color: #E19BA7;
 }
 
 #app-buttons-wrapper {
@@ -148,7 +153,8 @@ body {
   #join-room-button,
   #host-room-button,
   #user-account-button,
-  #user-matches-button {
+  #user-matches-button,
+  #user-logout-button {
     width: 340px;
     margin: 10px;
   }
@@ -166,4 +172,151 @@ body {
     padding-top: 2em;
     width: 350px;
   }
+}
+
+
+
+
+/*! REGISTRATION CSS */
+
+#registration-container{
+
+}
+
+#register,
+#profile {
+  padding: 2em;
+  opacity: 1;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  background-color: #fff;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  z-index: 3;
+  width: 50vh;
+}
+
+#email,
+#username,
+#password,
+#name,
+#age {
+  margin-top: 1.5em;
+  width: 100%;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  padding: 4px;
+  font-size: 1em;
+}
+
+#account-details-title{
+  font-size: 28px;
+}
+
+#profile-details-title {
+  font-size: 28px;
+  margin-bottom: 1em;
+}
+
+#gender{
+  width: 50%;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  margin-top: 1.5em;
+  padding: 4px;
+  font-size: 1em;
+  background-color: #fff;
+  opacity: 0.6;
+}
+
+#gender-label {
+  opacity: 0.6;
+}
+
+#register-next-key,
+#profile-done-key{
+  margin-top: 1em;
+  background-color: #9bcae1;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  font-size: 18px;
+  width: 50%;
+  height: 2em;
+}
+
+#profile-pic{
+  width: 200px;
+  height: 200px;
+  margin: 10px;
+}
+
+#profile-back-key {
+  margin-top: 1em;
+  margin-right: 5px;
+  background-color: #E19BA7;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  font-size: 18px;
+  width: 50%;
+  height: 2em;
+}
+
+#next-button-holder {
+  text-align: end;
+}
+
+#back-next-button-holder {
+  display: flex;
+  flex-direction: row;
+}
+
+@media only screen and (max-width: 600px) {
+
+  #profile-pic{
+    width: 150px;
+    height: 150px;
+    margin: 10px;
+  } 
+}
+
+
+/* ! close cross button on forms - styles */
+.close {
+  position: absolute;
+  right: 32px;
+  top: 32px;
+  width: 32px;
+  height: 32px;
+  opacity: 0.4;
+}
+.close:hover {
+  opacity: 1;
+}
+.close:before, .close:after {
+  position: absolute;
+  left: 15px;
+  content: ' ';
+  height: 33px;
+  width: 2px;
+  background-color: #333;
+}
+.close:before {
+  transform: rotate(45deg);
+}
+.close:after {
+  transform: rotate(-45deg);
+}
+
+.unfilled-entry{
+  border-color: #ED1C24;
+}
+
+#incorrect-login {
+  color:  #ED1C24;
+  font-size: 0.7em;
 }
