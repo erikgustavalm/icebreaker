@@ -99,8 +99,10 @@
       <div id="manager-control-panel-wrapper">
 	<button
 	  class="control-panel-btn"
+	  v-on:click="startTimer"
+	  id="manager-round-timer"
 	  >
-	  START TIMER
+	  {{timerLabel}}
 	</button>
 	<button
 	  class="control-panel-btn"
