@@ -1,0 +1,24 @@
+
+body {
+    background-color: #393939;
+}
+
+#user-final-screen {
+    width: 100vw;
+    height: 100vh;
+    display: grid;
+    grid-template-columns: 20vw auto 20vw;
+}
+
+.user-selection {
+    height: 25vh;
+    grid-column: 2 / 3;
+    background-color: orange;
+}
+
+#done-btn {
+    height: 10vh;
+    grid-column: 2 / 3;
+    margin-top: 5vh;
+    font-size: 3em;
+}

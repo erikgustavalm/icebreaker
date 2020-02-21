@@ -1,0 +1,32 @@
+<!DOCTYPE HTML>
+
+<html lang="en">
+  <head>
+    <title>Descision</title>
+    <meta charset="utf-8"/>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js" defer></script>
+    <script src="../js/user-final.js" defer></script>
+    <link rel="stylesheet" href="../css/final.css">
+  </head>
+
+  <body>
+    <div
+      id="user-final-screen"
+      >
+      <div
+	v-for="suggestion in suggestions"
+	class="user-selection"
+	v-on:touchstart="touchStart($event)"
+	v-on:touchmove="touchMove($event)"
+	v-on:touchend="touchEnd($event)"
+	>
+      </div>
+
+      <button
+	id="done-btn"
+	>
+	DONE
+      </button>
+    </div>
+  </body>
+</html>
