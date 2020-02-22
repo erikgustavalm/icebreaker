@@ -78,7 +78,7 @@ function onDrop(event) {
     event.preventDefault();
     const id = event.dataTransfer.getData("text");
     const draggableElement = document.getElementById(id);
-    draggableElement.style.backgroundColor = "pink";
+    draggableElement.style.backgroundColor = "#e3e3e3";
     let dropzone = event.currentTarget;
     dropzone.classList.remove("manager-slot-hover");
     
