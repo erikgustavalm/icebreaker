@@ -11,7 +11,8 @@
   </head>
   <body>
     <div id="start-site">
-      <div id="app-container" >
+      <!-- ? app-container --- the main start screen -->
+      <div id="app-container">
         <div class="cell-header-logo">
           <div id="app-start-header">
             <img
@@ -48,11 +49,15 @@
             <button
               v-if="userLoggedIn == false"
               id="user-account-button"
-              v-on:click="pullDown()"
+              v-on:click="overlay()"
             >
               My Account
             </button>
-            <button v-if="userLoggedIn" id="user-matches-button">
+            <button
+              v-if="userLoggedIn"
+              id="user-matches-button"
+              v-on:click="showMatches()"
+            >
               Your Matches
             </button>
             <button
@@ -64,40 +69,41 @@
             </button>
           </div>
         </div>
-        <div
-          class="overlay"
-          v-if="isHidden == false"
-          v-on:click="pullDown()"
-        ></div>
-        <div id="login-form" v-if="isHidden == false && registrationHidden">
-          <h3>Login</h3>
-          <label id="user-label" for="Username"> Username</label>
-          <input
-            id="username-input"
-            type="text"
-            v-model="username"
-            v-on:click="resetIncorrectLogin()"
-          />
-          <label id="pwd-label" for="Password">Password</label>
-          <input
-            id="password-input"
-            type="password"
-            v-model="password"
-            v-on:click="resetIncorrectLogin()"
-          />
-          <span id="incorrect-login" v-if="incorrectLogin">
-            Incorrect username and/or password!</span
-          >
-          <button id="login-button" v-on:click="loginUser()">Login</button>
-          <button id="register-button" v-on:click="setRegistration()">
-            Register
-          </button>
-        </div>
       </div>
+      <!-- ? the overlay div that is always present when turning on a popup window -->
+      <div class="overlay" v-if="isHidden == false"></div>
+      <!-- ? from here starts the login-form wrapper -->
+      <div id="login-form" v-if="isHidden == false && registrationHidden">
+        <h3>Login</h3>
+        <a href="#" v-on:click="abort()" class="close"></a>
+        <label id="user-label" for="Username"> Username</label>
+        <input
+          id="username-input"
+          type="text"
+          v-model="username"
+          v-on:click="resetIncorrectLogin()"
+        />
+        <label id="pwd-label" for="Password">Password</label>
+        <input
+          id="password-input"
+          type="password"
+          v-model="password"
+          v-on:click="resetIncorrectLogin()"
+        />
+        <span id="incorrect-login" v-if="incorrectLogin">
+          Incorrect username and/or password!</span
+        >
+        <button id="login-button" v-on:click="loginUser()">Login</button>
+        <button id="register-button" v-on:click="setRegistration()">
+          Register
+        </button>
+      </div>
+      <!-- ? registration-container holds register and profile wrappers -->
       <div id="registration-container" v-if="registrationHidden == false">
+        <!-- ? from here starts the register wrapper -->
         <div id="register" v-if="accountDetails">
           <h2 id="account-details-title">Account Details</h2>
-          <a href="#" v-on:click="abortRegistration()" class="close"></a>
+          <a href="#" v-on:click="abort()" class="close"></a>
           <form>
             <input
               type="text"
@@ -127,9 +133,10 @@
             </button>
           </div>
         </div>
+        <!-- ? from here starts the profile wrapper -->
         <div id="profile" v-if="accountDetails == false">
           <h2 id="profile-details-title">Your Profile</h2>
-          <a href="#" v-on:click="abortRegistration()" class="close"></a>
+          <a href="#" v-on:click="abort()" class="close"></a>
           <button v-on:click="addPicture()" type="submit" id="addPicture">
             <img id="profile-pic" src="./img/upload_picture.png" />
           </button>
@@ -162,6 +169,25 @@
             <button id="profile-done-key" v-on:click="doneWithRegistration()">
               SIGN UP
             </button>
+          </div>
+        </div>
+      </div>
+      <div id="match-wrapper" v-if="displayMatches" >
+        <h3>Your Matches</h3>
+        <a href="#" v-on:click="abort()" class="close"></a>
+        <div
+          class="card"
+          v-if="userLoggedIn"
+          v-for="(card, index) in testMatches"
+          v-on:click="toggleCard(card,index)"
+          :id="'card-'+index"
+        >
+          <img class="card-image" :src="card.imgPath" />
+          <div class="card-content">
+            <h3>{{card.name}}</h3>
+            <p>{{card.gender}}</p>
+            <p class="toggle-off">{{card.age}}</p>
+            <p class="toggle-off">{{card.email}}</p>
           </div>
         </div>
       </div>
