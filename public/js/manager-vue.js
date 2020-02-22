@@ -25,8 +25,7 @@ const vm = new Vue({
 	    clearInterval(this.timerInterval);
 	    this.timerLabel = "START ROUND";
 
-	    document.getElementById("manager-round-timer").style.backgroundColor = "green";
-	    document.getElementById("manager-round-timer").style.color = "#393939";
+	    document.getElementById("manager-round-timer").style.backgroundColor = "#399939";
 
 	    this.timePassed = 0;
 	    this.timeLeft = 0;
@@ -38,9 +37,7 @@ const vm = new Vue({
 		this.timeLeft = this.TIME_LIMIT - this.timePassed;
 		this.timerLabel = this.formatTime();
 
-		document.getElementById("manager-round-timer").style.backgroundColor = "red";
-		document.getElementById("manager-round-timer").style.color = "white";
-
+		document.getElementById("manager-round-timer").style.backgroundColor = "#ff3939";
 
 		if (this.timeLeft === 0) {
 		    this.onTimesUp();
