@@ -42,12 +42,13 @@ body {
     width: auto;
     height: 200px;
     justify-content: center;
+    
 }
 
-.manager-slot-taken {
-    background-color: blue;
+.manager-list-slot {
+    background-color: pink;
     width: auto;
-    height: 200px;
+    height: 50px;
     cursor: grab;
     text-align: center;
     font-size: 200%;
@@ -55,6 +56,20 @@ body {
     justify-content: center;
     align-items: center;
     border: 1px solid #393939;
+}
+
+.manager-slot-taken {
+    background-color: white;
+    width: auto;
+    height: 200px;
+    cursor: grab;
+    justify-content: center;
+    text-align: center;
+    font-size: 200%;
+    /* display: flex; */
+    align-items: center;
+    border: 1px solid #393939;
+    display: block;
     
 }
 .manager-slot-hover {
@@ -112,7 +127,7 @@ body {
     position: absolute; 
     border-radius: 10px;
     font-size: 200%;
-     border: 2px solid #000000;
+    border: 2px solid #000000;
 }
 
 .manager-profile-popup-close {
@@ -126,4 +141,18 @@ body {
     &:hover {
 	color: #666;
     }
+}
+
+.manager-profile-listview {
+    justify-content: center;
+    text-align: center;
+}
+
+.manager-profile-wrapperview {
+    justify-content: center;
+    text-align: center;
+    display: none;
+    width: 100%;
+    height: 100%;
+    border-radius: 20%1;
 }
