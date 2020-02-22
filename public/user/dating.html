@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js" defer></script>
+    <link rel="stylesheet" type="text/css" href="../css/reset.css" />
+    <link rel="stylesheet" type="text/css" href="../css/dating.css" />
+    <script src="../js/dating.js" defer></script>
+    <title>Join room</title>
+  </head>
+  <body>
+    <main id="your-date-container">
+      <div id="your-match"></div>
+      <div id="countdown" :bind="display">{{display}}</div>
+    </main>
+  </body>
+</html>
