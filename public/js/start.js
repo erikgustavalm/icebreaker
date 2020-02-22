@@ -1,22 +1,93 @@
 const vm = new Vue({
   el: "#start-site",
   data: {
-    userLoggedIn: false,
+    userLoggedIn: false, 
     isHidden: true,
     password: "",
     username: "",
+    displayMatches: false,
     registrationHidden: true,
     accountDetails: true,
     incorrectLogin: false,
+    testMatches : [{
+      email: "user@gmail.com",
+      name: "Axel Lingestål",
+      age: "18",
+      gender: "male",
+      imgPath: "../img/index.png"
+    },
+    {
+      email: "user@gmail.com",
+      name: "Anton Jäger",
+      age: "19",
+      gender: "male",
+      imgPath: "../img/index.png"
+    },
+    {
+      email: "user@gmail.com",
+      name: "Fredrik Vandermondes",
+      age: "20",
+      gender: "male",
+      imgPath: "../img/index.png"
+    },
+    {
+      email: "user@gmail.com",
+      name: "Jokke jokkake",
+      age: "21",
+      gender: "male",
+      imgPath: "../img/index.png"
+    },
+    {
+      email: "user@gmail.com",
+      name: "Sukram Lucero",
+      age: "22",
+      gender: "male",
+      imgPath: "../img/index.png"
+    },
+    {
+      email: "user@gmail.com",
+      name: "Nitram Lucero",
+      age: "23",
+      gender: "male",
+      imgPath: "../img/index.png"
+    },
+    {
+      email: "user@gmail.com",
+      name: "ERiiik eriIk",
+      age: "24",
+      gender: "male",
+      imgPath: "../img/index.png"
+    },
+    {
+      email: "user@gmail.com",
+      name: "Kalle Karlsson",
+      age: "25",
+      gender: "male",
+      imgPath: "../img/index.png"
+    },
+    {
+      email: "user@gmail.com",
+      name: "Markiplier Youtuber",
+      age: "26",
+      gender: "male",
+      imgPath: "../img/index.png"
+    },
+    {
+      email: "user@gmail.com",
+      name: "Frankenstein Monster",
+      age: "27",
+      gender: "male",
+      imgPath: "../img/index.png"
+    }],
     newUser: {
       username: "",
       password: "",
       email: "",
-      fullname: "",
+      name: "",
       age: "",
       gender: "",
-      imgPath:"",
-      totalMatches: []
+      imgPath: "",
+      matches: []
     },
     loggedInUser: {}
   },
@@ -24,14 +95,10 @@ const vm = new Vue({
     goToSite: function(link) {
       window.location.href = link;
     },
-    pullDown: function() {
+    overlay: function() {
       this.incorrectLogin = false;
-      console.log("my account button clicked!");
-      if (this.isHidden) {
-        this.isHidden = false;
-      } else {
-        this.isHidden = true;
-      }
+      console.log("overlay activated!");
+      this.isHidden = false;
     },
     loginUser: function() {
       if (this.username != "" && this.password != "") {
@@ -66,13 +133,14 @@ const vm = new Vue({
         console.log("next button clicked!");
       }
     },
-    abortRegistration: function() {
+    abort: function() {
       this.resetBorderColor();
       this.accountDetails = true;
       this.registrationHidden = true;
       this.isHidden = true;
+      this.displayMatches = false;
       this.emptyUserFields();
-      console.log("aborted registration!");
+      console.log("aborted!");
     },
     backToAccountDetails: function() {
       this.accountDetails = true;
@@ -91,10 +159,12 @@ const vm = new Vue({
       this.incorrectLogin = false;
     },
     emptyUserFields: function() {
+      this.username = "";
+      this.password = "";
       this.newUser.username = "";
       this.newUser.password = "";
       this.newUser.email = "";
-      this.newUser.fullname = "";
+      this.newUser.name = "";
       this.newUser.age = "";
       this.newUser.gender = "";
     },
@@ -155,6 +225,25 @@ const vm = new Vue({
       let image = document.getElementById("profile-pic");
       this.newUser.imgPath = "./img/testPic.jpeg";
       image.src = this.newUser.imgPath;
+    },
+    showMatches: function() {
+      this.overlay();
+      this.displayMatches = true;
+      console.log("displaying matches!");
+    },
+
+    toggleCard: function(card,index){
+      var el = document.getElementById("card-"+index);
+      if(el.classList.contains("expand")){
+        el.classList.remove("expand");
+        el.childNodes[2].childNodes[4].classList.add("toggle-off");
+        el.childNodes[2].childNodes[6].classList.add("toggle-off");
+      } else {
+        el.classList.add("expand");
+        el.childNodes[2].childNodes[4].classList.remove("toggle-off");
+        el.childNodes[2].childNodes[6].classList.remove("toggle-off");
+      }
+      
     }
   }
 });
