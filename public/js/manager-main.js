@@ -1,34 +1,34 @@
 // Here we write json and functionalities.
 let tables = [
     {
-	id1: 1, empty1: false,  id2: 2, empty2: false 
+	id1: 1, user1: "",  id2: 2, user2: "" 
     },
     {
-	id1: 3, empty1: false,  id2: 4, empty2: false 
+	id1: 3, user1: "",  id2: 4, user2: "" 
     },
     {
-	id1: 5, empty1: false, id2: 6, empty2: false 
+	id1: 5, user1: "", id2: 6, user2: "" 
     },
     {
-	id1: 7, empty1: false, id2: 8, empty2: false 
+	id1: 7, user1: "", id2: 8, user2: "" 
     },
     {
-	id1: 9, empty1: false, id2: 10, empty2: false 
+	id1: 9, user1: "", id2: 10, user2: "" 
     },
     {
-	id1: 11, empty1: false, id2: 12, empty2: false 
+	id1: 11, user1: "", id2: 12, user2: "" 
     },
     {
-	id1: 13, empty1: false, id2: 14, empty2: false 
+	id1: 13, user1: "", id2: 14, user2: "" 
     },
     {
-	id1: 15, empty1: false, id2: 16, empty2: false 
+	id1: 15, user1: "", id2: 16, user2: "" 
     },
     {
-	id1: 17, empty1: false, id2: 18, empty2: false 
+	id1: 17, user1: "", id2: 18, user2: "" 
     },
     {
-	id1: 19, empty1: false, id2: 20, empty2: false 
+	id1: 19, user1: "", id2: 20, user2: "" 
     }
 ]
 
