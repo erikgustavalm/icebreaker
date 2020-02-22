@@ -1,7 +1,7 @@
 new Vue({
   el: "#your-date-container",
   data: {
-    time: 900, //in seconds
+    time: 5, //in seconds
     timer: null,
     display: null
   },
@@ -13,9 +13,9 @@ new Vue({
       const then = now + this.time * 1000;
       this.timer = setInterval(() => {
         const secondsLeft = Math.round(then - Date.now()) / 1000;
-        if (secondsLeft < 0) {
-          clearInterval(timer);
-          return;
+        if (secondsLeft < 1) {
+          clearInterval(this.timer);
+          this.goToSite("../user/rating.html");
         }
         this.timeLeft(secondsLeft);
       }, 1000);
@@ -23,14 +23,21 @@ new Vue({
     timeLeft: function(secondsLeft) {
       let minutes = "" + Math.floor(secondsLeft / 60);
       let seconds = "" + Math.floor(secondsLeft % 60);
-      minutes.padStart(2, "0");
-      seconds.padStart(2, "0");
-      this.display = `${minutes}:${seconds}`;
+      console.log(seconds);
+      if (minutes < 10) {
+        minutes = `0${minutes}`;
+      }
+      if (seconds < 10) {
+        seconds = `0${seconds}`;
+      }
 
-      console.log(this.display);
+      this.display = `${minutes}:${seconds}`;
+    },
+    goToSite: function(link) {
+      window.location.href = link;
     }
   },
-  mounted() {
+  created() {
     this.startTimer();
   }
 });
