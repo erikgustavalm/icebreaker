@@ -1,12 +1,114 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+  <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="css/reset.css" />
-    <title>Document</title>
-</head>
-<body>
-    HERE GOES THE SET UP SETTINGS OF THE HOSTED ROOM/EVENT
-</body>
+    <link rel="stylesheet" type="text/css" href="../css/host.css" />
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js" defer></script>
+    <script src="../js/manager-host-session-form.js" defer ></script>
+    <title>Session Settings</title>
+  </head>
+  <body>
+    <div id="manager-host-session-wrapper">
+      <div id="manager-host-session-form">
+
+	<h1 style="text-align: center">HOST SESSION</h1>
+
+	<div v-if="formNr == 0">
+	  <form
+	    action=""
+	    onsubmit="return false">
+
+	    <label
+	      class="manager-host-left"
+	      for="room-name">ROOM NAME:</label>
+
+	    <input
+	      type="text"
+	      label="room-name"
+	      size="16"
+	      required="true"
+	      v-model="session.name"></input>
+
+	    <input
+	      type="submit"
+	      value="NEXT"
+	      label="next-btn"
+	      v-on:click="formNext"></input>
+	  </form>
+	</div>
+
+	<div v-if="formNr == 1">
+	  <div
+	    class="manager-host-left">
+	    <h3>User questions</h3>
+	    <p
+	      style="font-weight: normal">
+	      Write the questions that the users will have to answer.
+	    </p>
+	  </div>
+	  <button
+	    class="manager-host-left"
+	    v-on:click="formQuestionNext">NEXT</button>
+
+	  <div
+	    id="manager-host-list">
+	    <form action="" onsubmit="return false">
+	      <input
+		type="text"
+		size="30"
+		v-model="newQuestion"
+		placeholder="please enter here..."></input>
+
+	      <input
+		type="submit"
+		v-on:click="addQuestion"
+		value="ADD"></input>
+	    </form>
+
+	    <div
+	      v-for="question in session.questions">
+	      <p>- {{question}}</p>
+	    </div>
+	  </div>
+	</div>
+
+	<div v-if="formNr == 2">
+	  <div
+	    class="manager-host-left">
+	    <h3>Custom Quotes</h3>
+	    <p
+	      style="font-weight: normal">
+	      If you want your room to have custom quotes that will be shown to the user during loading screens.
+	    </p>
+	  </div>
+	  <button
+	    class="manager-host-left"
+	    v-on:click="formNext">NEXT</button>
+
+
+	  <div
+	    id="manager-host-list">
+	    <form action="" onsubmit="return false">
+	      <input
+		type="text"
+		size="30"
+		v-model="newQuote"
+		placeholder="new icebreaker"></input>
+
+	      <input
+		type="submit"
+		v-on:click="addQuote"
+		value="ADD"></input>
+	    </form>
+
+	    <div
+	      v-for="quote in session.quotes">
+	      <p>- {{quote}}</p>
+	    </div>
+	  </div>
+	</div>
+      </div>
+    </div>
+  </body>
 </html>
