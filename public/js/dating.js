@@ -1,7 +1,7 @@
 new Vue({
   el: "#your-date-container",
   data: {
-    time: 5, //in seconds
+    time: 900, //in seconds
     timer: null,
     display: null
   },
@@ -23,7 +23,6 @@ new Vue({
     timeLeft: function(secondsLeft) {
       let minutes = "" + Math.floor(secondsLeft / 60);
       let seconds = "" + Math.floor(secondsLeft % 60);
-      console.log(seconds);
       if (minutes < 10) {
         minutes = `0${minutes}`;
       }
