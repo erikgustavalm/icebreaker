@@ -14,7 +14,6 @@ new Vue({
       this.timer = setInterval(() => {
         const secondsLeft = Math.round(then - Date.now()) / 1000;
         if (secondsLeft < 1) {
-          clearInterval(this.timer);
           this.goToSite("../user/rating.html");
         }
         this.timeLeft(secondsLeft);
@@ -33,6 +32,7 @@ new Vue({
       this.display = `${minutes}:${seconds}`;
     },
     goToSite: function(link) {
+      clearInterval(this.timer);
       window.location.href = link;
     }
   },
