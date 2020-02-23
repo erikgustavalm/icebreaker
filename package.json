@@ -21,7 +21,8 @@
     "express": "^4.17.1",
     "socket.io": "^2.0.4",
     "v-slider": "^0.1.0",
-    "vue": "^2.5.2"
+    "vue": "^2.5.2",
+    "vue-typed-js": "^0.1.2"
   },
   "devDependencies": {
     "eslint": "^6.8.0",
