@@ -1,0 +1,49 @@
+
+
+#addPicture
+{
+    height: 170px;
+    width: 170px;
+    display:block;
+    margin: 0 auto;
+    cursor: pointer;
+    
+}
+
+#addPicture img{
+    height: 120px;
+    width: 120px;
+    
+}
+
+#addPicture:hover{
+    background-color: green;
+    cursor: pointer;
+}
+
+#register{
+    display: flex;
+    justify-content: center;
+}
+
+.age{
+    margin-left: 15%;
+}
+
+.gender{
+    margin-left: 15%;
+}
+
+#submitKey {
+  width: 13em; /* related to logo img size  - if img size is changed then we need to change this size aswell*/
+  height: 4em;
+  background-color: #e5e3e3;
+  font-size: 20px;
+  margin: 12.5px;
+  border-radius: 12px; 
+  cursor: pointer;
+  border: none;
+}
+
+
+

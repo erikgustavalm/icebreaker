@@ -1,0 +1,30 @@
+body
+{
+    background-color: #393939;
+  
+}
+
+#submitKey {
+  width: 13em; /* related to logo img size  - if img size is changed then we need to change this size aswell*/
+  height: 4em;
+  background-color: #e5e3e3;
+  font-size: 20px;
+  margin: 12.5px;
+  border-radius: 12px; 
+  cursor: pointer;
+  border: none;
+  text-align: center;
+  margin-left: 20%;
+  margin-right: 20%;
+}
+
+.question {
+    text-align: center;
+    font-weight: bold;
+    
+}
+
+.alt
+{
+    font-weight: normal;
+}
