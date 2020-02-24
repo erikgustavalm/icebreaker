@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" type="text/css" href="../css/reset.css" />
+    <link rel="stylesheet" type="text/css" href="../css/waiting.css" />
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js" defer></script>
+    <script src="../js/icebreakers.js" defer></script>
+    <script src="../js/waiting.js" defer></script>
+    <title>Waiting for next match</title>
+  </head>
+  <body>
+    <section id="loader-wrapper">
+      <div class="loader">
+        <div class="loader__bar"></div>
+        <div class="loader__bar"></div>
+        <div class="loader__bar"></div>
+        <div class="loader__bar"></div>
+        <div class="loader__bar"></div>
+        <div class="loader__ball"></div>
+      </div>
+    </section>
+    <div id="text-wrapper">
+      <div v-if="hideIcebreaker">
+        You are currently being paired up with a new match...
+      </div>
+      <div v-if="!hideIcebreaker" id="icebreakerIndex">
+        Icebreaker tip #{{icebreakerIndex}}
+      </div>
+      <div v-if="visible" id="icebreaker" > {{icebreaker}}</div>
+    </div>
+    <div id="sequence"></div>
+  </body>
+</html>

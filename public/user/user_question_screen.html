@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="../css/reset.css" />
+    <link rel="stylesheet" type="text/css" href="../css/start.css" />
+    <link rel="stylesheet" type="text/css" href="../css/user_question_screen.css"/>
+    <script src="../js/sample_questions.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js" defer></script>
+    <script src="../js/user_question_screen.js" defer></script>
+    
+    <title>Document</title>
+</head>
+<body>
+  <div class="overlay"></div>
+  <div id="questionform">
+    <div class="information">Your answers will be used for the matching part of the event. Please be as truthful as possible for the best outcome.</div>
+    <div class="break"></div>
+    <form>
+        <fieldset>
+          <div class="question" v-for="(q, i) in questionlist">
+            <b>{{q.question}}</b>
+      
+          <div class= "alt" v-if="q.alt1">
+            <input type="radio"  v-model="answerArray[i]" :name="q.question" :id="q.alt1" :value="q.alt1" required> {{q.alt1}}<br>
+          </div>
+          
+          <div class="alt" v-if="q.alt2">
+            <input type="radio"  v-model="answerArray[i]" :name="q.question" :id="q.alt2" :value="q.alt2"> {{q.alt2}}<br>
+          </div>
+          
+          <div class="alt" v-if="q.alt3">
+            <input type="radio"  v-model="answerArray[i]" :name="q.question" :id="q.alt3" :value="q.alt3"> {{q.alt3}}<br>
+          </div>
+          
+          <div class="alt" v-if="q.alt4">
+            <input type="radio"  v-model="answerArray[i]" :name="q.question" :id="q.alt4" :value="q.alt4"> {{q.alt4}}<br>
+          </div>
+
+          <div class="alt" v-if="!q.alt1">
+            <input type="text" v-model="answerArray[i] "id="openEnded" required="required" width="30" height="100"  placeholder="" />
+          </div>  
+          </div>
+        </fieldset>
+        <button id="submitKey" type="button" v-on:click= "checkValid()">Next step</button>
+    </form>
+
+
+    
+            
+  </div>
+</body>
+</html>
