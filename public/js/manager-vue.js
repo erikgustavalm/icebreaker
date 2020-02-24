@@ -40,7 +40,6 @@ const vm = new Vue({
 	    console.log(userElement);
 	    const userName = userElement.children[0];
 	    const userImg = userElement.children[1];
-
 	    
 	    let pair = this.pairs[pairIndex].children;
 

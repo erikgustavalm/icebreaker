@@ -50,7 +50,7 @@ const vm = new Vue({
 
             if(validInput)
             {
-                this.goToSite('./user/join.html');
+                this.goToSite('../user/waiting.html');
             }
             
             
