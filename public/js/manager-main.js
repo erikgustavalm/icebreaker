@@ -38,7 +38,6 @@ let startingSlot;
 
 
 function slotTaken(slot){
-    console.log("slotTaken() ID: " + slot.id + " = " + slot.getAttribute('locked'));
     return slot.getAttribute('locked');
 }
 
@@ -53,6 +52,7 @@ function unlockSlot(slot){
 }
 
 function onDragStart(event) {
+    console.log(event.currentTarget);
     event.dataTransfer.setData("text", event.target.id);
     event.currentTarget.style.backgroundColor = "yellow";
     if(event.currentTarget.parentNode.getAttribute('name') == "profile-wrapper-slot"){
@@ -90,6 +90,7 @@ function onDrop(event) {
 	draggableElement.classList.add("manager-list-slot");
 	userName.style.display = "flex";
 	userImg.style.display = "none";
+	getUserById(draggableElement.id).matched = false;
 	
     }else if(dropzone.classList == "manager-list-slot"){
 	dropzone = document.getElementById("manager-user-list-wrapper");
@@ -97,11 +98,10 @@ function onDrop(event) {
 	draggableElement.classList.add("manager-list-slot");
 	userName.style.display = "flex";
 	userImg.style.display = "none";
+	getUserById(draggableElement.id).matched = false;
     }else{
-	console.log(dropzone);
 	if(slotTaken(dropzone) == "true"){
-	    lockSlot(startingSlot);
-	    console.log("Slot is taken, abort!!");
+	    swapUsers(draggableElement, dropzone);
 	    return;
 	}else{
 	    lockSlot(dropzone);
@@ -109,17 +109,17 @@ function onDrop(event) {
 	    draggableElement.classList.add("manager-slot-taken");
 	    userName.style.display = "none";
 	    userImg.style.display = "block";
+	    getUserById(draggableElement.id).matched = true;
 	}
     }
     dropzone.appendChild(draggableElement);
-     //event.dataTransfer.clearData();
+    //event.dataTransfer.clearData();
 }
 
 function openProfile(event) {
-
+    console.log("openProfile()");
     // if(mouseOverActive != mouseOverCall) return;
     // mouseOverActive = true;
-    
     event.preventDefault();
     idContainer = event.currentTarget.id; // TODO: dont use global variable
 
@@ -146,6 +146,7 @@ function openProfile(event) {
 }
 
 function closeProfile(event) {
+    console.log("closeProfile()");
     event.preventDefault();
     
     const id = idContainer;
@@ -156,4 +157,17 @@ function closeProfile(event) {
     document.querySelector('.manager-profile-popup').style.display = "none";
 
     // if(mouseOverActive != mouseOverCall) mouseOverActive = false;
+}
+function getUserById(userID){
+    for(let i=0; i<vm.users.length; i++){
+	if(vm.users[i].id == userID){
+	    return vm.users[i];
+	}
+    }
+}
+
+function swapUsers(draggableElement, dropzone){
+    startingSlot.appendChild(dropzone.children[0]);
+    dropzone.appendChild(draggableElement);
+    lockSlot(startingSlot);
 }

@@ -96,8 +96,22 @@ body {
     border: 0.1vh solid #393939;
 }
 
+.manager-list-slot {
+    background-color: #e3e3e3;
+    box-sizing: border-box;
+    width: auto;
+    height: 5.25vh;
+    cursor: grab;
+    text-align: center;
+    font-size: 200%;
+    /* display: flex; */
+    justify-content: center;
+    align-items: center;
+    border: 0.1vh solid #393939;
+}
+
 .manager-slot-taken {
-    background-color: blue;
+    background-color: #e3e3e3;
     box-sizing: border-box;
     height: 19.25vh;
     cursor: grab;
