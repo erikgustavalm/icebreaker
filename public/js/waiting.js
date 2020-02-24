@@ -14,7 +14,7 @@ const vm = new Vue({
         this.hideIcebreaker = true;
         await this.sleep(4000);
         this.hideIcebreaker = false;
-        this.icebreakerIndex = Math.floor(Math.random() * 4);
+        this.icebreakerIndex = Math.floor(Math.random() * this.numOfIcebreakers);
         this.visible = true;
         this.icebreaker = icebreakers[this.icebreakerIndex];
         await this.sleep(4000);
