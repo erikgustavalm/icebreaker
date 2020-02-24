@@ -10,8 +10,56 @@ const vm = new Vue({
 	timePassed: 0,
 	timeLeft: 0,
 	timerInterval: 0,
+	pairs: null,
     },
     methods: {
+	autoMatch: function() {
+	    console.log("autoMatch()");
+	    if(this.users.length == 0){
+		console.log("No users to match, abort!");
+		return;
+	    }
+	    for(let i=0; i<this.users.length; i++){
+		if(this.users[i].matched == false){
+		    let pairIndex;
+		    let seat;
+		    if(i%2 == 0){
+	 		pairIndex = Math.floor(i/2);
+	 		seat = 0;
+	 	    }else{
+	 		pairIndex = Math.floor(i/2);
+	 		seat = 1;
+	 	    }
+		    this.moveUserToPair(this.users[i], pairIndex, seat);
+		}
+	    }
+	},
+
+	moveUserToPair: function(user, pairIndex, seat) {
+	    const userElement = document.getElementById(user.id);
+	    console.log(userElement);
+	    const userName = userElement.children[0];
+	    const userImg = userElement.children[1];
+
+	    userElement.classList.remove("manager-list-slot");
+	    userElement.classList.add("manager-slot-taken");
+	    userName.style.display = "none";
+	    userImg.style.display = "block";
+	    
+	    let pair = this.pairs[pairIndex].children;
+
+	    if(slotTaken(pair[seat]) == "true"){
+//		lockSlot(startingSlot);
+		console.log("Slot is taken, abort!!");
+		return;
+	    }
+
+	    pair[seat].appendChild(userElement);
+	    lockSlot(pair[seat]);
+	    user.matched = true;
+	},
+
+    
 	switchShowHelp: function() {
 	    if (this.showHelp) {
 		this.showHelp = false;
@@ -52,6 +100,12 @@ const vm = new Vue({
 		s = `0${s}`;
 	    }
 	    return `${m}:${s}`;
-	}
+	},
+
+	
     },
+    mounted() {
+	this.pairs = document.getElementById("manager-pairs-wrapper").children;
+	console.log(this.pairs);
+    }
 })

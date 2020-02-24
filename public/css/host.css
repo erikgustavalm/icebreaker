@@ -79,7 +79,6 @@ body {
     width: auto;
     height: 19.25vh;
     justify-content: center;
-    
 }
 
 .manager-list-slot {
@@ -97,7 +96,7 @@ body {
 }
 
 .manager-slot-taken {
-    background-color: blue;
+    background-color: #e3e3e3;
     box-sizing: border-box;
     height: 19.25vh;
     cursor: grab;

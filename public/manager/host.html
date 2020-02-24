@@ -41,53 +41,53 @@
 	   ondragexit="onDragExit(event)"
 	   ondrop="onDrop(event)">
 
-      <div
-	v-if="showHelp"
-	v-on:click="switchShowHelp"
-	id="manager-help-overlay"
-	>
-      </div>
-      <div
-	v-if="showHelp"
-	id="manager-help"
-	>
-	<h2>HELP</h2>
-	<h1>Matching</h1>
-	<p>
-	  lorem ipsum matching
-	</p>
-
-	<h1>Drag & Drop</h1>
-	<p>
-	  lorem ipsum dragus dropicus
-	</p>
-
-	<h1>Starting timer</h1>
-	<p>
-	  lorem ipsum startikem timerius
-	</p>
-      </div>
-      <div id="manager-user-list-wrapper">
-	<div v-for="user in users"
-             :id="user.id"
-	     onclick="openProfile(event)"
-             class="manager-list-slot"
-             draggable="true"
-             ondragstart="onDragStart(event)">
-	  <p
-	    pointer-events="none"
-	    draggable="false"
-	    class="manager-profile-listview"
-	     >
-	    {{ user.name }}
-	  </p>
-	  <img
-	    :src="user.img"
-	    class="manager-profile-wrapperview"
-	    pointer-events="none"
-	    draggable="false">
-	  <!-- <p onclick="openProfile(event)">{{ user.name }}</p> -->
+	<div
+	  v-if="showHelp"
+	  v-on:click="switchShowHelp"
+	  id="manager-help-overlay"
+	  >
 	</div>
+	<div
+	  v-if="showHelp"
+	  id="manager-help"
+	  >
+	  <h2>HELP</h2>
+	  <h1>Matching</h1>
+	  <p>
+	    lorem ipsum matching
+	  </p>
+
+	  <h1>Drag & Drop</h1>
+	  <p>
+	    lorem ipsum dragus dropicus
+	  </p>
+
+	  <h1>Starting timer</h1>
+	  <p>
+	    lorem ipsum startikem timerius
+	  </p>
+	</div>
+	<div id="manager-user-list-wrapper">
+	  <div v-for="user in users"
+               :id="user.id"
+	       onclick="openProfile(event)"
+               class="manager-list-slot"
+               draggable="true"
+               ondragstart="onDragStart(event)">
+	    <p
+	      pointer-events="none"
+	      draggable="false"
+	      class="manager-profile-listview"
+	      >
+	      {{ user.name }}
+	    </p>
+	    <img
+	      :src="user.img"
+	      class="manager-profile-wrapperview"
+	      pointer-events="none"
+	      draggable="false">
+	    <!-- <p onclick="openProfile(event)">{{ user.name }}</p> -->
+	  </div>
 	</div>
       </div>
 
@@ -127,6 +127,7 @@
 	</button>
 	<button
 	  class="control-panel-btn"
+	  v-on:click="autoMatch"
 	  >
 	  AUTO MATCH
 	</button>
@@ -148,7 +149,7 @@
       <!--   class="manager-slot-taken" -->
       <!--   draggable="true" -->
       <!--   ondragstart="onDragStart(event)"> -->
-      <!-- </div> -->
+	<!-- </div> -->
     </div>
   </body>
 </html>
