@@ -40,11 +40,6 @@ const vm = new Vue({
 	    console.log(userElement);
 	    const userName = userElement.children[0];
 	    const userImg = userElement.children[1];
-
-	    userElement.classList.remove("manager-list-slot");
-	    userElement.classList.add("manager-slot-taken");
-	    userName.style.display = "none";
-	    userImg.style.display = "block";
 	    
 	    let pair = this.pairs[pairIndex].children;
 
@@ -53,6 +48,12 @@ const vm = new Vue({
 		console.log("Slot is taken, abort!!");
 		return;
 	    }
+
+	    userElement.classList.remove("manager-list-slot");
+	    userElement.classList.add("manager-slot-taken");
+	    userName.style.display = "none";
+	    userImg.style.display = "block";
+	    
 
 	    pair[seat].appendChild(userElement);
 	    lockSlot(pair[seat]);

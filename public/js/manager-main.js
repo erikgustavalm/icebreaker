@@ -55,8 +55,8 @@ function onDragStart(event) {
     console.log(event.currentTarget);
     event.dataTransfer.setData("text", event.target.id);
     event.currentTarget.style.backgroundColor = "yellow";
+    startingSlot = event.currentTarget.parentNode;
     if(event.currentTarget.parentNode.getAttribute('name') == "profile-wrapper-slot"){
-	startingSlot = event.currentTarget.parentNode;
 	unlockSlot(event.currentTarget.parentNode);
     }
 }
@@ -167,7 +167,31 @@ function getUserById(userID){
 }
 
 function swapUsers(draggableElement, dropzone){
-    startingSlot.appendChild(dropzone.children[0]);
+
+    let element2 = dropzone.children[0];
+    
+    if(draggableElement.classList == "manager-list-slot"){
+
+	let name1 = draggableElement.children[0];
+	let img1 = draggableElement.children[1];
+
+	let name2 = element2.children[0];
+	let img2 = element2.children[1];
+	
+	
+	draggableElement.classList.remove("manager-list-slot");	
+	draggableElement.classList.add("manager-slot-taken");
+
+	element2.classList.remove("manager-slot-taken");	
+	element2.classList.add("manager-list-slot");
+	name1.style.display = "none";
+	img1.style.display = "block";
+	
+	name2.style.display = "block";
+	img2.style.display = "none";
+	getUserById(draggableElement.id).matched = true;
+    }
+    startingSlot.appendChild(element2);
     dropzone.appendChild(draggableElement);
     lockSlot(startingSlot);
 }
