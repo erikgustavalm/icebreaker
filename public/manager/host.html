@@ -29,14 +29,18 @@
 	</div>
 	<img
 	  id="manager-profile-popup-img"
-	  src=""
-	  style="width:80%; border-radius: 50%;">
+	  style="width:80%; height:50%; border-radius: 50%;"> 
 	<p id="manager-profile-popup-name"> </p>
 	<p id="manager-profile-popup-age"> </p>
 	<p></p>
       </div>
     </div>
     <div id="manager-wrapper">
+      <div id="manager-user-list-wrapper"
+	   ondragover="onDragOver(event)"
+	   ondragexit="onDragExit(event)"
+	   ondrop="onDrop(event)">
+
       <div
 	v-if="showHelp"
 	v-on:click="switchShowHelp"
@@ -67,10 +71,23 @@
 	<div v-for="user in users"
              :id="user.id"
 	     onclick="openProfile(event)"
-             class="manager-slot-taken"
+             class="manager-list-slot"
              draggable="true"
              ondragstart="onDragStart(event)">
+	  <p
+	    pointer-events="none"
+	    draggable="false"
+	    class="manager-profile-listview"
+	     >
+	    {{ user.name }}
+	  </p>
+	  <img
+	    :src="user.img"
+	    class="manager-profile-wrapperview"
+	    pointer-events="none"
+	    draggable="false">
 	  <!-- <p onclick="openProfile(event)">{{ user.name }}</p> -->
+	</div>
 	</div>
       </div>
 
@@ -78,6 +95,8 @@
 	<div v-for="table in tables" class="manager-table" >
 	  <div
 	    :id="table.id1"
+	    name="profile-wrapper-slot"
+	    :locked=false
 	    class="manager-slot-empty"
 	    ondragover="onDragOver(event)"
 	    ondragexit="onDragExit(event)"
@@ -86,6 +105,8 @@
 	  </div>
 	  <div
 	    :id="table.id2"
+	    name="profile-wrapper-slot"
+	    :locked=false
 	    class="manager-slot-empty"
 	    ondragover="onDragOver(event)"
 	    ondragexit="onDragExit(event)"
