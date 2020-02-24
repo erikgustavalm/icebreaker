@@ -9,7 +9,8 @@ const vm = new Vue({
   },
   methods: {
     showIcebreaker: async function() {
-      while (true) {
+      var i = 0;
+      while (i < 5) {
         this.visible = false;
         this.hideIcebreaker = true;
         await this.sleep(4000);
@@ -19,11 +20,18 @@ const vm = new Vue({
         this.icebreaker = icebreakers[this.icebreakerIndex];
         await this.sleep(4000);
         this.icebreaker = "";
+        i++;
       }
+      this.goToSite("../user/dating.html");
+
     },
     sleep: function(ms) {
       return new Promise(resolve => setTimeout(resolve, ms));
-    }
+    },
+    goToSite: function (link){ //" goToSite('./user/join.html')"
+          
+    window.location.href = link
+},
   },
   created() {
     this.showIcebreaker();
