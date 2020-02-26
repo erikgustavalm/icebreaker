@@ -22,6 +22,7 @@
     "socket.io": "^2.0.4",
     "v-slider": "^0.1.0",
     "vue": "^2.5.2",
+    "vue-timers": "^2.0.4",
     "vue-typed-js": "^0.1.2"
   },
   "devDependencies": {
