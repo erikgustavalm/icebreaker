@@ -52,7 +52,33 @@ function unlockSlot(slot){
 }
 
 function onDragStart(event) {
-    console.log(event.currentTarget);
+
+    if(event.target == null){
+	console.log("Invalid element!!");
+	event.preventDefault();
+	return;
+    }
+
+     if(event.target.nodeName == "#text"){
+	 console.log("Invalid element!!");
+	 event.preventDefault();
+	return;
+    }
+
+    console.log(event.target.classList);
+    
+    if(event.target.parentElement.classList.contains("manager-slot-empty")){
+	event.target.parentElement.style.opacity = 0.2;
+	console.log("looool");
+    }
+
+    
+    if(!event.target.classList.contains("manager-slot-taken") && !event.target.classList.contains("manager-list-slot")){
+	console.log("Invalid element!!");
+	event.preventDefault();
+	return;
+    }
+    
     event.dataTransfer.setData("text", event.target.id);
     event.currentTarget.style.backgroundColor = "yellow";
     startingSlot = event.currentTarget.parentNode;
@@ -78,17 +104,28 @@ function onDrop(event) {
     event.preventDefault();
     const id = event.dataTransfer.getData("text");
     const draggableElement = document.getElementById(id);
+
+    console.log(id);
+    if(draggableElement == null){
+	console.log("Invalid element!!");
+	return
+    }
+    if(!draggableElement.classList.contains("manager-slot-taken") && !draggableElement.classList.contains("manager-list-slot")){
+	console.log("Invalid element!!");
+	return;
+    }
+    
     draggableElement.style.backgroundColor = "#e3e3e3";
     let dropzone = event.currentTarget;
     dropzone.classList.remove("manager-slot-hover");
     
-    let userName = draggableElement.children[0];
+    let userInfo = draggableElement.children[0];
     let userImg = draggableElement.children[1];
     
     if(dropzone.id == "manager-user-list-wrapper"){
 	draggableElement.classList.remove("manager-slot-taken");
 	draggableElement.classList.add("manager-list-slot");
-	userName.style.display = "flex";
+	userInfo.style.display = "flex";
 	userImg.style.display = "none";
 	getUserById(draggableElement.id).matched = false;
 	
@@ -96,7 +133,7 @@ function onDrop(event) {
 	dropzone = document.getElementById("manager-user-list-wrapper");
 	draggableElement.classList.remove("manager-slot-taken");
 	draggableElement.classList.add("manager-list-slot");
-	userName.style.display = "flex";
+	userInfo.style.display = "flex";
 	userImg.style.display = "none";
 	getUserById(draggableElement.id).matched = false;
     }else{
@@ -107,11 +144,13 @@ function onDrop(event) {
 	    lockSlot(dropzone);
 	    draggableElement.classList.remove("manager-list-slot");	
 	    draggableElement.classList.add("manager-slot-taken");
-	    userName.style.display = "none";
+	    dropzone.style.opacity = "1";
+	    userInfo.style.display = "none";
 	    userImg.style.display = "block";
 	    getUserById(draggableElement.id).matched = true;
 	}
     }
+  
     dropzone.appendChild(draggableElement);
     //event.dataTransfer.clearData();
 }
@@ -127,12 +166,13 @@ function openProfile(event) {
     const profile = document.getElementById(event.currentTarget.id);
     let name = document.getElementById("manager-profile-popup-name");
     let age = document.getElementById("manager-profile-popup-age");
+    let gender = document.getElementById("manager-profile-popup-gender");
     let img = document.getElementById("manager-profile-popup-img");
     let index = parseInt(profile.id.substring(4, profile.id.length), 10);
     img.src = users_json[index].img;   
     name.innerHTML = "Name: " + users_json[index].name;
     age.innerHTML = "Age: " + users_json[index].age;
-
+    gender.innerHTML = "Gender: " + users_json[index].gender;
     
     /* Disable draggable while profile window is active */
     profile.draggable = false;
@@ -192,6 +232,12 @@ function swapUsers(draggableElement, dropzone){
 	getUserById(draggableElement.id).matched = true;
     }
     startingSlot.appendChild(element2);
+    startingSlot.style.opacity = "1";
     dropzone.appendChild(draggableElement);
     lockSlot(startingSlot);
+}
+
+function skipDrag(event){
+    console.log("skipDrag()");
+    event.preventDefault();
 }

@@ -53,7 +53,8 @@ const vm = new Vue({
 	    userElement.classList.add("manager-slot-taken");
 	    userName.style.display = "none";
 	    userImg.style.display = "block";
-	    
+
+	    pair[seat].style.opacity = "1";
 
 	    pair[seat].appendChild(userElement);
 	    lockSlot(pair[seat]);

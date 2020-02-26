@@ -12,15 +12,15 @@
     <script src="../js/users_json.js" defer></script>
     <script src="../js/manager-main.js" defer></script>
     <script src="../js/manager-vue.js" defer></script>
+    <script src="https://kit.fontawesome.com/a076d05399.js" defer></script>
   </head>
   <body>
-
-    <!-- profile modal popup on click -->
     <div
       id="manager-profile-popup"
       onmouseleave="closeProfile(event)"
       onclick="closeProfile(event)"
-      class="manager-profile-popup">
+      class="manager-profile-popup"
+      ondragstart="skipDrag(event)">
       <div>
 	<div
 	  onclick="closeProfile(event, false)"
@@ -28,14 +28,17 @@
 	  +
 	</div>
 	<img
+	  draggable="false"
 	  id="manager-profile-popup-img"
-	  style="width:80%; height:50%; border-radius: 50%;"> 
+	  style="width:80%; height:50%; border-radius: 50%; display: none;"> 
 	<p id="manager-profile-popup-name"> </p>
 	<p id="manager-profile-popup-age"> </p>
+	<p id="manager-profile-popup-gender"> </p>
 	<p></p>
       </div>
     </div>
-    <div id="manager-wrapper">
+    <div id="manager-wrapper"
+	 draggable="false">
       <div id="manager-user-list-wrapper"
 	   ondragover="onDragOver(event)"
 	   ondragexit="onDragExit(event)"
@@ -73,20 +76,45 @@
 	       onclick="openProfile(event)"
                class="manager-list-slot"
                draggable="true"
-               ondragstart="onDragStart(event)">
-	    <p
-	      pointer-events="none"
-	      draggable="false"
-	      class="manager-profile-listview"
-	      >
-	      {{ user.name }}
-	    </p>
+               ondragstart="onDragStart(event)"
+	       name="profile">
+	    <div class="manager-profile-listview">
+	      <div
+		pointer-events="none"
+		draggable="false"
+		class="manager-profile-listview-name"
+		name="profile-name"
+		>
+		{{ user.name }}
+	      </div>
+	      <div
+		pointer-events="none"
+		draggable="false"
+		class="manager-profile-listview-age"
+		name="profile-age">
+		{{ user.age }}
+	      </div>
+	      <div
+		v-if="user.gender == 'male'"
+		pointer-events="none"
+		draggable="false"
+		class="manager-profile-listview-gender fas fa-mars"
+		name="profile-gender">
+	      </div>
+	      <div
+		v-else
+		pointer-events="none"
+		draggable="false"
+		class="manager-profile-listview-gender fas fa-venus"
+		name="profile-gender">
+	      </div>
+	    </div>
 	    <img
-	      :src="user.img"
-	      class="manager-profile-wrapperview"
-	      pointer-events="none"
-	      draggable="false">
-	    <!-- <p onclick="openProfile(event)">{{ user.name }}</p> -->
+		:src="user.img"
+		class="manager-profile-wrapperview"
+		pointer-events="none"
+		draggable="false">
+	      <!-- <p onclick="openProfile(event)">{{ user.name }}</p> -->
 	  </div>
 	</div>
     </div>
