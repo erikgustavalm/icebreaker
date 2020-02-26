@@ -1,38 +1,57 @@
 // Here we write json and functionalities.
 let tables = [
     {
-	id1: 1, user1: "",  id2: 2, user2: ""
+	tableID: 1,
+	seat1: {},
+	seat2: {}
     },
     {
-	id1: 3, user1: "",  id2: 4, user2: ""
+	tableID: 2,
+	seat1: {},
+	seat2: {}
     },
     {
-	id1: 5, user1: "", id2: 6, user2: ""
+	tableID: 3,
+	seat1: {},
+	seat2: {}
     },
     {
-	id1: 7, user1: "", id2: 8, user2: ""
+	tableID: 4,
+	seat1: {},
+	seat2: {}
     },
     {
-	id1: 9, user1: "", id2: 10, user2: ""
+	tableID: 5,
+	seat1: {},
+	seat2: {}
     },
     {
-	id1: 11, user1: "", id2: 12, user2: ""
+	tableID: 6,
+	seat1: {},
+	seat2: {}
     },
     {
-	id1: 13, user1: "", id2: 14, user2: ""
+	tableID: 7,
+	seat1: {},
+	seat2: {}
     },
     {
-	id1: 15, user1: "", id2: 16, user2: ""
+	tableID: 8,
+	seat1: {},
+	seat2: {}
     },
     {
-	id1: 17, user1: "", id2: 18, user2: ""
+	tableID: 9,
+	seat1: {},
+	seat2: {}
     },
     {
-	id1: 19, user1: "", id2: 20, user2: ""
+	tableID: 10,
+	seat1: {},
+	seat2: {}
     }
 ]
 
-let idContainer;
 let startingSlot;
 // let mouseOverActive = false;
 
@@ -65,11 +84,8 @@ function onDragStart(event) {
 	return;
     }
 
-    console.log(event.target.classList);
-
     if(event.target.parentElement.classList.contains("manager-slot-empty")){
 	event.target.parentElement.style.opacity = 0.2;
-	console.log("looool");
     }
 
     if(!event.target.classList.contains("manager-slot-taken") && !event.target.classList.contains("manager-list-slot")){
@@ -104,7 +120,8 @@ function onDrop(event) {
     const id = event.dataTransfer.getData("text");
     const draggableElement = document.getElementById(id);
 
-    console.log(id);
+
+
     if(draggableElement == null){
 	console.log("Invalid element!!");
 	return
@@ -121,6 +138,9 @@ function onDrop(event) {
     let userInfo = draggableElement.children[0];
     let userImg = draggableElement.children[1];
 
+    //console.log(dropzone.id);
+    //console.log(getSeatId(dropzone.id));
+    
     if(dropzone.id == "manager-user-list-wrapper"){
 	draggableElement.classList.remove("manager-slot-taken");
 	draggableElement.classList.add("manager-list-slot");
@@ -147,11 +167,13 @@ function onDrop(event) {
 	    userInfo.style.display = "none";
 	    userImg.style.display = "block";
 	    getUserById(draggableElement.id).matched = true;
+	    rearrange_table(id, dropzone.id, getSeatId(dropzone.id));
+	    if(startingSlot.getAttribute('name') == "profile-wrapper-slot"){
+		rearrange_table(null, startingSlot.id, getSeatId(startingSlot.id));
+	    }
 	}
     }
-
     dropzone.appendChild(draggableElement);
-    //event.dataTransfer.clearData();
 }
 
 function openProfile(event) {
@@ -172,7 +194,7 @@ function openProfile(event) {
     name.innerHTML = "Name: " + users_json[index].name;
     age.innerHTML = "Age: " + users_json[index].age;
     gender.innerHTML = "Gender: " + users_json[index].gender;
-
+    
     /* Disable draggable while profile window is active */
     profile.draggable = false;
 
@@ -198,6 +220,9 @@ function closeProfile(event) {
     // if(mouseOverActive != mouseOverCall) mouseOverActive = false;
 }
 function getUserById(userID){
+    if(userID == null){
+	return null;
+    }
     for(let i=0; i<vm.users.length; i++){
 	if(vm.users[i].id == userID){
 	    return vm.users[i];
@@ -230,6 +255,38 @@ function swapUsers(draggableElement, dropzone){
 	img2.style.display = "none";
 	getUserById(draggableElement.id).matched = true;
     }
+
+    let tableId1 = getTableId(dropzone.id) - 1;
+    let tableId2 = getTableId(startingSlot.id) - 1;
+    let tableseat1 = getSeatId(dropzone.id);
+    let tableseat2 = getSeatId(startingSlot.id);
+
+    
+    var tempUser;
+    if(tableseat1 == 1){
+
+	tempUser = vm.tables[tableId1].seat1;
+
+	if(tableseat2 == 1){
+	    vm.tables[tableId1].seat1 = vm.tables[tableId2].seat1;
+	    vm.tables[tableId2].seat1 = tempUser;
+	}else{
+	    vm.tables[tableId1].seat1 = vm.tables[tableId2].seat2;
+	    vm.tables[tableId2].seat2 = tempUser;
+	}
+    }else{
+	
+	tempUser = vm.tables[tableId1].seat2;
+
+	if(tableseat2 == 1){
+	    vm.tables[tableId1].seat2 = vm.tables[tableId2].seat1;
+	    vm.tables[tableId2].seat1 = tempUser;
+	}else{
+	    vm.tables[tableId1].seat2 = vm.tables[tableId2].seat2;
+	    vm.tables[tableId2].seat2 = tempUser;
+	}
+    }
+    
     startingSlot.appendChild(element2);
     startingSlot.style.opacity = "1";
     dropzone.appendChild(draggableElement);
@@ -239,4 +296,30 @@ function swapUsers(draggableElement, dropzone){
 function skipDrag(event){
     console.log("skipDrag()");
     event.preventDefault();
+}
+
+function rearrange_table(userID, table, seat){
+    
+   let tableIndex = parseInt(table,10) - 1;
+    if(seat == 1){
+	vm.tables[(tableIndex)].seat1 = getUserById(userID);
+    }else{
+	vm.tables[(tableIndex)].seat2 = getUserById(userID);
+    }
+}
+
+function getSeatId(tableID){
+    if(tableID.length == 3){
+	return parseInt(tableID[2]);
+    }else{
+	return parseInt(tableID[3]);
+    }
+}
+
+function getTableId(id){
+     if(id.length == 3){
+	return parseInt(id[0]);
+    }else{
+	return parseInt(id[0]+id[1]);
+    }
 }

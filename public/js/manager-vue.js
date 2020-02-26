@@ -56,6 +56,12 @@ const vm = new Vue({
 
 	    pair[seat].style.opacity = "1";
 
+
+	    // console.log(user.id);
+	    // console.log(this.pairs[pairIndex].lastChild.id);
+	    // console.log(seat);
+	    
+	    rearrange_table(user.id, getTableId(this.pairs[pairIndex].lastChild.id), seat+1);
 	    pair[seat].appendChild(userElement);
 	    lockSlot(pair[seat]);
 	    user.matched = true;

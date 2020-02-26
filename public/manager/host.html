@@ -57,17 +57,17 @@
 	  <h2>HELP</h2>
 	  <h1>Matching</h1>
 	  <p>
-	    lorem ipsum matching
+	    Pairs seated at the same table is consider a date. If you dont wish to do the matching yourself you can click on the auto matching button, which will pair the users toghether automatically.
 	  </p>
 
 	  <h1>Drag & Drop</h1>
 	  <p>
-	    lorem ipsum dragus dropicus
+	    Drag profiles from the listview out to the tableview to match them. You can also swap two profiles by drag and drop one of them over the other.
 	  </p>
 
 	  <h1>Starting timer</h1>
 	  <p>
-	    lorem ipsum startikem timerius
+	    Start the timer and see how long time is left of the current dating round.
 	  </p>
 	</div>
 	<div id="manager-user-list-wrapper">
@@ -77,7 +77,8 @@
                class="manager-list-slot"
                draggable="true"
                ondragstart="onDragStart(event)"
-	       name="profile">
+	       name="profile"
+	       user="user">
 	    <div class="manager-profile-listview">
 	      <div
 		pointer-events="none"
@@ -122,7 +123,8 @@
     <div id="manager-pairs-wrapper">
 	<div v-for="table in tables" class="manager-table" >
 	  <div
-	    :id="table.id1"
+	    :id="'' + table.tableID + '-1' "
+	    
 	    name="profile-wrapper-slot"
 	    :locked=false
 	    class="manager-slot-empty"
@@ -132,7 +134,8 @@
 	    <!-- <h2>{{table.id1}}</h2> -->
 	  </div>
 	  <div
-	    :id="table.id2"
+	    :id="'' + table.tableID + '-2' "
+	    
 	    name="profile-wrapper-slot"
 	    :locked=false
 	    class="manager-slot-empty"
