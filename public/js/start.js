@@ -1,7 +1,10 @@
+"use strict";
+const socket = io();
+
 const vm = new Vue({
   el: "#start-site",
   data: {
-    userLoggedIn: false, 
+    userLoggedIn: false,
     isHidden: true,
     password: "",
     username: "",
@@ -9,76 +12,6 @@ const vm = new Vue({
     registrationHidden: true,
     accountDetails: true,
     incorrectLogin: false,
-    testMatches : [{
-      email: "user@gmail.com",
-      name: "Axel Lingestål",
-      age: "18",
-      gender: "male",
-      imgPath: "../img/index.png"
-    },
-    {
-      email: "user@gmail.com",
-      name: "Anton Jäger",
-      age: "19",
-      gender: "male",
-      imgPath: "../img/index.png"
-    },
-    {
-      email: "user@gmail.com",
-      name: "Fredrik Vandermondes",
-      age: "20",
-      gender: "male",
-      imgPath: "../img/index.png"
-    },
-    {
-      email: "user@gmail.com",
-      name: "Jokke jokkake",
-      age: "21",
-      gender: "male",
-      imgPath: "../img/index.png"
-    },
-    {
-      email: "user@gmail.com",
-      name: "Sukram Lucero",
-      age: "22",
-      gender: "male",
-      imgPath: "../img/index.png"
-    },
-    {
-      email: "user@gmail.com",
-      name: "Nitram Lucero",
-      age: "23",
-      gender: "male",
-      imgPath: "../img/index.png"
-    },
-    {
-      email: "user@gmail.com",
-      name: "ERiiik eriIk",
-      age: "24",
-      gender: "male",
-      imgPath: "../img/index.png"
-    },
-    {
-      email: "user@gmail.com",
-      name: "Kalle Karlsson",
-      age: "25",
-      gender: "male",
-      imgPath: "../img/index.png"
-    },
-    {
-      email: "user@gmail.com",
-      name: "Markiplier Youtuber",
-      age: "26",
-      gender: "male",
-      imgPath: "../img/index.png"
-    },
-    {
-      email: "user@gmail.com",
-      name: "Frankenstein Monster",
-      age: "27",
-      gender: "male",
-      imgPath: "../img/index.png"
-    }],
     newUser: {
       username: "",
       password: "",
@@ -102,20 +35,29 @@ const vm = new Vue({
     },
     loginUser: function() {
       if (this.username != "" && this.password != "") {
-        // mockup - the registrated user becomes the logged in user
-        if (
-          this.username == this.newUser.username &&
-          this.password == this.newUser.password
-        ) {
-          this.userLoggedIn = true;
-          this.isHidden = true;
-          console.log("user logged in successfully!");
-          this.loggedInUser = this.newUser;
-          this.username = "";
-          this.password = "";
-        }
+        //* send logged in user to server
+        socket.emit("loginUser", {
+          username: this.username,
+          password: this.password
+        });
+        //* we get message from server that may include the user object or not
+        socket.on(
+          "accountInfo",
+          function(user) {
+            if (user.exists != false) {
+              this.loggedInUser = user.data;
+              this.userLoggedIn = true;
+              this.isHidden = true;
+              console.log("user logged in successfully!");
+            } else {
+              this.incorrectLogin = true;
+              console.log("user doesn't exist!");
+            }
+          }.bind(this)
+        ); //* bind this is used so that we bind 'this' to the vue object
+        this.username = "";
+        this.password = "";
       }
-      this.incorrectLogin = true;
     },
     logoutUser: function() {
       this.userLoggedIn = false;
@@ -232,9 +174,9 @@ const vm = new Vue({
       console.log("displaying matches!");
     },
 
-    toggleCard: function(card,index){
-      var el = document.getElementById("card-"+index);
-      if(el.classList.contains("expand")){
+    toggleCard: function(card, index) {
+      var el = document.getElementById("card-" + index);
+      if (el.classList.contains("expand")) {
         el.classList.remove("expand");
         el.childNodes[2].childNodes[4].classList.add("toggle-off");
         el.childNodes[2].childNodes[6].classList.add("toggle-off");
@@ -243,7 +185,6 @@ const vm = new Vue({
         el.childNodes[2].childNodes[4].classList.remove("toggle-off");
         el.childNodes[2].childNodes[6].classList.remove("toggle-off");
       }
-      
     }
   }
 });
