@@ -24,10 +24,6 @@ app.get("/", function(req, res) {
   res.sendFile(path.join(__dirname, "public/index.html"));
 });
 
-
-
-
-
 //!  data (accounts) set up code here and methods for Data class
 
 //* will contain all accounts registered to the app
@@ -47,12 +43,9 @@ Data.prototype.getAllAccounts = function() {
   return this.accounts;
 };
 
-Data.prototype.getAccount = function(username, password) {
+Data.prototype.getAccount = function(username) {
   for (var i = 0; i < this.accounts.length; i++) {
-    if (
-      this.accounts[i].username == username &&
-      this.accounts[i].password == password
-    ) {
+    if (this.accounts[i].username == username) {
       return this.accounts[i];
     }
   }
@@ -63,21 +56,64 @@ Data.prototype.getAccount = function(username, password) {
 //* now we can use the methods created for the Data class
 const accounts = new Data();
 
-
 //! SOCKET.IO SERVER CODE HERE
 
+//* will contain all room id's for each logged in user
+var roomSessions = [];
+
 io.on("connection", function(socket) {
+  //* 'loginUser' is sent by starting page when a user tries to log in
   socket.on("loginUser", function(info) {
-    var user = accounts.getAccount(info.username, info.password);
+    var user = null;
+    var allAccounts = accounts.getAllAccounts();
+    for (var i = 0; i < allAccounts.length; i++) {
+      if (
+        allAccounts[i].username == info.username &&
+        allAccounts[i].password == info.password
+      ) {
+        user = allAccounts[i];
+      }
+    }
     var exists = false;
+    //* user was found..
     if (user != null && user.loggedIn != true) {
       exists = true;
+      //* change user account status to logged in
       user.loggedIn = true;
+
+      //* each user logged in creates it's own room channel
+      //* to be used for user specific emits
+      socket.room = info.username;
+      socket.join(socket.room);
+
+      //* each created room is added to roomSessions
+      roomSessions.push(socket.room);
+      console.log("All created rooms: " + roomSessions);
     }
+    //* Send back the account info to the user who sent 'loginUser' request
     socket.emit("accountInfo", {
       exists: exists,
-      data: user
+      data: user,
     });
+  });
+
+  //* used for getting user info from username (since username is unique)
+  //! important - requestUser only used for USER pages and not HOST
+  //* also subscribes the socket to the room attached to that user since
+  //* this request should only hapen from pages that has a user logged in
+  //* and should be requested in the created() part of the pages vue object
+  socket.on("requestUser", function(user) {
+    var account = accounts.getAccount(user.username);
+    //* socket connected who sent 'requestUser' will be attached to the room
+    //* with the room id of username
+    socket.join(account.username);
+    if (account.username != null) {
+      //* only emit to specific room channel
+      //* we will do this aswell in HOST backend when sending to specific users
+      io.to(account.username).emit("getUser", {
+        data: account
+      });
+    }
   });
 });
 

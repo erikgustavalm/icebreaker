@@ -48,21 +48,27 @@ const vm = new Vue({
               this.loggedInUser = user.data;
               this.userLoggedIn = true;
               this.isHidden = true;
+              window.sessionStorage.setItem('roomId', user.data.username);
+              console.log(socket.id);
+              console.log(window.sessionStorage.getItem('roomId'))
               console.log("user logged in successfully!");
             } else {
               this.incorrectLogin = true;
+              this.username = "";
+              this.password = "";
               console.log("user doesn't exist!");
             }
           }.bind(this)
         ); //* bind this is used so that we bind 'this' to the vue object
-        this.username = "";
-        this.password = "";
+
       }
     },
     logoutUser: function() {
       this.userLoggedIn = false;
       this.loggedInUser = {};
       console.log("user logged out successfully!");
+      this.username = "";
+      this.password = "";
     },
     setRegistration: function() {
       this.incorrectLogin = false;
