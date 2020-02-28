@@ -8,7 +8,7 @@ let accounts = [
     gender: "male",
     imgPath: "../img/index.png",
     matches: [],
-    loggedIn: true,
+    loggedIn: false,
   },
   {
     username: "Jocke1",
@@ -19,7 +19,7 @@ let accounts = [
     gender: "male",
     imgPath: "../img/index.png",
     matches: [],
-    loggedIn: true,
+    loggedIn: false,
   },
   {
     username: "Markus1",
@@ -30,7 +30,7 @@ let accounts = [
     gender: "male",
     imgPath: "../img/index.png",
     matches: [],
-    loggedIn: true,
+    loggedIn: false,
   },
   {
     username: "Sukram1",
@@ -41,7 +41,7 @@ let accounts = [
     gender: "make",
     imgPath: "../img/index.png",
     matches: [],
-    loggedIn: true,
+    loggedIn: false,
   },
   {
     username: "Axel1",
@@ -52,7 +52,7 @@ let accounts = [
     gender: "male",
     imgPath: "../img/index.png",
     matches: [],
-    loggedIn: true,
+    loggedIn: false,
   },
   {
     username: "Fredrik1",
@@ -63,7 +63,7 @@ let accounts = [
     gender: "male",
     imgPath: "../img/index.png",
     matches: [],
-    loggedIn: true,
+    loggedIn: false,
   },
   {
     username: "Erik1",
@@ -74,7 +74,7 @@ let accounts = [
     gender: "male",
     imgPath: "../img/index.png",
     matches: [],
-    loggedIn: true,
+    loggedIn: false,
   },
   {
     username: "Mark1",
@@ -85,7 +85,7 @@ let accounts = [
     gender: "male",
     imgPath: "../img/index.png",
     matches: [],
-    loggedIn: true,
+    loggedIn: false,
   },
   {
     username: "Carl1",
@@ -96,7 +96,7 @@ let accounts = [
     gender: "male",
     imgPath: "../img/index.png",
     matches: [],
-    loggedIn: true,
+    loggedIn: false,
   },
   {
     username: "Martin1",
@@ -107,7 +107,7 @@ let accounts = [
     gender: "male",
     imgPath: "../img/index.png",
     matches: [],
-    loggedIn: true,
+    loggedIn: false,
   },
   {
     username: "Hanna1",
@@ -118,7 +118,7 @@ let accounts = [
     gender: "female",
     imgPath: "../img/index.png",
     matches: [],
-    loggedIn: true,
+    loggedIn: false,
   },
   {
     username: "Anita1",
@@ -129,7 +129,7 @@ let accounts = [
     gender: "female",
     imgPath: "../img/index.png",
     matches: [],
-    loggedIn: true,
+    loggedIn: false,
   },
   {
     username: "Birgitta1",
@@ -140,7 +140,7 @@ let accounts = [
     gender: "female",
     imgPath: "../img/index.png",
     matches: [],
-    loggedIn: true,
+    loggedIn: false,
   },
   {
     username: "Yaki1",
@@ -151,7 +151,7 @@ let accounts = [
     gender: "female",
     imgPath: "../img/index.png",
     matches: [],
-    loggedIn: true,
+    loggedIn: false,
   },
   {
     username: "Ellie1",
@@ -162,7 +162,7 @@ let accounts = [
     gender: "female",
     imgPath: "../img/index.png",
     matches: [],
-    loggedIn: true,
+    loggedIn: false,
   },
   {
     username: "Dylan1",
@@ -173,7 +173,7 @@ let accounts = [
     gender: "female",
     imgPath: "../img/index.png",
     matches: [],
-    loggedIn: true,
+    loggedIn: false,
   },
   {
     username: "Tora1",
@@ -184,7 +184,7 @@ let accounts = [
     gender: "female",
     imgPath: "../img/index.png",
     matches: [],
-    loggedIn: true,
+    loggedIn: false,
   },
   {
     username: "Sabina1",
@@ -195,7 +195,7 @@ let accounts = [
     gender: "female",
     imgPath: "../img/index.png",
     matches: [],
-    loggedIn: true,
+    loggedIn: false,
   },
   {
     username: "Joakina1",
@@ -206,7 +206,7 @@ let accounts = [
     gender: "female",
     imgPath: "../img/index.png",
     matches: [],
-    loggedIn: true,
+    loggedIn: false,
   },
   {
     username: "Markina1",
@@ -217,7 +217,7 @@ let accounts = [
     gender: "female",
     imgPath: "../img/index.png",
     matches: [],
-    loggedIn: true,
+    loggedIn: false,
   },
   {
     username: "Erika1",
@@ -228,7 +228,7 @@ let accounts = [
     gender: "female",
     imgPath: "../img/index.png",
     matches: [],
-    loggedIn: true,
+    loggedIn: false,
   },
   {
     username: "Roger1",

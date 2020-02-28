@@ -24,7 +24,11 @@ app.get("/", function(req, res) {
   res.sendFile(path.join(__dirname, "public/index.html"));
 });
 
-//! SOCKET.IO SERVER CODE HERE
+
+
+
+
+//!  data (accounts) set up code here and methods for Data class
 
 //* will contain all accounts registered to the app
 function Data() {
@@ -59,12 +63,16 @@ Data.prototype.getAccount = function(username, password) {
 //* now we can use the methods created for the Data class
 const accounts = new Data();
 
+
+//! SOCKET.IO SERVER CODE HERE
+
 io.on("connection", function(socket) {
   socket.on("loginUser", function(info) {
     var user = accounts.getAccount(info.username, info.password);
     var exists = false;
-    if (user != null) {
+    if (user != null && user.loggedIn != true) {
       exists = true;
+      user.loggedIn = true;
     }
     socket.emit("accountInfo", {
       exists: exists,
