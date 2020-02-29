@@ -2,10 +2,15 @@
 "use strict";
 const socket = io();
 
+window.setTimeout(
+    function(){
+        $('#current-date-img').fadeOut('slow');
+    },10000);
+
 const vm = new Vue({
   el: "#rate-date-container",
   data: {
-    questions: ["Q1", "Q2", "Q4", "Q5"],
+    questions: ["Was your date plesant?", "Did you find your date attractive?", "Would you like to meet your date again?"],
     defaultRating: 5,
     rating: ["5","5","5","5"],
     hideImg: false,
@@ -27,6 +32,7 @@ const vm = new Vue({
       img.style.display = "none";
       this.hideImg = true;
     },
+*/
     submitRating: function(event){
         console.log(this.rating);
     }
