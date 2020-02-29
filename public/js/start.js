@@ -69,6 +69,7 @@ const vm = new Vue({
       console.log("user logged out successfully!");
       this.username = "";
       this.password = "";
+      
     },
     setRegistration: function() {
       this.incorrectLogin = false;

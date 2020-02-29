@@ -88,10 +88,11 @@ io.on("connection", function(socket) {
 
       //* each created room is added to roomSessions
       roomSessions.push(socket.room);
-      console.log("All created rooms: " + roomSessions);
+      console.log("All created rooms: ");
+      console.log(roomSessions);
     }
     //* Send back the account info to the user who sent 'loginUser' request
-    socket.emit("accountInfo", {
+    io.to(socket.room).emit("accountInfo", {
       exists: exists,
       data: user,
     });
@@ -109,7 +110,7 @@ io.on("connection", function(socket) {
     socket.join(account.username);
     if (account.username != null) {
       //* only emit to specific room channel
-      //* we will do this aswell in HOST backend when sending to specific users
+      //* we will do this aswell in HOST backend when sending to specific
       io.to(account.username).emit("getUser", {
         data: account
       });
