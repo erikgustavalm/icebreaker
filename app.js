@@ -97,6 +97,7 @@ io.on("connection", function(socket) {
 
       //* each created room is added to roomSessions
       roomSessions.push(socket.room);
+
       console.log(info.username + " successfully logged in!");
       console.log("All created rooms: ");
       console.log(roomSessions);

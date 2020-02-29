@@ -64,7 +64,6 @@ const vm = new Vue({
         socket.on(
           "accountInfo",
           function(user) {
-
             var online = user.exists;
             if (online != false) {
               this.loggedInUser = user.data;
