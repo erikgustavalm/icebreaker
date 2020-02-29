@@ -1,9 +1,23 @@
+"use strict";
+const socket = io();
+
 new Vue({
   el: "#your-date-container",
   data: {
     time: 900, //in seconds
     timer: null,
-    display: null
+    display: null,
+    loggedInUser: {},
+  },
+  mounted(){
+    console.log(window.sessionStorage.getItem('roomId'));
+    socket.emit('requestUser', {
+      username: window.sessionStorage.getItem('roomId'),
+    });
+    socket.on('getUser', function(user){
+      this.loggedInUser = user.data;
+      console.log(this.loggedInUser.username + " is logged in on this page");
+    }.bind(this));
   },
   methods: {
     startTimer: function() {

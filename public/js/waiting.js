@@ -1,3 +1,6 @@
+"use strict";
+const socket = io();
+
 const vm = new Vue({
   el: "#text-wrapper",
   data: {
@@ -5,12 +8,23 @@ const vm = new Vue({
     hideIcebreaker: true,
     visible: false,
     icebreaker: "",
-    icebreakerIndex: 0
+    icebreakerIndex: 0,
+    loggedInUser: {},
+  },
+  mounted(){
+    console.log(window.sessionStorage.getItem('roomId'));
+    socket.emit('requestUser', {
+      username: window.sessionStorage.getItem('roomId'),
+    });
+    socket.on('getUser', function(user){
+      this.loggedInUser = user.data;
+      console.log(this.loggedInUser.username + " is logged in on this page");
+    }.bind(this));
   },
   methods: {
     showIcebreaker: async function() {
       var i = 0;
-      while (i < 5) {
+      while (i < 2) {
         this.visible = false;
         this.hideIcebreaker = true;
         await this.sleep(4000);
