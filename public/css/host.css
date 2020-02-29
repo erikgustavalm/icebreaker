@@ -52,6 +52,7 @@ body {
     grid-row: 2 / 5;
     overflow-y: auto;
     background-color: #393939;
+    border: 2px solid #e1e1e1;
 }
 
 #manager-pairs-wrapper {
@@ -68,50 +69,40 @@ body {
 .manager-table {
     width: auto;
     height: 40vh;
-    background-color: #393939;
+    background-color: #595959;
+    background-image: url("https://cdn.pixabay.com/photo/2018/09/20/21/58/silhouette-3691933_960_720.png");
+    background-size: 75% auto;
+    background-repeat: no-repeat;
+    background-position: center;
 }
 
 .manager-slot-empty {
     box-sizing: border-box;
-    background-color: #e9e9e9;
+    background-color: #393939;
+    opacity: 0.5;
     text-align: center;
     margin: 0.5vh;
     width: auto;
     height: 19.25vh;
+    border-radius: 50%;
     justify-content: center;
-    
+
 }
 
 .manager-list-slot {
-    background-color: #e3e3e3;
+    background-color: #e19ba7;
     box-sizing: border-box;
     width: auto;
     height: 5.25vh;
     cursor: grab;
     text-align: center;
-    font-size: 200%;
-    /* display: flex; */
-    justify-content: center;
-    align-items: center;
-    border: 0.1vh solid #393939;
-}
-
-.manager-list-slot {
-    background-color: #e3e3e3;
-    box-sizing: border-box;
-    width: auto;
-    height: 5.25vh;
-    cursor: grab;
-    text-align: center;
-    font-size: 200%;
-    /* display: flex; */
-    justify-content: center;
-    align-items: center;
+    display: block;
     border: 0.1vh solid #393939;
 }
 
 .manager-slot-taken {
     background-color: #e3e3e3;
+    opacity: 1;
     box-sizing: border-box;
     height: 19.25vh;
     cursor: grab;
@@ -120,6 +111,12 @@ body {
     justify-content: center;
     align-items: center;
     border: 0.3vh solid #393939;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -o-user-select: none;
+    user-select: none;
+    border-radius: 50%;
 }
 .manager-slot-hover {
     border: 0.3vh dashed #fe3939;
@@ -216,14 +213,15 @@ body {
     width: 15vw;
     display: none;
     justify-content: center;
-    background-color: #9bcae1;
+    background-color: #e1e1e1;
     text-align: center;
     top: 0;
+    z-index: 10;
     padding: 2vh;
     position: absolute;
     border-radius: 1vw;
     font-size: 2vh;
-    border: 0.2vh solid #000000;
+    border: 0.2vh solid #393939;
 }
 
 .manager-profile-popup-close {
@@ -239,9 +237,29 @@ body {
     }
 }
 
+
 .manager-profile-listview {
-    justify-content: center;
+    display: flex;
+    justify-content: space-between;
+    font-size: 150%;
+}
+
+.manager-profile-listview-name {
+    text-align: left;
+    width: 100px;
+
+}
+
+.manager-profile-listview-age {
+    display: inline;
     text-align: center;
+
+}
+
+.manager-profile-listview-gender {
+    display: inline;
+    text-align: right;
+
 }
 
 .manager-profile-wrapperview {
@@ -250,5 +268,7 @@ body {
     display: none;
     width: 100%;
     height: 100%;
-    border-radius: 20%1;
+
+    border-radius: 50%;
+
 }

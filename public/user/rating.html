@@ -4,6 +4,7 @@
   <head>
     <meta charset="utf-8" />
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue-timers/dist/vue-timers.umd.js" defer></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link
       rel="stylesheet"
@@ -29,16 +30,11 @@
     <main id="rate-date-container">
       <h1 id="rate-header">Rate your date!</h1>
       <div id="current-date">
-        <img
-          id="current-date-img"
-          src="https://st2.depositphotos.com/4196725/7109/i/950/depositphotos_71095139-stock-photo-blond-happy-man.jpg"
-          alt="your date"
-          @click="fadeImg"
-        />
+        
       </div>
       <div
         id="slide-container"
-        v-if="hideImg"
+        
         v-for="(item,index) in questions"
       >
         <p>{{item}}</p>
@@ -55,7 +51,7 @@
         <p>{{rating[index]}}</p>
       </div>
       <div id="button-container">
-        <button id="submit-rating-button" v-if="hideImg" @click="submitRating">
+        <button id="submit-rating-button"  @click="submitRating">
           Done!
         </button>
       </div>
