@@ -52,6 +52,12 @@ Data.prototype.getAccount = function(username) {
   return null;
 };
 
+Data.prototype.removeAccount = function(username) {
+  const index = this.accounts.indexOf(username);
+  if (index > -1) {
+    this.accounts.splice(index, 1);
+  }
+};
 //* set up the accounts var with all the initial accounts from json file.
 //* now we can use the methods created for the Data class
 const accounts = new Data();
@@ -59,6 +65,9 @@ const accounts = new Data();
 //! SOCKET.IO SERVER CODE HERE
 
 //* will contain all room id's for each logged in user
+//* You can send a request to specific users online by using the room ID in
+//* this array, (room ID == username) for example like this:
+//* io.to(roomID).emit('msg', {data})..
 var roomSessions = [];
 
 io.on("connection", function(socket) {
@@ -88,14 +97,24 @@ io.on("connection", function(socket) {
 
       //* each created room is added to roomSessions
       roomSessions.push(socket.room);
+      console.log(info.username + " successfully logged in!");
       console.log("All created rooms: ");
       console.log(roomSessions);
     }
     //* Send back the account info to the user who sent 'loginUser' request
-    io.to(socket.room).emit("accountInfo", {
-      exists: exists,
-      data: user,
-    });
+    if (exists == true) {
+      //* successfull login - send right account info
+      io.to(socket.room).emit("accountInfo", {
+        exists: exists,
+        data: user
+      });
+    } else {
+      //* unsuccessfull login - send back false
+      socket.emit("accountInfo", {
+        exists: exists,
+        data: user
+      });
+    }
   });
 
   //* used for getting user info from username (since username is unique)
@@ -115,6 +134,21 @@ io.on("connection", function(socket) {
         data: account
       });
     }
+  });
+
+  //* When user wants to log out we remove room id from roomSessions and
+  //* set online status to false in accounts
+  socket.on("logoutUser", function(user) {
+    var account = accounts.getAccount(user.username);
+
+    const index = roomSessions.indexOf(account.username);
+    if (index > -1) {
+      roomSessions.splice(index, 1);
+    }
+    account.loggedIn = false;
+    console.log(user.username + " successfully logged out!");
+    console.log("All created rooms: ");
+    console.log(roomSessions);
   });
 });
 

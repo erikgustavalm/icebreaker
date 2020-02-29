@@ -24,13 +24,33 @@ const vm = new Vue({
     },
     loggedInUser: {}
   },
+
+  //* Why have mounted on the starting page? Well we need to know what user
+  //* is online after an event is over and the user goes to the starting page again
+  //* so that we can keep the user logged in
+  mounted() {
+    if (window.sessionStorage.getItem("roomId") != null) {
+      socket.emit("requestUser", {
+        username: window.sessionStorage.getItem("roomId")
+      });
+      socket.on(
+        "getUser",
+        function(user) {
+          this.loggedInUser = user.data;
+          this.userLoggedIn = true;
+          console.log(
+            this.loggedInUser.username + " is logged in on this page"
+          );
+        }.bind(this)
+      );
+    }
+  },
   methods: {
     goToSite: function(link) {
       window.location.href = link;
     },
     overlay: function() {
       this.incorrectLogin = false;
-      console.log("overlay activated!");
       this.isHidden = false;
     },
     loginUser: function() {
@@ -44,32 +64,36 @@ const vm = new Vue({
         socket.on(
           "accountInfo",
           function(user) {
-            if (user.exists != false) {
+
+            var online = user.exists;
+            if (online != false) {
               this.loggedInUser = user.data;
               this.userLoggedIn = true;
               this.isHidden = true;
-              window.sessionStorage.setItem('roomId', user.data.username);
-              console.log(socket.id);
-              console.log(window.sessionStorage.getItem('roomId'))
+              window.sessionStorage.setItem("roomId", user.data.username);
+              console.log(window.sessionStorage.getItem("roomId"));
               console.log("user logged in successfully!");
             } else {
               this.incorrectLogin = true;
               this.username = "";
               this.password = "";
-              console.log("user doesn't exist!");
+              console.log("user doesn't exist or is already online!");
             }
           }.bind(this)
         ); //* bind this is used so that we bind 'this' to the vue object
-
       }
     },
     logoutUser: function() {
+      //* emit to the server that user want to log out.
+      socket.emit("logoutUser", {
+        username: this.loggedInUser.username
+      });
+      window.sessionStorage.removeItem('roomId');
       this.userLoggedIn = false;
       this.loggedInUser = {};
       console.log("user logged out successfully!");
       this.username = "";
       this.password = "";
-      
     },
     setRegistration: function() {
       this.incorrectLogin = false;
