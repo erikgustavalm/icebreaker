@@ -7,6 +7,10 @@ const http = require("http").Server(app);
 const io = require("socket.io")(http);
 const path = require("path");
 const initialAccounts = require("./public/js/accounts_json.js").totalAccounts;
+const initialQuestions = require("./public/js/sample_questions.js")
+  .predefinedQuestions;
+const initialIcebreakers = require("./public/js/icebreakers.js")
+  .initIcebreakers;
 
 // Pick arbitrary port for server
 const port = 3000;
@@ -62,6 +66,50 @@ Data.prototype.removeAccount = function(username) {
 //* now we can use the methods created for the Data class
 const accounts = new Data();
 
+//! The event obj array and methods to operate on the event obj go here
+
+let events = new Array();
+
+Array.prototype.addEvent = function(event) {
+  events.push(event);
+};
+
+Array.prototype.getEvent = function(eventID) {
+  for (let event in events) {
+    if (event.eventID === eventID) {
+      console.log(event);
+      return event;
+    }
+  }
+  return null;
+};
+Array.prototype.nextRound = function(eventID) {
+  let event = events.getEvent(eventID);
+  event.round++;
+};
+Array.prototype.eventIsFull = function(eventID) {
+  let event = events.getEvent(eventID);
+  if (event.max == event.attended) {
+    event.eventIsFull = true;
+  } else {
+    event.eventIsFull = false;
+  }
+};
+Array.prototype.addAttendant = function(eventID) {
+  let event = events.getEvent(eventID);
+  event.attended++;
+};
+
+Array.prototype.addUser = function(eventID, user) {
+  let event = events.getEvent(eventID);
+  event.users.push(user);
+  event.addAttendant();
+};
+Array.prototype.addMatchingPair = function(eventID, matchedPair) {
+  let event = events.getEvent(eventID);
+  event.usersMatched.push(matchedPair);
+};
+
 //! SOCKET.IO SERVER CODE HERE
 
 //* will contain all room id's for each logged in user
@@ -70,7 +118,67 @@ const accounts = new Data();
 //* io.to(roomID).emit('msg', {data})..
 var roomSessions = [];
 
+//* newEvent is sent by submitting the final form before entering
+//* This initializes the event with baseline values that must be updated
+//* by the manager. E.g starting a session would update seats & usersMatched and send these values
+//* to the right destinations could change at any time
+//* stores all events in an array
 io.on("connection", function(socket) {
+  socket.on("newEvent", function(currentSession) {
+    let event = {
+      eventID: currentSession.eventID,
+      users: [], // array of 19 users defined in the JSON file. Manager could add these during mount for our bots. Joining a room also adds it
+      questions: [],
+      icebreakers: [],
+      max: 20,
+      attended: 19, //starts at 20 because of our bots? Else manager should send attended count.
+      tables: [], //seats should be updated by manager only when done, no need to update it on every drag
+      round: 0,
+      usersMatched: [], //array of [[2],[2]..] arrays, where the [2] array contains 2 users.
+      //Should probably be created in manager and sent through emit
+      startTimer: false,
+      eventIsFull: false
+    };
+
+    var bots = accounts.accounts;
+    //initialize bots for the event
+    for (let i = 0; i < 19; i++) {
+      event.users.push(bots[i]);
+    }
+    console.log(event.users);
+
+    //initial questions for event
+    for (let i = 0; i < initialQuestions.length; i++) {
+      event.questions.push(initialQuestions[i]);
+    }
+    for (let i = 0; i < currentSession.questions.length; i++) {
+      const element = currentSession.questions[i];
+      event.questions.push({ question: currentSession.questions[i] });
+    }
+    console.log(event.questions);
+
+    for (let i = 0; i < initialIcebreakers.length; i++) {
+      event.icebreakers.push(initialIcebreakers[i]);
+    }
+
+    for (let i = 0; i < currentSession.quotes.length; i++) {
+      event.icebreakers.push(currentSession.quotes[i]);
+    }
+    console.log(event.icebreakers);
+
+    events.addEvent(event);
+  });
+
+  socket.on("requestEvent", function(eventID) {
+    let event = events.getEvent(eventID.eventID);
+    socket.join(eventID.eventID);
+    if (eventID.eventID != null) {
+      io.to(eventID.eventID).emit("getEvent", {
+        event: event
+      });
+    }
+  });
+
   //* 'loginUser' is sent by starting page when a user tries to log in
   socket.on("loginUser", function(info) {
     var user = null;
