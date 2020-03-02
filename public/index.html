@@ -6,6 +6,7 @@
     <link rel="stylesheet" type="text/css" href="css/reset.css" />
     <link rel="stylesheet" type="text/css" href="css/start.css" />
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js" defer></script>
+    <script src="/socket.io/socket.io.js" defer></script>
     <script src="./js/start.js" defer></script>
     <title>My Speed Dating App</title>
   </head>
@@ -145,7 +146,7 @@
               type="text"
               id="name"
               placeholder="FULL NAME"
-              v-model="newUser.fullname"
+              v-model="newUser.name"
             />
             <br />
             <input
@@ -178,7 +179,7 @@
         <div
           class="card"
           v-if="userLoggedIn"
-          v-for="(card, index) in testMatches"
+          v-for="(card, index) in loggedInUser.matches"
           v-on:click="toggleCard(card,index)"
           :id="'card-'+index"
         >

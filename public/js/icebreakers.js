@@ -15,3 +15,5 @@ let icebreakers = [
   "If you could choose an imaginary friend, who would you choose and why?",
   "If you could choose your age forever, what age would you choose and why?"
 ];
+
+exports.initIcebreakers = icebreakers;

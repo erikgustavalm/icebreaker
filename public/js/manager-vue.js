@@ -1,18 +1,21 @@
+"use strict";
+const socket = io();
+
 const vm = new Vue({
-    el: "#manager-wrapper",
-    data: {
-	tables: tables,
-	users: users_json,
-	session: {session_name: "", },
-	showHelp: false,
-	timerLabel: "START ROUND",
-	TIME_LIMIT: 10,
-	timePassed: 0,
-	timeLeft: 0,
-	timerInterval: 0,
-	pairs: null,
-    },
-    methods: {
+  el: "#manager-wrapper",
+  data: {
+    tables: tables,
+    users: users_json,
+    session: { session_name: "" },
+    showHelp: false,
+    timerLabel: "START ROUND",
+    TIME_LIMIT: 10,
+    timePassed: 0,
+    timeLeft: 0,
+    timerInterval: 0,
+    pairs: null
+  },
+  methods: {
 	autoMatch: function() {
 	    console.log("autoMatch()");
 	    if(this.users.length == 0){
@@ -110,10 +113,55 @@ const vm = new Vue({
 	    return `${m}:${s}`;
 	},
 
-	
+    onTimesUp: function() {
+      clearInterval(this.timerInterval);
+      this.timerLabel = "START ROUND";
+
+      document.getElementById("manager-round-timer").style.backgroundColor =
+        "#399939";
+
+      this.timePassed = 0;
+      this.timeLeft = 0;
     },
-    mounted() {
-	this.pairs = document.getElementById("manager-pairs-wrapper").children;
-	console.log(this.pairs);
+
+    startTimer: function() {
+      this.timerInterval = setInterval(() => {
+        this.timePassed = this.timePassed += 1;
+        this.timeLeft = this.TIME_LIMIT - this.timePassed;
+        this.timerLabel = this.formatTime();
+
+        document.getElementById("manager-round-timer").style.backgroundColor =
+          "#ff3939";
+
+        if (this.timeLeft === 0) {
+          this.onTimesUp();
+        }
+      }, 1000);
+    },
+
+    formatTime: function() {
+      m = Math.floor(this.timeLeft / 60);
+      s = this.timeLeft % 60;
+      if (s < 10) {
+        s = `0${s}`;
+      }
+      return `${m}:${s}`;
     }
-})
+  },
+  mounted() {
+    this.pairs = document.getElementById("manager-pairs-wrapper").children;
+    console.log(this.pairs);
+
+    if (window.sessionStorage.getItem("eventID") != null) {
+      socket.emit("requestEvent", {
+        eventID: window.sessionStorage.getItem("eventID")
+      });
+      socket.on("getEvent", function(user) {
+        console.log(
+          window.sessionStorage.getItem("eventID") +
+            " is the event on this page!"
+        );
+      });
+    }
+  
+  }});

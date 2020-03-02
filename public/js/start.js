@@ -1,7 +1,10 @@
+"use strict";
+const socket = io();
+
 const vm = new Vue({
   el: "#start-site",
   data: {
-    userLoggedIn: false, 
+    userLoggedIn: false,
     isHidden: true,
     password: "",
     username: "",
@@ -9,76 +12,6 @@ const vm = new Vue({
     registrationHidden: true,
     accountDetails: true,
     incorrectLogin: false,
-    testMatches : [{
-      email: "user@gmail.com",
-      name: "Axel Lingestål",
-      age: "18",
-      gender: "male",
-      imgPath: "../img/index.png"
-    },
-    {
-      email: "user@gmail.com",
-      name: "Anton Jäger",
-      age: "19",
-      gender: "male",
-      imgPath: "../img/index.png"
-    },
-    {
-      email: "user@gmail.com",
-      name: "Fredrik Vandermondes",
-      age: "20",
-      gender: "male",
-      imgPath: "../img/index.png"
-    },
-    {
-      email: "user@gmail.com",
-      name: "Jokke jokkake",
-      age: "21",
-      gender: "male",
-      imgPath: "../img/index.png"
-    },
-    {
-      email: "user@gmail.com",
-      name: "Sukram Lucero",
-      age: "22",
-      gender: "male",
-      imgPath: "../img/index.png"
-    },
-    {
-      email: "user@gmail.com",
-      name: "Nitram Lucero",
-      age: "23",
-      gender: "male",
-      imgPath: "../img/index.png"
-    },
-    {
-      email: "user@gmail.com",
-      name: "ERiiik eriIk",
-      age: "24",
-      gender: "male",
-      imgPath: "../img/index.png"
-    },
-    {
-      email: "user@gmail.com",
-      name: "Kalle Karlsson",
-      age: "25",
-      gender: "male",
-      imgPath: "../img/index.png"
-    },
-    {
-      email: "user@gmail.com",
-      name: "Markiplier Youtuber",
-      age: "26",
-      gender: "male",
-      imgPath: "../img/index.png"
-    },
-    {
-      email: "user@gmail.com",
-      name: "Frankenstein Monster",
-      age: "27",
-      gender: "male",
-      imgPath: "../img/index.png"
-    }],
     newUser: {
       username: "",
       password: "",
@@ -91,36 +24,75 @@ const vm = new Vue({
     },
     loggedInUser: {}
   },
+
+  //* Why have mounted on the starting page? Well we need to know what user
+  //* is online after an event is over and the user goes to the starting page again
+  //* so that we can keep the user logged in
+  mounted() {
+    if (window.sessionStorage.getItem("roomId") != null) {
+      socket.emit("requestUser", {
+        username: window.sessionStorage.getItem("roomId")
+      });
+      socket.on(
+        "getUser",
+        function(user) {
+          this.loggedInUser = user.data;
+          this.userLoggedIn = true;
+          console.log(
+            this.loggedInUser.username + " is logged in on this page"
+          );
+        }.bind(this)
+      );
+    }
+  },
   methods: {
     goToSite: function(link) {
       window.location.href = link;
     },
     overlay: function() {
       this.incorrectLogin = false;
-      console.log("overlay activated!");
       this.isHidden = false;
     },
     loginUser: function() {
       if (this.username != "" && this.password != "") {
-        // mockup - the registrated user becomes the logged in user
-        if (
-          this.username == this.newUser.username &&
-          this.password == this.newUser.password
-        ) {
-          this.userLoggedIn = true;
-          this.isHidden = true;
-          console.log("user logged in successfully!");
-          this.loggedInUser = this.newUser;
-          this.username = "";
-          this.password = "";
-        }
+        //* send logged in user to server
+        socket.emit("loginUser", {
+          username: this.username,
+          password: this.password
+        });
+        //* we get message from server that may include the user object or not
+        socket.on(
+          "accountInfo",
+          function(user) {
+            var online = user.exists;
+            if (online != false) {
+              this.loggedInUser = user.data;
+              this.userLoggedIn = true;
+              this.isHidden = true;
+              window.sessionStorage.setItem("roomId", user.data.username);
+              console.log(window.sessionStorage.getItem("roomId"));
+              console.log("user logged in successfully!");
+            } else {
+              this.incorrectLogin = true;
+              this.username = "";
+              this.password = "";
+              console.log("user doesn't exist or is already online!");
+            }
+          }.bind(this)
+        ); //* bind this is used so that we bind 'this' to the vue object
       }
-      this.incorrectLogin = true;
     },
     logoutUser: function() {
+      //* emit to the server that user want to log out.
+      socket.emit("logoutUser", {
+        username: this.loggedInUser.username
+      });
+      window.sessionStorage.removeItem("roomId");
       this.userLoggedIn = false;
       this.loggedInUser = {};
       console.log("user logged out successfully!");
+      this.username = "";
+      this.password = "";
     },
     setRegistration: function() {
       this.incorrectLogin = false;
@@ -129,8 +101,18 @@ const vm = new Vue({
     },
     regProfile: function() {
       if (this.inputCheckerAccount()) {
-        this.accountDetails = false;
-        console.log("next button clicked!");
+        socket.emit("isValidUsername", {
+          username: this.username
+        });
+
+        socket.on("validUsername", function(validity) {
+          if (validity.valid == true) {
+              this.accountDetails = false;
+              console.log("next button clicked!");
+          } else {
+            document.getElementById("username").classList.add("unfilled-entry");
+          }
+        }.bind(this));
       }
     },
     abort: function() {
@@ -153,6 +135,9 @@ const vm = new Vue({
         this.registrationHidden = true;
         this.isHidden = true;
         console.log("Registration successfull!");
+        socket.emit('createdUser', {
+          account: this.newUser,
+        })
       }
     },
     resetIncorrectLogin: function() {
@@ -169,7 +154,7 @@ const vm = new Vue({
       this.newUser.gender = "";
     },
     inputCheckerAccount: function() {
-      result = true;
+      var result = true;
 
       if (!this.newUser.username) {
         document.getElementById("username").classList.add("unfilled-entry");
@@ -189,9 +174,9 @@ const vm = new Vue({
       return result;
     },
     inputCheckerProfile: function() {
-      result = true;
+      var result = true;
 
-      if (!this.newUser.fullname) {
+      if (!this.newUser.name) {
         result = false;
         document.getElementById("name").classList.add("unfilled-entry");
       }
@@ -232,9 +217,9 @@ const vm = new Vue({
       console.log("displaying matches!");
     },
 
-    toggleCard: function(card,index){
-      var el = document.getElementById("card-"+index);
-      if(el.classList.contains("expand")){
+    toggleCard: function(card, index) {
+      var el = document.getElementById("card-" + index);
+      if (el.classList.contains("expand")) {
         el.classList.remove("expand");
         el.childNodes[2].childNodes[4].classList.add("toggle-off");
         el.childNodes[2].childNodes[6].classList.add("toggle-off");
@@ -243,7 +228,6 @@ const vm = new Vue({
         el.childNodes[2].childNodes[4].classList.remove("toggle-off");
         el.childNodes[2].childNodes[6].classList.remove("toggle-off");
       }
-      
     }
   }
 });
