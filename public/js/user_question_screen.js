@@ -4,9 +4,9 @@ const socket = io();
 const vm = new Vue({
   el: "#questionform",
   data: {
-    questionlist: samplequestions,
+    questionlist: [],
     answerArray: [], // Här finns alla svar på frågorna, inkulsive open ended som sista.
-    loggedInUser: {},
+    loggedInUser: {}
   },
   mounted() {
     console.log(window.sessionStorage.getItem("roomId"));
@@ -18,6 +18,19 @@ const vm = new Vue({
       function(user) {
         this.loggedInUser = user.data;
         console.log(this.loggedInUser.username + " is logged in on this page");
+       
+        socket.emit("requestQuestions", {
+          roomId: this.loggedInUser.username,
+          eventID: window.sessionStorage.getItem("eventID")
+        });
+
+        socket.on(
+          "sendQuestions",
+          function(q) {
+            this.questionlist = q.questions;
+            console.log(q.questions);
+          }.bind(this)
+        );
       }.bind(this)
     );
   },
@@ -68,8 +81,6 @@ const vm = new Vue({
     },
 
     goToSite: function(link) {
-      //" goToSite('./user/join.html')"
-
       window.location.href = link;
     }
   }

@@ -159,22 +159,29 @@ io.on("connection", function(socket) {
     }
 
     events.addEvent(event);
-    console.log(events.getEvent(event.eventID));
+  });
+
+  socket.on("requestQuestions", function(data){
+    console.log(data.eventID);
+    let event = events.getEvent(data.eventID);
+    io.to(data.roomId).emit("sendQuestions", {
+      questions: event.questions,
+    });
   });
   socket.on("joinEvent", function(data) {
     let event = events.getEvent(data.eventID);
     let user = data.user;
     let hasJoined = false;
-    if(event.attended < event.max){
-      events.addUser(event.eventID,user);
+    if (event.attended < event.max) {
+      events.addUser(event.eventID, user);
       hasJoined = true;
       console.log(event);
     }
-    socket.to("data.user.username").emit("userJoined", {
-      eventID: event.eventID,
-      hasJoined: event.hasJoined,
-    });
 
+    io.to(user.username).emit("userJoined", {
+      eventID: event.eventID,
+      joined: hasJoined
+    });
   });
 
   socket.on("requestEvent", function(eventID) {
