@@ -62,6 +62,49 @@ Data.prototype.removeAccount = function(username) {
 //* now we can use the methods created for the Data class
 const accounts = new Data();
 
+//! The event obj array and methods to operate on the event obj go here
+
+let events = new Array();
+
+Array.prototype.addEvent = function(event) {
+  events.push(event);
+};
+
+Array.prototype.getEvent = function(eventID) {
+  for (let event in events) {
+    if (event.eventID === eventID) {
+      console.log(event);
+      return event;
+    }
+  }
+  return null;
+};
+Array.prototype.nextRound = function(eventID) {
+  let event = events.getEvent(eventID);
+  event.round++;
+};
+Array.prototype.eventIsFull = function(eventID) {
+  let event = events.getEvent(eventID);
+  if (event.max == event.attended) {
+    event.eventIsFull = true;
+  } else {
+    event.eventIsFull = false;
+  }
+};
+Array.prototype.addAttendant = function(eventID) {
+  let event = events.getEvent(eventID);
+  event.attended++;
+};
+
+Array.prototype.addUsers = function(eventID, userArray) {
+  let event = events.getEvent(eventID);
+  event.users = userArray;
+};
+Array.prototype.addMatches = function(eventID, usersMatched) {
+  let event = events.getEvent(eventID);
+  event.usersMatched = usersMatched;
+};
+
 //! SOCKET.IO SERVER CODE HERE
 
 //* will contain all room id's for each logged in user
@@ -70,7 +113,37 @@ const accounts = new Data();
 //* io.to(roomID).emit('msg', {data})..
 var roomSessions = [];
 
+//* newEvent is sent by submitting the final form before entering
+//* This initializes the event with baseline values that must be updated
+//* by the manager. E.g starting a session would update seats & usersMatched and send these values
+//* to the right destinations could change at any time
+//* stores all events in an array
 io.on("connection", function(socket) {
+  socket.on("newEvent", function(currentSession) {
+    let event = {
+      eventID: currentSession.eventID,
+      users: [], // array of all users defined in the JSON file. Manager could add these during mount for our bots. Joining a room also adds it
+      session: currentSession.session, //contains room name, questions and quotes.
+      max: 20,
+      attended: 20, //starts at 20 because of our bots? Else manager should send attended count.
+      tables: [], //seats should be updated by manager only when done, no need to update it on every drag
+      round: 0,
+      usersMatched: [], //array of [[2],[2]..] arrays, where the [2] array contains 2 users.
+      //Should probably be created in manager and sent through emit
+      eventIsFull: true
+    };
+    events.addEvent(event);
+  });
+  socket.on("requestEvent", function(eventID) {
+    let event = events.getEvent(eventID.eventID);
+    socket.join(eventID.eventID);
+    if (eventID.eventID != null) {
+      io.to(eventID.eventID).emit("getEvent", {
+        event: eventID.eventID
+      });
+    }
+  });
+
   //* 'loginUser' is sent by starting page when a user tries to log in
   socket.on("loginUser", function(info) {
     var user = null;

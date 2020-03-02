@@ -1,53 +1,65 @@
+"use strict";
+const socket = io();
+
 const mhsf = new Vue({
-    el: "#manager-host-session-form",
-    data: {
-	session: {name: "", quotes: [], questions: []},
-	newQuote: "",
-	newQuestion: "",
-	formNr: 0,
-	formLast: 2
-   },
-    methods: {
+  el: "#manager-host-session-form",
+  data: {
+    session: { name: "", quotes: [], questions: [] },
+    newQuote: "",
+    newQuestion: "",
+    formNr: 0,
+    formLast: 2
+  },
+  methods: {
+    addQuote: function() {
+      if (this.newQuote != "") {
+        this.session.quotes.push(this.newQuote);
+        this.newQuote = "";
+        console.log(this.quotes);
+      }
+    },
 
-	addQuote: function() {
-	    if (this.newQuote != "") {
-		this.session.quotes.push(this.newQuote);
-		this.newQuote = "";
-		console.log(this.quotes);
-	    }
-	},
+    addQuestion: function() {
+      if (this.newQuestion != "") {
+        this.session.questions.push(this.newQuestion);
+        this.newQuestion = "";
+        console.log(this.question);
+      }
+    },
 
-	addQuestion: function() {
-	    if (this.newQuestion != "") {
-		this.session.questions.push(this.newQuestion);
-		this.newQuestion = "";
-		console.log(this.question);
-	    }
-	},
+    formQuestionNext: function() {
+      if (this.session.questions.length == 0) {
+        alert("Please enter at least one question");
+      } else {
+        this.formNr++;
+      }
+    },
 
-	formQuestionNext: function() {
-	    if (this.session.questions.length == 0) {
-		alert("Please enter at least one question");
-	    } else {
-		this.formNr++;
-	    }
+    formDone: function() {
+      if (this.session.name != "") {
+        console.log("session.name" + this.session.name);
+        window.location.replace("host.html");
+      } else {
+        console.log("Form not filled");
+      }
+    },
 
-	},
-
-	formDone: function() {
-	    if (this.session.name != "") {
-		console.log("session.name" + this.session.name);
-		window.location.replace("host.html");
-	    } else {
-		console.log("Form not filled");
-	    }
-	},
-
-	formNext: function() {
-	    if (this.formNr == this.formLast) {
-		this.formDone();
-	    }
-	    this.formNr++;
-	}
+    formNext: function() {
+      if (this.formNr == this.formLast) {
+        this.formDone();
+      }
+      this.formNr++;
+    },
+    sendEvent: function() {
+      socket.emit("newEvent", {
+        session: this.session,
+        eventID: window.sessionStorage.getItem("eventID")
+      });
+    },
+    clickHandler: function() {
+      window.sessionStorage.setItem("eventID", this.session.name);
+      this.sendEvent();
+      this.formNext();
     }
-})
+  }
+});
