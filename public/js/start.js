@@ -87,7 +87,7 @@ const vm = new Vue({
       socket.emit("logoutUser", {
         username: this.loggedInUser.username
       });
-      window.sessionStorage.removeItem('roomId');
+      window.sessionStorage.removeItem("roomId");
       this.userLoggedIn = false;
       this.loggedInUser = {};
       console.log("user logged out successfully!");
@@ -101,8 +101,18 @@ const vm = new Vue({
     },
     regProfile: function() {
       if (this.inputCheckerAccount()) {
-        this.accountDetails = false;
-        console.log("next button clicked!");
+        socket.emit("isValidUsername", {
+          username: this.username
+        });
+
+        socket.on("validUsername", function(validity) {
+          if (validity.valid == true) {
+              this.accountDetails = false;
+              console.log("next button clicked!");
+          } else {
+            document.getElementById("username").classList.add("unfilled-entry");
+          }
+        }.bind(this));
       }
     },
     abort: function() {
@@ -125,6 +135,9 @@ const vm = new Vue({
         this.registrationHidden = true;
         this.isHidden = true;
         console.log("Registration successfull!");
+        socket.emit('createdUser', {
+          account: this.newUser,
+        })
       }
     },
     resetIncorrectLogin: function() {
@@ -141,7 +154,7 @@ const vm = new Vue({
       this.newUser.gender = "";
     },
     inputCheckerAccount: function() {
-      result = true;
+      var result = true;
 
       if (!this.newUser.username) {
         document.getElementById("username").classList.add("unfilled-entry");
@@ -161,9 +174,9 @@ const vm = new Vue({
       return result;
     },
     inputCheckerProfile: function() {
-      result = true;
+      var result = true;
 
-      if (!this.newUser.fullname) {
+      if (!this.newUser.name) {
         result = false;
         document.getElementById("name").classList.add("unfilled-entry");
       }

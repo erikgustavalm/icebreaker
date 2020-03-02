@@ -151,6 +151,25 @@ io.on("connection", function(socket) {
     console.log("All created rooms: ");
     console.log(roomSessions);
   });
+
+  socket.on("isValidUsername", function(username) {
+    if (accounts.getAccount(username.username) == null) {
+      socket.emit("validUsername", {
+        valid: true
+      });
+    } else {
+      socket.emit("validUsername", {
+        valid: false
+      });
+    }
+  });
+
+  socket.on('createdUser', function(acc){
+    accounts.addAccount(acc.account);
+    console.log("Created a new account:");
+    console.log(acc.account);
+  })
+
 });
 
 /* eslint-disable-next-line no-unused-vars */
