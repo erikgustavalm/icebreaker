@@ -75,9 +75,8 @@ Array.prototype.addEvent = function(event) {
 };
 
 Array.prototype.getEvent = function(eventID) {
-  for (let event in events) {
+  for (let event of events) {
     if (event.eventID === eventID) {
-      console.log(event);
       return event;
     }
   }
@@ -95,15 +94,11 @@ Array.prototype.eventIsFull = function(eventID) {
     event.eventIsFull = false;
   }
 };
-Array.prototype.addAttendant = function(eventID) {
-  let event = events.getEvent(eventID);
-  event.attended++;
-};
 
 Array.prototype.addUser = function(eventID, user) {
   let event = events.getEvent(eventID);
   event.users.push(user);
-  event.addAttendant();
+  event.attended++;
 };
 Array.prototype.addMatchingPair = function(eventID, matchedPair) {
   let event = events.getEvent(eventID);
@@ -145,7 +140,6 @@ io.on("connection", function(socket) {
     for (let i = 0; i < 19; i++) {
       event.users.push(bots[i]);
     }
-    console.log(event.users);
 
     //initial questions for event
     for (let i = 0; i < initialQuestions.length; i++) {
@@ -155,7 +149,6 @@ io.on("connection", function(socket) {
       const element = currentSession.questions[i];
       event.questions.push({ question: currentSession.questions[i] });
     }
-    console.log(event.questions);
 
     for (let i = 0; i < initialIcebreakers.length; i++) {
       event.icebreakers.push(initialIcebreakers[i]);
@@ -164,9 +157,24 @@ io.on("connection", function(socket) {
     for (let i = 0; i < currentSession.quotes.length; i++) {
       event.icebreakers.push(currentSession.quotes[i]);
     }
-    console.log(event.icebreakers);
 
     events.addEvent(event);
+    console.log(events.getEvent(event.eventID));
+  });
+  socket.on("joinEvent", function(data) {
+    let event = events.getEvent(data.eventID);
+    let user = data.user;
+    let hasJoined = false;
+    if(event.attended < event.max){
+      events.addUser(event.eventID,user);
+      hasJoined = true;
+      console.log(event);
+    }
+    socket.to("data.user.username").emit("userJoined", {
+      eventID: event.eventID,
+      hasJoined: event.hasJoined,
+    });
+
   });
 
   socket.on("requestEvent", function(eventID) {
@@ -272,12 +280,11 @@ io.on("connection", function(socket) {
     }
   });
 
-  socket.on('createdUser', function(acc){
+  socket.on("createdUser", function(acc) {
     accounts.addAccount(acc.account);
     console.log("Created a new account:");
     console.log(acc.account);
-  })
-
+  });
 });
 
 /* eslint-disable-next-line no-unused-vars */
