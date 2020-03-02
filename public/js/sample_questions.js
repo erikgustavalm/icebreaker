@@ -35,3 +35,5 @@ let samplequestions = [
     },
     
 ]
+
+exports.predefinedQuestions = samplequestions;

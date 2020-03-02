@@ -52,12 +52,13 @@ const mhsf = new Vue({
     },
     sendEvent: function() {
       socket.emit("newEvent", {
-        session: this.session,
+		quotes: this.session.quotes,
+		questions: this.session.questions,
         eventID: window.sessionStorage.getItem("eventID")
       });
     },
     clickHandler: function() {
-      window.sessionStorage.setItem("eventID", this.session.name);
+	  window.sessionStorage.setItem("eventID", this.session.name);
       this.sendEvent();
       this.formNext();
     }
