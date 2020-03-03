@@ -80,6 +80,7 @@ const vm = new Vue({
         socket.emit("sendAnswers", {
           answers: this.answerArray,
           user: this.loggedInUser.username
+
         });
         //this.goToSite("../user/waiting.html");
       }

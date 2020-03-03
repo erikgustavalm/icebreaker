@@ -129,6 +129,7 @@ io.on("connection", function(socket) {
       users: [], // array of 19 users defined in the JSON file. Manager could add these during mount for our bots. Joining a room also adds it
       questions: [],
       icebreakers: [],
+      questionAnswers: [],
       max: 20,
       attended: 19, //starts at 20 because of our bots? Else manager should send attended count.
       tables: [], //seats should be updated by manager only when done, no need to update it on every drag
@@ -163,6 +164,17 @@ io.on("connection", function(socket) {
     }
 
     events.addEvent(event);
+    console.log(events.getEvent(event.eventID));
+  });
+
+
+  //* send the questionaire to answer for the event
+  socket.on("requestQuestions", function(data) {
+    console.log(data.eventID);
+    let event = events.getEvent(data.eventID);
+    io.to(data.roomId).emit("sendQuestions", {
+      questions: event.questions
+    });
   });
 
   socket.on("requestQuestions", function(data) {
@@ -183,14 +195,22 @@ io.on("connection", function(socket) {
     console.log("The answers are:");
     console.log(user.answers);
   });
+  
+  //* let user join an exisiting event if attended < 
+  //TODO Need to add error handling if event is full
   socket.on("joinEvent", function(data) {
     let event = events.getEvent(data.eventID);
     let user = data.user;
     let hasJoined = false;
     if (event.attended < event.max) {
-      events.addUser(event.eventID, user);
-      hasJoined = true;
-      console.log(event);
+	events.addUser(event.eventID, user);
+	hasJoined = true;
+	console.log(event);
+	let id = event.users.length - 1;
+	let userId = "user" + id;
+	user.id = userId;
+	
+	socket.to(event.eventID).emit("onUserJoin", {user:user});
     }
 
     io.to(user.username).emit("userJoined", {
@@ -199,8 +219,11 @@ io.on("connection", function(socket) {
     });
   });
 
+
+  //* get the event ID of event and send it back
   socket.on("requestEvent", function(eventID) {
     let event = events.getEvent(eventID.eventID);
+
     socket.join(eventID.eventID);
     if (eventID.eventID != null) {
       io.to(eventID.eventID).emit("getEvent", {
@@ -290,6 +313,8 @@ io.on("connection", function(socket) {
     console.log(roomSessions);
   });
 
+
+  //* checks username validity
   socket.on("isValidUsername", function(username) {
     if (accounts.getAccount(username.username) == null) {
       socket.emit("validUsername", {
