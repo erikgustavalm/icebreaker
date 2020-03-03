@@ -3,7 +3,8 @@ const socket = io();
 
 const vm = new Vue({
   el: "#manager-wrapper",
-  data: {
+    data: {
+        eventID: "",    
     tables: tables,
     users: users_json,
     session: { session_name: "" },
@@ -36,6 +37,8 @@ const vm = new Vue({
 		    this.moveUserToPair(this.users[i], pairIndex, seat);
 		}
 	    }
+
+      this.sendMatchedPairs();
 	},
 
 	moveUserToPair: function(user, pairIndex, seat) {
@@ -102,6 +105,7 @@ const vm = new Vue({
 		    this.onTimesUp();
 		}
 	    }, 1000);
+      
 	},
 
 	formatTime: function() {
@@ -112,6 +116,23 @@ const vm = new Vue({
 	    }
 	    return `${m}:${s}`;
 	},
+  sendMatchedPairs: function(){
+      var matched = [];
+      let i = 0;
+      for(let table of this.tables)
+      {
+          matched[i] = [table.seat1.id, table.seat2.id];
+          i++;
+      }
+
+      console.log(matched);
+      console.log(this.eventID);
+      socket.emit("sendMatchedPairs", {
+          matchedPairs: matched,
+          eventID: this.eventID
+      });
+
+  },
 
     onTimesUp: function() {
       clearInterval(this.timerInterval);
@@ -156,12 +177,13 @@ const vm = new Vue({
       socket.emit("requestEvent", {
         eventID: window.sessionStorage.getItem("eventID")
       });
-      socket.on("getEvent", function(user) {
+        socket.on("getEvent", function(event) {
+            this.eventID = event.eventID; 
         console.log(
           window.sessionStorage.getItem("eventID") +
             " is the event on this page!"
         );
-      });
+        }.bind(this));
     }
   
   }});

@@ -186,6 +186,21 @@ io.on("connection", function(socket) {
       });
     }
   });
+    socket.on("sendMatchedPairs", function(event){
+        let matchedPairs = event.matchedPairs;
+        let eventID = event.eventID;
+
+        let currentEvent = events.getEvent(eventID);
+        if(currentEvent.usersMatched == null)
+        {
+            currentEvent.usersMatched = matchedPairs;
+        }
+        else
+        {
+            currentEvent.usersMatched.concat(matchedPairs);
+        }
+        
+    });
 
   //* 'loginUser' is sent by starting page when a user tries to log in
   socket.on("loginUser", function(info) {
