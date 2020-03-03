@@ -166,22 +166,9 @@ io.on("connection", function(socket) {
     events.addEvent(event);
     console.log(events.getEvent(event.eventID));
   });
-  socket.on("joinEvent", function(data) {
-    let event = events.getEvent(data.eventID);
-    let user = data.user;
-    let hasJoined = false;
-    if(event.attended < event.max){
-      events.addUser(event.eventID,user);
-      hasJoined = true;
-      console.log(event);
-    }
-    socket.to("data.user.username").emit("userJoined", {
-      eventID: event.eventID,
-      hasJoined: event.hasJoined,
-    });
 
-  });
 
+  //* send the questionaire to answer for the event
   socket.on("requestQuestions", function(data) {
     console.log(data.eventID);
     let event = events.getEvent(data.eventID);
@@ -189,11 +176,16 @@ io.on("connection", function(socket) {
       questions: event.questions
     });
   });
+
+  //* get the questionaire answers
   socket.on("sendQuestionAnswers", function(data) {
     events.addAnswers(data.eventID, data.questionAnswers);
     let event = events.getEvent(data.eventID);
     console.log(event.questionAnswers);
   });
+  
+  //* let user join an exisiting event if attended < 
+  //TODO Need to add error handling if event is full
   socket.on("joinEvent", function(data) {
     let event = events.getEvent(data.eventID);
     let user = data.user;
@@ -210,8 +202,10 @@ io.on("connection", function(socket) {
     });
   });
 
+  //* get the event ID of event and send it back
   socket.on("requestEvent", function(eventID) {
     let event = events.getEvent(eventID.eventID);
+
     socket.join(eventID.eventID);
     if (eventID.eventID != null) {
       io.to(eventID.eventID).emit("getEvent", {
@@ -301,6 +295,8 @@ io.on("connection", function(socket) {
     console.log(roomSessions);
   });
 
+
+  //* checks username validity
   socket.on("isValidUsername", function(username) {
     if (accounts.getAccount(username.username) == null) {
       socket.emit("validUsername", {

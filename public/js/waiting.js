@@ -42,8 +42,8 @@ const vm = new Vue({
     sleep: function(ms) {
       return new Promise(resolve => setTimeout(resolve, ms));
     },
-    goToSite: function (link){ //" goToSite('./user/join.html')"
-          
+
+    goToSite: function (link){       
     window.location.href = link
 },
   },
