@@ -37,8 +37,6 @@ const vm = new Vue({
 		    this.moveUserToPair(this.users[i], pairIndex, seat);
 		}
 	    }
-
-      this.sendMatchedPairs();
 	},
 
 	moveUserToPair: function(user, pairIndex, seat) {
@@ -105,7 +103,7 @@ const vm = new Vue({
 		    this.onTimesUp();
 		}
 	    }, 1000);
-      
+
 	},
 
 	formatTime: function() {
@@ -116,6 +114,7 @@ const vm = new Vue({
 	    }
 	    return `${m}:${s}`;
 	},
+
   sendMatchedPairs: function(){
       var matched = [];
       let i = 0;
@@ -133,6 +132,7 @@ const vm = new Vue({
       });
 
   },
+
 
     onTimesUp: function() {
       clearInterval(this.timerInterval);

@@ -27,12 +27,14 @@ const vm = new Vue({
         user: this.loggedInUser,
         eventID: this.enteredKey
       });
-      socket.on("userJoined", function(data) {
-        window.sessionStorage.setItem("eventID", "data.eventID");
-        console.log(data.eventID);
-       
-      });
-      this.goToSite("../user/user_question_screen.html");
+      socket.on(
+        "userJoined",
+        function(data) {
+          window.sessionStorage.setItem("eventID", data.eventID);
+          console.log(data.eventID);
+          this.goToSite("../user/user_question_screen.html");
+        }.bind(this)
+      );
     },
     goToSite: function(link) {
       window.location.href = link;
