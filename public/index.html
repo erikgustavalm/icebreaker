@@ -5,9 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" type="text/css" href="css/reset.css" />
     <link rel="stylesheet" type="text/css" href="css/start.css" />
-    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js" defer></script>
-    <script src="/socket.io/socket.io.js" defer></script>
-    <script src="./js/start.js" defer></script>
+    
+
+
+    <link href="./Imgur-Upload/css/style.css" rel="stylesheet" media="screen">
+    <link href="./Imgur-Upload/css/mobile-style.css" rel="stylesheet" media="screen">
+
+   
+    <link rel="shortcut icon" href="./Imgur-Upload/favicon.png">
     <title>My Speed Dating App</title>
   </head>
   <body>
@@ -138,9 +143,10 @@
         <div id="profile" v-if="accountDetails == false">
           <h2 id="profile-details-title">Your Profile</h2>
           <a href="#" v-on:click="abort()" class="close"></a>
-          <button v-on:click="addPicture()" type="submit" id="addPicture">
-            <img id="profile-pic" src="./img/upload_picture.png" />
-          </button>
+          
+          <div class="dropzone">
+            <div class="info"></div>
+          </div>
           <form>
             <input
               type="text"
@@ -193,5 +199,10 @@
         </div>
       </div>
     </div>
+    <script type="text/javascript" src="./Imgur-Upload/js/imgur.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script type="text/javascript" src="/socket.io/socket.io.js"></script>
+    <script type="text/javascript" src="./js/start.js"></script>
+     
   </body>
 </html>
