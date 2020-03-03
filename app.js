@@ -164,6 +164,22 @@ io.on("connection", function(socket) {
     }
 
     events.addEvent(event);
+    console.log(events.getEvent(event.eventID));
+  });
+  socket.on("joinEvent", function(data) {
+    let event = events.getEvent(data.eventID);
+    let user = data.user;
+    let hasJoined = false;
+    if(event.attended < event.max){
+      events.addUser(event.eventID,user);
+      hasJoined = true;
+      console.log(event);
+    }
+    socket.to("data.user.username").emit("userJoined", {
+      eventID: event.eventID,
+      hasJoined: event.hasJoined,
+    });
+
   });
 
   socket.on("requestQuestions", function(data) {
