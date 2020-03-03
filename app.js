@@ -104,6 +104,10 @@ Array.prototype.addMatchingPair = function(eventID, matchedPair) {
   let event = events.getEvent(eventID);
   event.usersMatched.push(matchedPair);
 };
+Array.prototype.addAnswers = function(eventID, answers) {
+  let event = events.getEvent(eventID);
+  event.questionAnswers.push(answers);
+};
 
 //! SOCKET.IO SERVER CODE HERE
 
@@ -125,6 +129,7 @@ io.on("connection", function(socket) {
       users: [], // array of 19 users defined in the JSON file. Manager could add these during mount for our bots. Joining a room also adds it
       questions: [],
       icebreakers: [],
+      questionAnswers: [],
       max: 20,
       attended: 19, //starts at 20 because of our bots? Else manager should send attended count.
       tables: [], //seats should be updated by manager only when done, no need to update it on every drag
@@ -175,6 +180,34 @@ io.on("connection", function(socket) {
       hasJoined: event.hasJoined,
     });
 
+  });
+
+  socket.on("requestQuestions", function(data) {
+    console.log(data.eventID);
+    let event = events.getEvent(data.eventID);
+    io.to(data.roomId).emit("sendQuestions", {
+      questions: event.questions
+    });
+  });
+  socket.on("sendQuestionAnswers", function(data) {
+    events.addAnswers(data.eventID, data.questionAnswers);
+    let event = events.getEvent(data.eventID);
+    console.log(event.questionAnswers);
+  });
+  socket.on("joinEvent", function(data) {
+    let event = events.getEvent(data.eventID);
+    let user = data.user;
+    let hasJoined = false;
+    if (event.attended < event.max) {
+      events.addUser(event.eventID, user);
+      hasJoined = true;
+      console.log(event);
+    }
+
+    io.to(user.username).emit("userJoined", {
+      eventID: event.eventID,
+      joined: hasJoined
+    });
   });
 
   socket.on("requestEvent", function(eventID) {
