@@ -129,7 +129,6 @@ io.on("connection", function(socket) {
       users: [], // array of 19 users defined in the JSON file. Manager could add these during mount for our bots. Joining a room also adds it
       questions: [],
       icebreakers: [],
-      questionAnswers: [],
       max: 20,
       attended: 19, //starts at 20 because of our bots? Else manager should send attended count.
       tables: [], //seats should be updated by manager only when done, no need to update it on every drag
@@ -173,10 +172,16 @@ io.on("connection", function(socket) {
       questions: event.questions
     });
   });
-  socket.on("sendQuestionAnswers", function(data) {
-    events.addAnswers(data.eventID, data.questionAnswers);
-    let event = events.getEvent(data.eventID);
-    console.log(event.questionAnswers);
+  socket.on("sendAnswers", function(data) {
+    console.log(data.user);
+    console.log(data.answers);
+    let user = accounts.getAccount(data.user);
+    let newAnswers = data.answers;
+    for (let i = 0; i < data.answers.length; i++) {
+      user.answers.push(newAnswers[i]);
+    }
+    console.log("The answers are:");
+    console.log(user.answers);
   });
   socket.on("joinEvent", function(data) {
     let event = events.getEvent(data.eventID);

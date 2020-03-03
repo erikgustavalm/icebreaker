@@ -8,6 +8,7 @@ let accounts = [
     gender: "male",
     imgPath: "../img/index.png",
     matches: [],
+    answers: [],
     loggedIn: false,
   },
   {
@@ -19,6 +20,7 @@ let accounts = [
     gender: "male",
     imgPath: "../img/index.png",
     matches: [],
+    answers: [],
     loggedIn: false,
   },
   {
@@ -30,6 +32,7 @@ let accounts = [
     gender: "male",
     imgPath: "../img/index.png",
     matches: [],
+    answers: [],
     loggedIn: false,
   },
   {
@@ -41,6 +44,7 @@ let accounts = [
     gender: "make",
     imgPath: "../img/index.png",
     matches: [],
+    answers: [],
     loggedIn: false,
   },
   {
@@ -52,6 +56,7 @@ let accounts = [
     gender: "male",
     imgPath: "../img/index.png",
     matches: [],
+    answers: [],
     loggedIn: false,
   },
   {
@@ -63,6 +68,7 @@ let accounts = [
     gender: "male",
     imgPath: "../img/index.png",
     matches: [],
+    answers: [],
     loggedIn: false,
   },
   {
@@ -74,6 +80,7 @@ let accounts = [
     gender: "male",
     imgPath: "../img/index.png",
     matches: [],
+    answers: [],
     loggedIn: false,
   },
   {
@@ -85,6 +92,7 @@ let accounts = [
     gender: "male",
     imgPath: "../img/index.png",
     matches: [],
+    answers: [],
     loggedIn: false,
   },
   {
@@ -96,6 +104,7 @@ let accounts = [
     gender: "male",
     imgPath: "../img/index.png",
     matches: [],
+    answers: [],
     loggedIn: false,
   },
   {
@@ -107,6 +116,7 @@ let accounts = [
     gender: "male",
     imgPath: "../img/index.png",
     matches: [],
+    answers: [],
     loggedIn: false,
   },
   {
@@ -118,6 +128,7 @@ let accounts = [
     gender: "female",
     imgPath: "../img/index.png",
     matches: [],
+    answers: [],
     loggedIn: false,
   },
   {
@@ -129,6 +140,7 @@ let accounts = [
     gender: "female",
     imgPath: "../img/index.png",
     matches: [],
+    answers: [],
     loggedIn: false,
   },
   {
@@ -140,6 +152,7 @@ let accounts = [
     gender: "female",
     imgPath: "../img/index.png",
     matches: [],
+    answers: [],
     loggedIn: false,
   },
   {
@@ -162,6 +175,7 @@ let accounts = [
     gender: "female",
     imgPath: "../img/index.png",
     matches: [],
+    answers: [],
     loggedIn: false,
   },
   {
@@ -173,6 +187,7 @@ let accounts = [
     gender: "female",
     imgPath: "../img/index.png",
     matches: [],
+    answers: [],
     loggedIn: false,
   },
   {
@@ -184,6 +199,7 @@ let accounts = [
     gender: "female",
     imgPath: "../img/index.png",
     matches: [],
+    answers: [],
     loggedIn: false,
   },
   {
@@ -195,6 +211,7 @@ let accounts = [
     gender: "female",
     imgPath: "../img/index.png",
     matches: [],
+    answers: [],
     loggedIn: false,
   },
   {
@@ -206,6 +223,7 @@ let accounts = [
     gender: "female",
     imgPath: "../img/index.png",
     matches: [],
+    answers: [],
     loggedIn: false,
   },
   {
@@ -217,6 +235,7 @@ let accounts = [
     gender: "female",
     imgPath: "../img/index.png",
     matches: [],
+    answers: [],
     loggedIn: false,
   },
   {
@@ -228,6 +247,7 @@ let accounts = [
     gender: "female",
     imgPath: "../img/index.png",
     matches: [],
+    answers: [],
     loggedIn: false,
   },
   {
@@ -239,6 +259,7 @@ let accounts = [
     gender: "male",
     imgPath: "../img/index.png",
     matches: [],
+    answers: [],
     loggedIn: false,
   },
   {
@@ -250,6 +271,7 @@ let accounts = [
     gender: "female",
     imgPath: "../img/index.png",
     matches: [],
+    answers: [],
     loggedIn: false,
   }
 ];
