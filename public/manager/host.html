@@ -77,7 +77,8 @@
                class="manager-list-slot"
                draggable="true"
                ondragstart="onDragStart(event)"
-	       name="profile">
+	       name="profile"
+	       user="user">
 	    <div class="manager-profile-listview">
 	      <div
 		pointer-events="none"
@@ -122,7 +123,8 @@
     <div id="manager-pairs-wrapper">
 	<div v-for="table in tables" class="manager-table" >
 	  <div
-	    :id="table.id1"
+	    :id="'' + table.tableID + '-1' "
+	    
 	    name="profile-wrapper-slot"
 	    :locked=false
 	    class="manager-slot-empty"
@@ -132,7 +134,8 @@
 	    <!-- <h2>{{table.id1}}</h2> -->
 	  </div>
 	  <div
-	    :id="table.id2"
+	    :id="'' + table.tableID + '-2' "
+	    
 	    name="profile-wrapper-slot"
 	    :locked=false
 	    class="manager-slot-empty"
