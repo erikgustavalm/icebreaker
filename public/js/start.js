@@ -12,14 +12,17 @@ const vm = new Vue({
     registrationHidden: true,
     accountDetails: true,
     incorrectLogin: false,
-    newUser: {
+      newUser: {
+	  showInfo: false,
+	  matched: false,
+	  id: "",
       username: "",
       password: "",
       email: "",
       name: "",
       age: "",
       gender: "",
-      imgPath: "",
+      img: "",
       matches: []
     },
     loggedInUser: {}
@@ -208,8 +211,8 @@ const vm = new Vue({
     },
     addPicture: function() {
       let image = document.getElementById("profile-pic");
-      this.newUser.imgPath = "./img/testPic.jpeg";
-      image.src = this.newUser.imgPath;
+      this.newUser.img = "./img/testPic.jpeg";
+      image.src = this.newUser.img;
     },
     showMatches: function() {
       this.overlay();

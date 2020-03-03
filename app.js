@@ -191,9 +191,14 @@ io.on("connection", function(socket) {
     let user = data.user;
     let hasJoined = false;
     if (event.attended < event.max) {
-      events.addUser(event.eventID, user);
-      hasJoined = true;
-      console.log(event);
+	events.addUser(event.eventID, user);
+	hasJoined = true;
+	console.log(event);
+	let id = event.users.length - 1;
+	let userId = "user" + id;
+	user.id = userId;
+	
+	socket.to(event.eventID).emit("onUserJoin", {user:user});
     }
 
     io.to(user.username).emit("userJoined", {
