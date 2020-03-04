@@ -3,7 +3,8 @@ const socket = io();
 
 const vm = new Vue({
   el: "#manager-wrapper",
-  data: {
+    data: {
+        eventID: "",    
     tables: tables,
     users: null,
     session: { session_name: "" },
@@ -104,6 +105,7 @@ const vm = new Vue({
 		    this.onTimesUp();
 		}
 	    }, 1000);
+
 	},
 
 	formatTime: function() {
@@ -114,6 +116,25 @@ const vm = new Vue({
 	    }
 	    return `${m}:${s}`;
 	},
+
+  sendMatchedPairs: function(){
+      var matched = [];
+      let i = 0;
+      for(let table of this.tables)
+      {
+          matched[i] = [table.seat1.id, table.seat2.id];
+          i++;
+      }
+
+      console.log(matched);
+      console.log(this.eventID);
+      socket.emit("sendMatchedPairs", {
+          matchedPairs: matched,
+          eventID: this.eventID
+      });
+
+  },
+
 
     onTimesUp: function() {
       clearInterval(this.timerInterval);
