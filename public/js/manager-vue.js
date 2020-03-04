@@ -39,6 +39,10 @@ const vm = new Vue({
 		    this.moveUserToPair(this.users[i], pairIndex, seat);
 		}
 	    }
+
+	    socket.emit("onMatchingDone", {
+		table: this.table,
+	    });
 	},
 
 	moveUserToPair: function(user, pairIndex, seat) {
@@ -189,5 +193,4 @@ const vm = new Vue({
       socket.on("onUserJoin", function(data){
 	  this.users.push(data.user);
       }.bind(this));
-  
   }});
