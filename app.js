@@ -177,11 +177,23 @@ io.on("connection", function(socket) {
     });
   });
 
-  //* get the questionaire answers
-  socket.on("sendQuestionAnswers", function(data) {
-    events.addAnswers(data.eventID, data.questionAnswers);
+  socket.on("requestQuestions", function(data) {
+    console.log(data.eventID);
     let event = events.getEvent(data.eventID);
-    console.log(event.questionAnswers);
+    io.to(data.roomId).emit("sendQuestions", {
+      questions: event.questions
+    });
+  });
+  socket.on("sendAnswers", function(data) {
+    console.log(data.user);
+    console.log(data.answers);
+    let user = accounts.getAccount(data.user);
+    let newAnswers = data.answers;
+    for (let i = 0; i < data.answers.length; i++) {
+      user.answers.push(newAnswers[i]);
+    }
+    console.log("The answers are:");
+    console.log(user.answers);
   });
   
   //* let user join an exisiting event if attended < 
@@ -206,6 +218,7 @@ io.on("connection", function(socket) {
       joined: hasJoined
     });
   });
+
 
   //* get the event ID of event and send it back
   socket.on("requestEvent", function(eventID) {

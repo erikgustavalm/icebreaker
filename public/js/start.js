@@ -22,6 +22,8 @@ const vm = new Vue({
       name: "",
       age: "",
       gender: "",
+
+      answers: [],
       img: "",
       matches: []
     },
