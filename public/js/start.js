@@ -16,14 +16,15 @@ const vm = new Vue({
 	  showInfo: false,
 	  matched: false,
 	  id: "",
-      username: "",
-      password: "",
-      email: "",
-      name: "",
-      age: "",
-      gender: "",
-      img: "",
-      matches: []
+	  username: "",
+	  password: "",
+	  email: "",
+	  name: "",
+	  age: "",
+	  gender: "",
+	  answers: [],
+	  img: "",
+	  matches: []
     },
     loggedInUser: {}
   },

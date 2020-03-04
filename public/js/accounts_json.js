@@ -12,6 +12,7 @@ let accounts = [
 	img: "../img/index.png",
 	matches: [],
 	loggedIn: false,
+	answers: []
     },
     {
 	showInfo: false,
@@ -26,6 +27,7 @@ let accounts = [
 	img: "../img/index.png",
 	matches: [],
 	loggedIn: false,
+	answers: []
     },
     {
 	showInfo: false,
@@ -40,6 +42,7 @@ let accounts = [
 	img: "../img/index.png",
 	matches: [],
 	loggedIn: false,
+	answers: []
     },
     {
 	showInfo: false,
@@ -54,6 +57,7 @@ let accounts = [
 	img: "../img/index.png",
 	matches: [],
 	loggedIn: false,
+	answers: []
     },
     {
 	showInfo: false,
@@ -68,6 +72,7 @@ let accounts = [
 	img: "../img/index.png",
 	matches: [],
 	loggedIn: false,
+	answers: []
     },
     {
 	showInfo: false,
@@ -82,6 +87,7 @@ let accounts = [
 	img: "../img/index.png",
 	matches: [],
 	loggedIn: false,
+	answers: []
     },
     {
 	showInfo: false,
@@ -96,6 +102,7 @@ let accounts = [
 	img: "../img/index.png",
 	matches: [],
 	loggedIn: false,
+	answers: []
     },
     {
 	showInfo: false,
@@ -110,6 +117,7 @@ let accounts = [
 	img: "../img/index.png",
 	matches: [],
 	loggedIn: false,
+	answers: []
     },
     {
 	showInfo: false,
@@ -124,6 +132,7 @@ let accounts = [
 	img: "../img/index.png",
 	matches: [],
 	loggedIn: false,
+	answers: []
     },
     {
 	showInfo: false,
@@ -138,6 +147,7 @@ let accounts = [
 	img: "../img/index.png",
 	matches: [],
 	loggedIn: false,
+	answers: []
     },
     {
 	showInfo: false,
@@ -152,6 +162,7 @@ let accounts = [
 	img: "../img/index.png",
 	matches: [],
 	loggedIn: false,
+	answers: []
     },
     {
 	showInfo: false,
@@ -166,6 +177,7 @@ let accounts = [
 	img: "../img/index.png",
 	matches: [],
 	loggedIn: false,
+	answers: []
     },
     {
 	showInfo: false,
@@ -180,6 +192,7 @@ let accounts = [
 	img: "../img/index.png",
 	matches: [],
 	loggedIn: false,
+	answers: []
     },
     {
 	showInfo: false,
@@ -194,6 +207,7 @@ let accounts = [
 	img: "../img/index.png",
 	matches: [],
 	loggedIn: false,
+	answers: []
     },
     {
 	showInfo: false,
@@ -208,6 +222,7 @@ let accounts = [
 	img: "../img/index.png",
 	matches: [],
 	loggedIn: false,
+	answers: []
     },
     {
 	showInfo: false,
@@ -222,6 +237,7 @@ let accounts = [
 	img: "../img/index.png",
 	matches: [],
 	loggedIn: false,
+	answers: []
     },
     {
 	showInfo: false,
@@ -236,6 +252,7 @@ let accounts = [
 	img: "../img/index.png",
 	matches: [],
 	loggedIn: false,
+	answers: []
     },
     {
 	showInfo: false,
@@ -250,6 +267,7 @@ let accounts = [
 	img: "../img/index.png",
 	matches: [],
 	loggedIn: false,
+	answers: []
     },
     {
 	showInfo: false,
@@ -264,6 +282,7 @@ let accounts = [
 	img: "../img/index.png",
 	matches: [],
 	loggedIn: false,
+	answers: []
     },
     {
 	showInfo: false,
@@ -278,6 +297,7 @@ let accounts = [
 	img: "../img/index.png",
 	matches: [],
 	loggedIn: false,
+	answers: []
     },
     {
 	showInfo: false,
@@ -292,6 +312,7 @@ let accounts = [
 	img: "../img/index.png",
 	matches: [],
 	loggedIn: false,
+	answers: []
     },
     {
 	showInfo: false,
@@ -306,6 +327,7 @@ let accounts = [
 	img: "../img/index.png",
 	matches: [],
 	loggedIn: false,
+	answers: []
     },
     {
 	showInfo: false,
@@ -320,7 +342,9 @@ let accounts = [
 	img: "../img/index.png",
 	matches: [],
 	loggedIn: false,
+	answers: []
     }
 ];
 
 exports.totalAccounts = accounts;
+
