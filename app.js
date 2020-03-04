@@ -177,11 +177,23 @@ io.on("connection", function(socket) {
     });
   });
 
-  //* get the questionaire answers
-  socket.on("sendQuestionAnswers", function(data) {
-    events.addAnswers(data.eventID, data.questionAnswers);
+  socket.on("requestQuestions", function(data) {
+    console.log(data.eventID);
     let event = events.getEvent(data.eventID);
-    console.log(event.questionAnswers);
+    io.to(data.roomId).emit("sendQuestions", {
+      questions: event.questions
+    });
+  });
+  socket.on("sendAnswers", function(data) {
+    console.log(data.user);
+    console.log(data.answers);
+    let user = accounts.getAccount(data.user);
+    let newAnswers = data.answers;
+    for (let i = 0; i < data.answers.length; i++) {
+      user.answers.push(newAnswers[i]);
+    }
+    console.log("The answers are:");
+    console.log(user.answers);
   });
   
   //* let user join an exisiting event if attended < 
@@ -191,9 +203,14 @@ io.on("connection", function(socket) {
     let user = data.user;
     let hasJoined = false;
     if (event.attended < event.max) {
-      events.addUser(event.eventID, user);
-      hasJoined = true;
-      console.log(event);
+	events.addUser(event.eventID, user);
+	hasJoined = true;
+	console.log(event);
+	let id = event.users.length - 1;
+	let userId = "user" + id;
+	user.id = userId;
+	
+	socket.to(event.eventID).emit("onUserJoin", {user:user});
     }
 
     io.to(user.username).emit("userJoined", {
@@ -201,6 +218,7 @@ io.on("connection", function(socket) {
       joined: hasJoined
     });
   });
+
 
   //* get the event ID of event and send it back
   socket.on("requestEvent", function(eventID) {
