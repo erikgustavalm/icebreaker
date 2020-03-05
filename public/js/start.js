@@ -20,6 +20,7 @@ const vm = new Vue({
       age: "",
       gender: "",
       imgPath: "",
+      picture: null,
       matches: []
     },
     loggedInUser: {}
@@ -216,6 +217,26 @@ const vm = new Vue({
       this.displayMatches = true;
       console.log("displaying matches!");
     },
+      fileChange: function(event){
+          console.log(event.target.files)
+          if(event.target.files.length > 0)
+          {
+              var reader = new FileReader();
+              var _this = this;
+              reader.onload = function(event2){
+                  _this.newUser.picture = event2.target.result;
+                  console.log(_this.newUser);
+              };
+              reader.readAsArrayBuffer(event.target.files[0]);
+
+              var picReader = new FileReader();
+              picReader.onload = function(event2){
+                  document.getElementById("profile-pic").src = event2.target.result;   
+              };
+              picReader.readAsDataURL(event.target.files[0]);
+          }
+          
+      },
 
     toggleCard: function(card, index) {
       var el = document.getElementById("card-" + index);
