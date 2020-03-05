@@ -209,8 +209,8 @@ const vm = new Vue({
     },
     addPicture: function() {
       let image = document.getElementById("profile-pic");
-      this.newUser.imgPath = "./img/testPic.jpeg";
-      image.src = this.newUser.imgPath;
+      this.newUser.img = "./img/testPic.jpeg";
+      image.src = this.newUser.img;
     },
     showMatches: function() {
       this.overlay();

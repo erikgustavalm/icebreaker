@@ -169,22 +169,38 @@ io.on("connection", function(socket) {
   });
 
 
-  //* send the questionaire to answer for the event
-  socket.on("requestQuestions", function(data) {
-    console.log(data.eventID);
-    let event = events.getEvent(data.eventID);
-    io.to(data.roomId).emit("sendQuestions", {
-      questions: event.questions
+    //* send the questionaire to answer for the event
+    socket.on("requestQuestions", function(data) {
+	console.log(data.eventID);
+	let event = events.getEvent(data.eventID);
+	io.to(data.roomId).emit("sendQuestions", {
+	    questions: event.questions
+	});
     });
-  });
 
-  //* get the questionaire answers
-  socket.on("sendQuestionAnswers", function(data) {
-    events.addAnswers(data.eventID, data.questionAnswers);
-    let event = events.getEvent(data.eventID);
-    console.log(event.questionAnswers);
-  });
-  
+    socket.on("requestQuestions", function(data) {
+	console.log(data.eventID);
+	let event = events.getEvent(data.eventID);
+	io.to(data.roomId).emit("sendQuestions", {
+	    questions: event.questions
+	});
+    });
+    socket.on("sendAnswers", function(data) {
+
+	
+	let event = events.getEvent(data.eventID);
+	let user = accounts.getAccount(data.user);
+	let newAnswers = data.answers;
+	for (let i = 0; i < data.answers.length; i++) {
+	    user.answers.push(newAnswers[i]);
+	}
+	let id = event.users.length - 1;
+	let userId = "user" + id;
+	user.id = userId;
+	
+	socket.to(event.eventID).emit("onUserJoin", {user:user});
+    });
+    
   //* let user join an exisiting event if attended < 
   //TODO Need to add error handling if event is full
   socket.on("joinEvent", function(data) {
@@ -192,9 +208,14 @@ io.on("connection", function(socket) {
     let user = data.user;
     let hasJoined = false;
     if (event.attended < event.max) {
-      events.addUser(event.eventID, user);
-      hasJoined = true;
-      console.log(event);
+	events.addUser(event.eventID, user);
+	hasJoined = true;
+	console.log(event);
+	// let id = event.users.length - 1;
+	// let userId = "user" + id;
+	// user.id = userId;
+	
+	// socket.to(event.eventID).emit("onUserJoin", {user:user});
     }
 
     io.to(user.username).emit("userJoined", {
@@ -202,6 +223,7 @@ io.on("connection", function(socket) {
       joined: hasJoined
     });
   });
+
 
   //* get the event ID of event and send it back
   socket.on("requestEvent", function(eventID) {
@@ -214,6 +236,21 @@ io.on("connection", function(socket) {
       });
     }
   });
+    socket.on("sendMatchedPairs", function(event){
+        let matchedPairs = event.matchedPairs;
+        let eventID = event.eventID;
+
+        let currentEvent = events.getEvent(eventID);
+        if(currentEvent.usersMatched == null)
+        {
+            currentEvent.usersMatched = matchedPairs;
+        }
+        else
+        {
+            currentEvent.usersMatched.concat(matchedPairs);
+        }
+        
+    });
 
   //* 'loginUser' is sent by starting page when a user tries to log in
   socket.on("loginUser", function(info) {

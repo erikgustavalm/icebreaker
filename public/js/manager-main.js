@@ -178,6 +178,7 @@ function onDrop(event) {
 
 function openProfile(event) {
     console.log("openProfile()");
+    console.log(vm.users);
     // if(mouseOverActive != mouseOverCall) return;
     // mouseOverActive = true;
     event.preventDefault();
@@ -190,10 +191,11 @@ function openProfile(event) {
     let gender = document.getElementById("manager-profile-popup-gender");
     let img = document.getElementById("manager-profile-popup-img");
     let index = parseInt(profile.id.substring(4, profile.id.length), 10);
-    img.src = users_json[index].img;
-    name.innerHTML = "Name: " + users_json[index].name;
-    age.innerHTML = "Age: " + users_json[index].age;
-    gender.innerHTML = "Gender: " + users_json[index].gender;
+    console.log(index);
+    img.src = vm.users[index].img;
+    name.innerHTML = "Name: " + vm.users[index].name;
+    age.innerHTML = "Age: " + vm.users[index].age;
+    gender.innerHTML = "Gender: " + vm.users[index].gender;
     
     /* Disable draggable while profile window is active */
     profile.draggable = false;

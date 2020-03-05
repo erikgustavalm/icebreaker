@@ -3,9 +3,10 @@ const socket = io();
 
 const vm = new Vue({
   el: "#manager-wrapper",
-  data: {
+    data: {
+        eventID: "",    
     tables: tables,
-    users: users_json,
+    users: null,
     session: { session_name: "" },
     showHelp: false,
     timerLabel: "START ROUND",
@@ -13,7 +14,9 @@ const vm = new Vue({
     timePassed: 0,
     timeLeft: 0,
     timerInterval: 0,
-    pairs: null
+      pairs: null,
+      event: null
+      
   },
   methods: {
 	autoMatch: function() {
@@ -36,6 +39,10 @@ const vm = new Vue({
 		    this.moveUserToPair(this.users[i], pairIndex, seat);
 		}
 	    }
+
+	    socket.emit("onMatchingDone", {
+		table: this.table,
+	    });
 	},
 
 	moveUserToPair: function(user, pairIndex, seat) {
@@ -102,6 +109,7 @@ const vm = new Vue({
 		    this.onTimesUp();
 		}
 	    }, 1000);
+
 	},
 
 	formatTime: function() {
@@ -112,6 +120,25 @@ const vm = new Vue({
 	    }
 	    return `${m}:${s}`;
 	},
+
+  sendMatchedPairs: function(){
+      var matched = [];
+      let i = 0;
+      for(let table of this.tables)
+      {
+          matched[i] = [table.seat1.id, table.seat2.id];
+          i++;
+      }
+
+      console.log(matched);
+      console.log(this.eventID);
+      socket.emit("sendMatchedPairs", {
+          matchedPairs: matched,
+          eventID: this.eventID
+      });
+
+  },
+
 
     onTimesUp: function() {
       clearInterval(this.timerInterval);
@@ -156,12 +183,14 @@ const vm = new Vue({
       socket.emit("requestEvent", {
         eventID: window.sessionStorage.getItem("eventID")
       });
-      socket.on("getEvent", function(user) {
-        console.log(
-          window.sessionStorage.getItem("eventID") +
-            " is the event on this page!"
-        );
-      });
+	socket.on("getEvent", function(event) {
+	    this.event = event.event;
+	    this.users = this.event.users;
+	}.bind(this)
+		 );
     }
-  
+
+      socket.on("onUserJoin", function(data){
+	  this.users.push(data.user);
+      }.bind(this));
   }});
