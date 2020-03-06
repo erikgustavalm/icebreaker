@@ -251,6 +251,7 @@ const vm = new Vue({
         el.childNodes[2].childNodes[4].classList.remove("toggle-off");
         el.childNodes[2].childNodes[6].classList.remove("toggle-off");
       }
-    }
+    },
+  }
 })
 
