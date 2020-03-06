@@ -99,6 +99,8 @@ const vm = new Vue({
     },
 
     startTimer: function() {
+      console.log("hej");
+      socket.emit("startDateTimer", {});
       this.timerInterval = setInterval(() => {
         this.timePassed = this.timePassed += 1;
         this.timeLeft = this.TIME_LIMIT - this.timePassed;
@@ -123,9 +125,10 @@ const vm = new Vue({
     },
 
     sendMatchedPairs: function() {
-	  console.log(this.tables);
+      console.log(this.tables);
       socket.emit("sendMatchedPairs", {
         matchedPairs: this.tables,
+        eventID: this.eventID
       });
     },
 
@@ -138,30 +141,6 @@ const vm = new Vue({
 
       this.timePassed = 0;
       this.timeLeft = 0;
-    },
-
-    startTimer: function() {
-      this.timerInterval = setInterval(() => {
-        this.timePassed = this.timePassed += 1;
-        this.timeLeft = this.TIME_LIMIT - this.timePassed;
-        this.timerLabel = this.formatTime();
-
-        document.getElementById("manager-round-timer").style.backgroundColor =
-          "#ff3939";
-
-        if (this.timeLeft === 0) {
-          this.onTimesUp();
-        }
-      }, 1000);
-    },
-
-    formatTime: function() {
-      m = Math.floor(this.timeLeft / 60);
-      s = this.timeLeft % 60;
-      if (s < 10) {
-        s = `0${s}`;
-      }
-      return `${m}:${s}`;
     }
   },
   mounted() {
@@ -177,6 +156,7 @@ const vm = new Vue({
         function(event) {
           this.event = event.event;
           this.users = this.event.users;
+          this.eventID = event.event.eventID;
         }.bind(this)
       );
     }

@@ -8,16 +8,44 @@ new Vue({
     timer: null,
     display: null,
     loggedInUser: {},
+    dateImg: "",
+    myDate: {}
   },
-  mounted(){
-    console.log(window.sessionStorage.getItem('roomId'));
-    socket.emit('requestUser', {
-      username: window.sessionStorage.getItem('roomId'),
+  mounted() {
+    socket.emit("requestUser", {
+      username: window.sessionStorage.getItem("roomId")
     });
-    socket.on('getUser', function(user){
-      this.loggedInUser = user.data;
-      console.log(this.loggedInUser.username + " is logged in on this page");
-    }.bind(this));
+    socket.on(
+      "getUser",
+      function(user) {
+        this.loggedInUser = user.data;
+        console.log(this.loggedInUser.username + " is logged in on this page");
+      }.bind(this)
+    );
+    socket.emit("requestDate", {
+      username: this.loggedInUser.username,
+      eventID: window.sessionStorage.getItem("eventID")
+    });
+    socket.on(
+      "yourDate",
+      function(data) {
+        console.log("hej");
+        if (data.seat.seat1.username === this.loggedInUser.username) {
+          this.myDate = data.seat.seat2;
+        } else {
+          this.myDate = data.seat.seat1;
+        }
+        console.log("MY DATE:");
+        console.log(this.myDate);
+        this.dateImg = this.myDate.img;
+      }.bind(this)
+    );
+    socket.on(
+      "startTimer",
+      function(data) {
+        this.startTimer();
+      }.bind(this)
+    );
   },
   methods: {
     startTimer: function() {
@@ -49,8 +77,5 @@ new Vue({
       clearInterval(this.timer);
       window.location.href = link;
     }
-  },
-  created() {
-    this.startTimer();
   }
 });

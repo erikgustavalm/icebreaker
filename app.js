@@ -168,6 +168,11 @@ io.on("connection", function(socket) {
     console.log(events.getEvent(event.eventID));
   });
 
+  //* start date timer
+  socket.on("startDateTimer", function(data) {
+    console.log("in timer!");
+    io.emit("startTimer", {});
+  });
   //* send the questionaire to answer for the event
   socket.on("requestQuestions", function(data) {
     let event = events.getEvent(data.eventID);
@@ -176,15 +181,30 @@ io.on("connection", function(socket) {
     });
   });
 
-  //* send the icebreakers to show whilst waiting
-  socket.on('requestIcebreakers', function(data){
+  //*send correct date to dating screen
+  socket.on("requestDate", function(data) {
     let event = events.getEvent(data.eventID);
-    console.log(event);
-    console.log(data.roomId);
+    let matchedPairs = event.tables;
+    for (let i = 0; i < matchedPairs.length; i++) {
+      const userRoom1 = matchedPairs[i].seat1.username;
+      const userRoom2 = matchedPairs[i].seat2.username;
+      console.log(userRoom1);
+      console.log(userRoom2);
+      io.to(userRoom1).emit("yourDate", {
+        seat: matchedPairs[i]
+      });
+      io.to(userRoom2).emit("yourDate", {
+        seat: matchedPairs[i]
+      });
+    }
+  });
+  //* send the icebreakers to show whilst waiting
+  socket.on("requestIcebreakers", function(data) {
+    let event = events.getEvent(data.eventID);
     io.to(data.roomId).emit("sendIcebreakers", {
-      icebreakers: event.icebreakers,
+      icebreakers: event.icebreakers
     });
-  })
+  });
 
   socket.on("sendAnswers", function(data) {
     let event = events.getEvent(data.eventID);
@@ -235,7 +255,9 @@ io.on("connection", function(socket) {
   });
 
   socket.on("sendMatchedPairs", function(data) {
+    let event = events.getEvent(data.eventID);
     let matchedPairs = data.matchedPairs;
+    event.tables = matchedPairs;
 
     for (let i = 0; i < matchedPairs.length; i++) {
       const userRoom1 = matchedPairs[i].seat1.username;
@@ -316,10 +338,6 @@ io.on("connection", function(socket) {
     }
   });
 
-
-    
-
-
   //* When user wants to log out we remove room id from roomSessions and
   //* set online status to false in accounts
   socket.on("logoutUser", function(user) {
@@ -351,12 +369,17 @@ io.on("connection", function(socket) {
   socket.on("createdUser", function(acc) {
     accounts.addAccount(acc.account);
     console.log("Created a new account:");
-      console.log(acc.account.picture);
-      fs.writeFile("public/uploads/profile_pictures/"+ acc.account.username + ".jpeg", acc.account.picture, {encoding: "binary"}, function(error){console.log(error)})
-      
+    console.log(acc.account.picture);
+    fs.writeFile(
+      "public/uploads/profile_pictures/" + acc.account.username + ".jpeg",
+      acc.account.picture,
+      { encoding: "binary" },
+      function(error) {
+        console.log(error);
+      }
+    );
   });
 });
-
 
 /* eslint-disable-next-line no-unused-vars */
 const server = http.listen(app.get("port"), function() {
