@@ -181,23 +181,6 @@ io.on("connection", function(socket) {
     });
   });
 
-  //*send correct date to dating screen
-  socket.on("requestDate", function(data) {
-    let event = events.getEvent(data.eventID);
-    let matchedPairs = event.tables;
-    for (let i = 0; i < matchedPairs.length; i++) {
-      const userRoom1 = matchedPairs[i].seat1.username;
-      const userRoom2 = matchedPairs[i].seat2.username;
-      console.log(userRoom1);
-      console.log(userRoom2);
-      io.to(userRoom1).emit("yourDate", {
-        seat: matchedPairs[i]
-      });
-      io.to(userRoom2).emit("yourDate", {
-        seat: matchedPairs[i]
-      });
-    }
-  });
   //* send the icebreakers to show whilst waiting
   socket.on("requestIcebreakers", function(data) {
     let event = events.getEvent(data.eventID);
