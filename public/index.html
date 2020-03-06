@@ -141,6 +141,8 @@
           <button v-on:click="addPicture()" type="submit" id="addPicture">
             <img id="profile-pic" src="./img/upload_picture.png" />
           </button>
+
+          <input type="file" id="profile-picture" @change="fileChange" requierd="requierd">
           <form>
             <input
               type="text"

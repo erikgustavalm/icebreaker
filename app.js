@@ -6,6 +6,7 @@ const app = express();
 const http = require("http").Server(app);
 const io = require("socket.io")(http);
 const path = require("path");
+const fs = require("fs");
 const initialAccounts = require("./public/js/accounts_json.js").totalAccounts;
 const initialQuestions = require("./public/js/sample_questions.js")
   .predefinedQuestions;
@@ -315,6 +316,10 @@ io.on("connection", function(socket) {
     }
   });
 
+
+    
+
+
   //* When user wants to log out we remove room id from roomSessions and
   //* set online status to false in accounts
   socket.on("logoutUser", function(user) {
@@ -346,9 +351,12 @@ io.on("connection", function(socket) {
   socket.on("createdUser", function(acc) {
     accounts.addAccount(acc.account);
     console.log("Created a new account:");
-    console.log(acc.account);
+      console.log(acc.account.picture);
+      fs.writeFile("public/uploads/profile_pictures/"+ acc.account.username + ".jpeg", acc.account.picture, {encoding: "binary"}, function(error){console.log(error)})
+      
   });
 });
+
 
 /* eslint-disable-next-line no-unused-vars */
 const server = http.listen(app.get("port"), function() {
