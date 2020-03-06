@@ -216,7 +216,7 @@ io.on("connection", function(socket) {
     let id = event.users.length - 1;
     let userId = "user" + id;
     user.id = userId;
-
+    console.log(user);
     socket.to(event.eventID).emit("onUserJoin", { user: user });
   });
 

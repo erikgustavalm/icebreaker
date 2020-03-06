@@ -19,7 +19,7 @@ const vm = new Vue({
       name: "",
       age: "",
       gender: "",
-      imgPath: "",
+      img: "",
       picture: null,
       matches: [],
       answers:[],

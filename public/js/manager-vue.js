@@ -116,8 +116,8 @@ const vm = new Vue({
     },
 
     formatTime: function() {
-      m = Math.floor(this.timeLeft / 60);
-      s = this.timeLeft % 60;
+      var m = Math.floor(this.timeLeft / 60);
+      var s = this.timeLeft % 60;
       if (s < 10) {
         s = `0${s}`;
       }
