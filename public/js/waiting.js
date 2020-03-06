@@ -12,7 +12,8 @@ const vm = new Vue({
     icebreakerIndex: 0,
     loggedInUser: {},
     wait: true,
-    overlayOff: true
+    overlayOff: true,
+    toggleHelp: false,
   },
   mounted() {
     socket.emit("requestUser", {
@@ -69,18 +70,25 @@ const vm = new Vue({
       return new Promise(resolve => setTimeout(resolve, ms));
     },
     setTable: function(data) {
+      document.getElementById("table-wrapper").style.display = "flex";
       var seat = document.getElementById(data.seat.tableID);
+
       seat.classList.add("colorIn"); 
+      var p = document.createElement("p");
+      p.innerHTML = data.seat.tableID;
+      seat.appendChild(p);
 
-      if (data.seat.seat1.username === this.loggedInUser.username) {
-
-        
-      } else {
-      }
     },
 
     goToSite: function(link) {
       window.location.href = link;
+    },
+    showInfo: function(){
+      if(this.toggleHelp == false){
+        this.toggleHelp = true;
+      }else {
+        this.toggleHelp = false;
+      }
     }
   },
   created() {
