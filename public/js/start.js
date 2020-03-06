@@ -21,7 +21,8 @@ const vm = new Vue({
       gender: "",
       imgPath: "",
       picture: null,
-      matches: []
+      matches: [],
+      answers:[],
     },
     loggedInUser: {}
   },
