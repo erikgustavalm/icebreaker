@@ -6,8 +6,7 @@ const vm = new Vue({
   data: {
     questionlist: [],
     answerArray: [], // Här finns alla svar på frågorna, inkulsive open ended som sista.
-    loggedInUser: {},
-    answerObj: { user: "", answers: [] }
+    loggedInUser: {}
   },
   mounted() {
     console.log(window.sessionStorage.getItem("roomId"));
@@ -29,7 +28,6 @@ const vm = new Vue({
           "sendQuestions",
           function(q) {
             this.questionlist = q.questions;
-
           }.bind(this)
         );
       }.bind(this)
@@ -77,17 +75,15 @@ const vm = new Vue({
       }
 
       if (validInput) {
-        this.answerObj.user = this.loggedInUser.username;
-        for (let i = 0; i < this.answerArray.length; i++) {
-          this.answerObj.answers[i] = this.answerArray[i];
-        }
-        console.log(this.answerObj);
+        console.log(this.answerArray);
+        console.log(this.loggedInUser.username);
+        socket.emit("sendAnswers", {
+          answers: this.answerArray,
+            user: this.loggedInUser.username,
+	    eventID:  window.sessionStorage.getItem("eventID")
 
-        socket.emit("sendQuestionAnswers", {
-          questionAnswers: this.answerObj,
-          eventID: window.sessionStorage.getItem("eventID")
         });
-        //this.goToSite("../user/waiting.html");
+        this.goToSite("../user/waiting.html");
       }
     },
 

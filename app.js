@@ -167,24 +167,39 @@ io.on("connection", function(socket) {
     console.log(events.getEvent(event.eventID));
   });
 
-
   //* send the questionaire to answer for the event
   socket.on("requestQuestions", function(data) {
-    console.log(data.eventID);
     let event = events.getEvent(data.eventID);
     io.to(data.roomId).emit("sendQuestions", {
       questions: event.questions
     });
   });
 
-  //* get the questionaire answers
-  socket.on("sendQuestionAnswers", function(data) {
-    events.addAnswers(data.eventID, data.questionAnswers);
+  //* send the icebreakers to show whilst waiting
+  socket.on('requestIcebreakers', function(data){
     let event = events.getEvent(data.eventID);
-    console.log(event.questionAnswers);
+    console.log(event);
+    console.log(data.roomId);
+    io.to(data.roomId).emit("sendIcebreakers", {
+      icebreakers: event.icebreakers,
+    });
+  })
+
+  socket.on("sendAnswers", function(data) {
+    let event = events.getEvent(data.eventID);
+    let user = accounts.getAccount(data.user);
+    let newAnswers = data.answers;
+    for (let i = 0; i < data.answers.length; i++) {
+      user.answers.push(newAnswers[i]);
+    }
+    let id = event.users.length - 1;
+    let userId = "user" + id;
+    user.id = userId;
+
+    socket.to(event.eventID).emit("onUserJoin", { user: user });
   });
-  
-  //* let user join an exisiting event if attended < 
+
+  //* let user join an exisiting event if attended <
   //TODO Need to add error handling if event is full
   socket.on("joinEvent", function(data) {
     let event = events.getEvent(data.eventID);
@@ -194,6 +209,10 @@ io.on("connection", function(socket) {
       events.addUser(event.eventID, user);
       hasJoined = true;
       console.log(event);
+      // let id = event.users.length - 1;
+      // let userId = "user" + id;
+      // user.id = userId;
+      // socket.to(event.eventID).emit("onUserJoin", {user:user});
     }
 
     io.to(user.username).emit("userJoined", {
@@ -210,6 +229,22 @@ io.on("connection", function(socket) {
     if (eventID.eventID != null) {
       io.to(eventID.eventID).emit("getEvent", {
         event: event
+      });
+    }
+  });
+
+  socket.on("sendMatchedPairs", function(data) {
+    let matchedPairs = data.matchedPairs;
+
+    for (let i = 0; i < matchedPairs.length; i++) {
+      const userRoom1 = matchedPairs[i].seat1.username;
+      const userRoom2 = matchedPairs[i].seat2.username;
+
+      socket.to(userRoom1).emit("yourDate", {
+        seat: matchedPairs[i]
+      });
+      socket.to(userRoom2).emit("yourDate", {
+        seat: matchedPairs[i]
       });
     }
   });
@@ -294,7 +329,6 @@ io.on("connection", function(socket) {
     console.log("All created rooms: ");
     console.log(roomSessions);
   });
-
 
   //* checks username validity
   socket.on("isValidUsername", function(username) {
