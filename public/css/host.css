@@ -118,6 +118,7 @@ body {
     user-select: none;
     border-radius: 50%;
 }
+
 .manager-slot-hover {
     border: 0.3vh dashed #fe3939;
 }

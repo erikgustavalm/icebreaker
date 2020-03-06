@@ -1,4 +1,5 @@
 // Here we write json and functionalities.
+
 let tables = [
     {
 	tableID: 1,
@@ -70,6 +71,7 @@ function unlockSlot(slot){
     slot.setAttribute('locked', false);
 }
 
+
 function onDragStart(event) {
 
     if(event.target == null){
@@ -118,6 +120,7 @@ function onDragExit(event) {
 function onDrop(event) {
     event.preventDefault();
     const id = event.dataTransfer.getData("text");
+
     const draggableElement = document.getElementById(id);
 
 
@@ -175,6 +178,7 @@ function onDrop(event) {
     }
     dropzone.appendChild(draggableElement);
 }
+
 
 function openProfile(event) {
     console.log("openProfile()");

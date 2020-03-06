@@ -22,8 +22,7 @@ body {
 #join-room-button,
 #host-room-button,
 #user-account-button,
-#user-matches-button,
-#user-logout-button {
+#user-matches-button {
   width: 400px;
   height: 2em;
   background-color: #fff;
@@ -37,10 +36,6 @@ body {
 #user-matches-button,
 #user-account-button {
   background-color: #9bcae1;
-}
-
-#user-logout-button {
-  background-color: #e19ba7;
 }
 
 #app-buttons-wrapper {
@@ -75,7 +70,7 @@ body {
   background-color: #fff;
 }
 
-.overlay {
+#account-section {
   position: fixed;
   width: 100%;
   height: 100%;
@@ -84,7 +79,7 @@ body {
   right: 0;
   bottom: 0;
   background-color: #fff;
-  opacity: 0.75;
+  opacity: 0.5;
   z-index: 2;
 }
 
@@ -157,8 +152,7 @@ body {
   #join-room-button,
   #host-room-button,
   #user-account-button,
-  #user-matches-button,
-  #user-logout-button {
+  #user-matches-button {
     width: 340px;
     margin: 10px;
   }
