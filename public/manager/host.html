@@ -7,22 +7,126 @@
     <title>Icebreaker manager</title>
     <link rel="stylesheet" type="text/css" href="../css/reset.css" />
     <link rel="stylesheet" type="text/css" href="../css/host.css" />
-
+	<script src="/socket.io/socket.io.js" ></script>
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js" defer></script>
     <script src="../js/users_json.js" defer></script>
     <script src="../js/manager-main.js" defer></script>
     <script src="../js/manager-vue.js" defer></script>
+    <script src="https://kit.fontawesome.com/a076d05399.js" defer></script>
   </head>
   <body>
-    <div id="manager-wrapper">
-      <div id="manager-user-list-wrapper">
-	manager-user-list
+    <div
+      id="manager-profile-popup"
+      onmouseleave="closeProfile(event)"
+      onclick="closeProfile(event)"
+      class="manager-profile-popup"
+      ondragstart="skipDrag(event)">
+      <div>
+	<div
+	  onclick="closeProfile(event, false)"
+	  class="manager-profile-popup-close">
+	  +
+	</div>
+	<img
+	  draggable="false"
+	  id="manager-profile-popup-img"
+	  style="width:80%; height:50%; border-radius: 50%; display: none;"> 
+	<p id="manager-profile-popup-name"> </p>
+	<p id="manager-profile-popup-age"> </p>
+	<p id="manager-profile-popup-gender"> </p>
+	<p></p>
       </div>
+    </div>
+    <div id="manager-wrapper"
+	 draggable="false">
+      <div id="manager-user-list-wrapper"
+	   ondragover="onDragOver(event)"
+	   ondragexit="onDragExit(event)"
+	   ondrop="onDrop(event)">
 
-      <div id="manager-pairs-wrapper">
+	<div
+	  v-if="showHelp"
+	  v-on:click="switchShowHelp"
+	  id="manager-help-overlay"
+	  >
+	</div>
+	<div
+	  v-if="showHelp"
+	  id="manager-help"
+	  >
+	  <h2>HELP</h2>
+	  <h1>Matching</h1>
+	  <p>
+	    Pairs seated at the same table is consider a date. If you dont wish to do the matching yourself you can click on the auto matching button, which will pair the users toghether automatically.
+	  </p>
+
+	  <h1>Drag & Drop</h1>
+	  <p>
+	    Drag profiles from the listview out to the tableview to match them. You can also swap two profiles by drag and drop one of them over the other.
+	  </p>
+
+	  <h1>Starting timer</h1>
+	  <p>
+	    Start the timer and see how long time is left of the current dating round.
+	  </p>
+	</div>
+	<div id="manager-user-list-wrapper">
+	  <div v-for="user in users"
+               :id="user.id"
+	       onclick="openProfile(event)"
+               class="manager-list-slot"
+               draggable="true"
+               ondragstart="onDragStart(event)"
+	       name="profile"
+	       user="user">
+	    <div class="manager-profile-listview">
+	      <div
+		pointer-events="none"
+		draggable="false"
+		class="manager-profile-listview-name"
+		name="profile-name"
+		>
+		{{ user.name }}
+	      </div>
+	      <div
+		pointer-events="none"
+		draggable="false"
+		class="manager-profile-listview-age"
+		name="profile-age">
+		{{ user.age }}
+	      </div>
+	      <div
+		v-if="user.gender == 'male'"
+		pointer-events="none"
+		draggable="false"
+		class="manager-profile-listview-gender fas fa-mars"
+		name="profile-gender">
+	      </div>
+	      <div
+		v-else
+		pointer-events="none"
+		draggable="false"
+		class="manager-profile-listview-gender fas fa-venus"
+		name="profile-gender">
+	      </div>
+	    </div>
+	    <img
+		:src="user.img"
+		class="manager-profile-wrapperview"
+		pointer-events="none"
+		draggable="false">
+	      <!-- <p onclick="openProfile(event)">{{ user.name }}</p> -->
+	  </div>
+	</div>
+    </div>
+
+    <div id="manager-pairs-wrapper">
 	<div v-for="table in tables" class="manager-table" >
 	  <div
-	    :id="table.id1"
+	    :id="'' + table.tableID + '-1' "
+	    
+	    name="profile-wrapper-slot"
+	    :locked=false
 	    class="manager-slot-empty"
 	    ondragover="onDragOver(event)"
 	    ondragexit="onDragExit(event)"
@@ -30,18 +134,45 @@
 	    <!-- <h2>{{table.id1}}</h2> -->
 	  </div>
 	  <div
-	    :id="table.id2"
+	    :id="'' + table.tableID + '-2' "
+	    
+	    name="profile-wrapper-slot"
+	    :locked=false
 	    class="manager-slot-empty"
 	    ondragover="onDragOver(event)"
 	    ondragexit="onDragExit(event)"
 	    ondrop="onDrop(event)">
 	    <!-- <h2>{{table.id2}}</h2> -->
 	  </div>
+
 	</div>
       </div>
 
       <div id="manager-control-panel-wrapper">
-	manager-control-panel
+	<button
+	  class="control-panel-btn"
+	  v-on:click="startTimer"
+	  id="manager-round-timer"
+	  >
+	  {{timerLabel}}
+	</button>
+	<button
+	  class="control-panel-btn"
+	  v-on:click="autoMatch"
+	  >
+	  AUTO MATCH
+	</button>
+	<button
+	  class="control-panel-btn"
+	  v-on:click="switchShowHelp"
+	  >
+	  HELP
+	</button>
+	<button
+	  class="control-panel-btn"
+	  >
+	  QUIT
+	</button>
       </div>
       <!-- ONLY FOR DEMONSTRATION PURPOSE -->
       <!-- <div -->
@@ -49,7 +180,7 @@
       <!--   class="manager-slot-taken" -->
       <!--   draggable="true" -->
       <!--   ondragstart="onDragStart(event)"> -->
-      <!-- </div> -->
+	<!-- </div> -->
     </div>
   </body>
 </html>

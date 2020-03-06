@@ -3,7 +3,8 @@
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="../css/host.css" />
+	<link rel="stylesheet" type="text/css" href="../css/host.css" />
+	<script src="/socket.io/socket.io.js" ></script>
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js" defer></script>
     <script src="../js/manager-host-session-form.js" defer ></script>
     <title>Session Settings</title>
@@ -84,7 +85,7 @@
 	  </div>
 	  <button
 	    class="manager-host-left"
-	    v-on:click="formNext">NEXT</button>
+	    v-on:click="clickHandler">NEXT</button>
 
 
 	  <div

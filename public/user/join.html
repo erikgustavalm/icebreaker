@@ -4,9 +4,11 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js" defer></script>
+    
     <link rel="stylesheet" type="text/css" href="../css/reset.css" />
     <link rel="stylesheet" type="text/css" href="../css/join.css" />
+    <script src="/socket.io/socket.io.js" ></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js" ></script>
     <script src="../js/join.js" defer></script>
     <title>Join room</title>
   </head>
@@ -39,7 +41,7 @@
       <div id="join-room-button">
         <button
           id="join-submit-key"
-          v-on:click=" goToSite('')"
+          v-on:click="joinRoom()"
         >
           Join Room
         </button>
