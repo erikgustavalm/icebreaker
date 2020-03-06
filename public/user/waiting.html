@@ -29,8 +29,7 @@
         <h1>Take your seats!</h1>
         
         <p class="help" v-if="toggleHelp">This is the layout of the tables in the event area. 
-          The coloured box with the displayed number is your next table. Please find your seat
-        to meet your date.</p>
+          The coloured box is your table. Please find your seat to meet your date.</p>
         <section class="row" id="row1">
           <div class="table" id="1"></div>
           <div class="table" id="2"></div>
@@ -45,7 +44,7 @@
           <div class="table" id="9"></div>
           <div class="table" id="10"></div>
         </section>
-        <button class="date">Ready to start!</button>
+        <button class="date" v-on:click="goToSite('./dating.html')">Ready to start!</button>
         <div class="help-button" v-on:click="showInfo()">?</div>
       </section>
       <div v-if="hideIcebreaker">

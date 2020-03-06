@@ -13,7 +13,7 @@ const vm = new Vue({
     loggedInUser: {},
     wait: true,
     overlayOff: true,
-    toggleHelp: false,
+    toggleHelp: false
   },
   mounted() {
     socket.emit("requestUser", {
@@ -72,23 +72,22 @@ const vm = new Vue({
     setTable: function(data) {
       document.getElementById("table-wrapper").style.display = "flex";
       var seat = document.getElementById(data.seat.tableID);
-
-      seat.classList.add("colorIn"); 
-      var p = document.createElement("p");
-      p.innerHTML = data.seat.tableID;
-      seat.appendChild(p);
-
+      seat.classList.add("colorIn");
     },
 
     goToSite: function(link) {
       window.location.href = link;
     },
-    showInfo: function(){
-      if(this.toggleHelp == false){
+    showInfo: function() {
+      if (this.toggleHelp == false) {
         this.toggleHelp = true;
-      }else {
+      } else {
         this.toggleHelp = false;
       }
+    },
+    goToSite: function(link) {
+      clearInterval(this.timer);
+      window.location.href = link;
     }
   },
   created() {
