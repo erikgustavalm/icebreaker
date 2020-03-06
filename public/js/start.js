@@ -235,6 +235,7 @@ const vm = new Vue({
                   document.getElementById("profile-pic").src = event2.target.result;   
               };
               picReader.readAsDataURL(event.target.files[0]);
+              this.newUser.imgPath = "../uploads/profile_pictures/" + this.newUser.username + ".jpeg";
           }
           
       },
