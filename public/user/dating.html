@@ -24,11 +24,11 @@
     <main id="your-date-container">
       <div id="your-match">
         <h1 id="date-header">It's a date!</h1>
-        <h1 id="date-name">Mårten</h1>
+        <h1 id="date-name">{{myDate.name}}</h1>
 
         <img
           id="current-date-img"
-          src="https://st2.depositphotos.com/4196725/7109/i/950/depositphotos_71095139-stock-photo-blond-happy-man.jpg"
+          :src="dateImg"
           alt="your date"
         />
       </div>
