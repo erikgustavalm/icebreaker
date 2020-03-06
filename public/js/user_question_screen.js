@@ -83,7 +83,7 @@ const vm = new Vue({
 	    eventID:  window.sessionStorage.getItem("eventID")
 
         });
-        //this.goToSite("../user/waiting.html");
+        this.goToSite("../user/waiting.html");
       }
     },
 
