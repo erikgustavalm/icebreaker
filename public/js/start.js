@@ -242,6 +242,7 @@ const vm = new Vue({
 
     toggleCard: function(card, index) {
       var el = document.getElementById("card-" + index);
+      console.log(el.childNodes);
       if (el.classList.contains("expand")) {
         el.classList.remove("expand");
         el.childNodes[2].childNodes[4].classList.add("toggle-off");

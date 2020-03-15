@@ -184,15 +184,15 @@
           class="card"
           v-if="userLoggedIn"
           v-for="(card, index) in loggedInUser.matches"
-          v-on:click="toggleCard(card,index)"
+          v-on:click="toggleCard(card.date,index)"
           :id="'card-'+index"
         >
-          <img class="card-image" :src="card.img" />
+          <img class="card-image" :src="card.date.img" />
           <div class="card-content">
-            <h3>{{card.name}}</h3>
-            <p>{{card.gender}}</p>
-            <p class="toggle-off">{{card.age}}</p>
-            <p class="toggle-off">{{card.email}}</p>
+            <h3>{{card.date.name}}</h3>
+            <p>{{card.date.age}}</p>
+            <p>My rating: {{card.rating[0]}}</p>
+            <p class="toggle-off">email: {{card.date.email}}</p>
           </div>
         </div>
       </div>

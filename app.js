@@ -284,6 +284,15 @@ io.on("connection", function(socket) {
     }
   });
 
+  //* event is done for user so lets add the matched users to that account
+  socket.on("datesDone", function(data){
+    var user = accounts.getAccount(data.userID);
+    for (let i = 0; i < data.matches.length; i++) {
+      user.matches.push(data.matches[i]);
+    }
+    console.log(user.matches);
+  });
+
   //* 'loginUser' is sent by starting page when a user tries to log in
   socket.on("loginUser", function(info) {
     var user = null;

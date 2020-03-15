@@ -115,6 +115,19 @@
         </button>
       </div>
     </div>
+    <div id="user-final-screen" v-if="final">
+      <h1 class="swipe-title">Send your contact info!</h1>
+      <div v-for="(item, index) in dates" class="user-selection" v-on:touchstart="touchStart($event)"
+        v-on:touchmove="touchMove($event)" v-on:touchend="touchEnd($event)">
+        <p class="names">{{dates[index].date.name}}</p>
+       <img :src="dates[index].date.img" :id="'date-'+index" class="flipable"> 
+      </div>
+      <button id="done-btn" v-on:click="matchedDates">
+        Done!
+      </button>
+      <p class="help helpswipe" v-if="toggleHelp">Swipe right if you want to share contacts, otherwise swipe left.</p>
+      <div class="help-button helpswipe-button" v-on:click="showInfo()">?</div>
+    </div>
   </div>
   </body>
 </html>
