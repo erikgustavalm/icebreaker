@@ -38,6 +38,7 @@
           placeholder="Enter room key..."
         />
       </div>
+      <div class="join-error" v-if="error">{{errorMessage}}</div>
       <div id="join-room-button">
         <button
           id="join-submit-key"

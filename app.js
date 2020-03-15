@@ -132,7 +132,9 @@ io.on("connection", function(socket) {
       icebreakers: [],
       questionAnswers: [],
       max: 20,
-      attended: 19, //starts at 20 because of our bots? Else manager should send attended count.
+      females: 0, //can be a max of 10 females
+      males: 0, //can be a max of 10 males
+      attended: 0,
       tables: [], //seats should be updated by manager only when done, no need to update it on every drag
       round: 0,
       usersMatched: [], //array of [[2],[2]..] arrays, where the [2] array contains 2 users.
@@ -143,8 +145,16 @@ io.on("connection", function(socket) {
 
     var bots = accounts.accounts;
     //initialize bots for the event
+    //change 19 to lower digit to remove bots. Do not increase to 20 unless
+    //you want no "real" players - if num exceeds 20 the game wont work.
     for (let i = 0; i < 19; i++) {
       event.users.push(bots[i]);
+      if(bots[i].gender === "female"){
+        event.females++;
+      }else{
+        event.males++;
+      }
+      event.attended++;
     }
 
     //initial questions for event
@@ -209,19 +219,38 @@ io.on("connection", function(socket) {
     let event = events.getEvent(data.eventID);
     let user = data.user;
     let hasJoined = false;
+    let msg = "";
+    //* First case - event is full
     if (event.attended < event.max) {
-      events.addUser(event.eventID, user);
-      hasJoined = true;
-      console.log(event);
-      // let id = event.users.length - 1;
-      // let userId = "user" + id;
-      // user.id = userId;
-      // socket.to(event.eventID).emit("onUserJoin", {user:user});
+      //* Second case - user female
+      if(user.gender === "female" && event.females < 10){
+        events.addUser(event.eventID, user);
+        hasJoined = true;
+        event.females++;
+      }
+      //* third case - user female but event full of females
+      else if(user.gender === "female" && event.females == 10 ) {
+        msg = "Event is already full of females!";
+      }
+      //* fourth case - user male 
+      else if(user.gender === "male" && event.males < 10 ){
+        events.addUser(event.eventID, user);
+        hasJoined = true;
+        event.males++;
+      }
+      //* fifth case - user male but event full of males
+      else{
+        msg = "Event is already full of males!";
+      }
+    }
+    else {
+      msg = "Event is full!";
     }
 
     io.to(user.username).emit("userJoined", {
       eventID: event.eventID,
-      joined: hasJoined
+      joined: hasJoined,
+      error: msg,
     });
   });
 

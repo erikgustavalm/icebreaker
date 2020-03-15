@@ -84,3 +84,10 @@ body {
   }
   
 }
+
+/* error */
+.join-error {
+  color: #ed1c24;
+  align-self: center;
+  margin-top: 10px;
+}

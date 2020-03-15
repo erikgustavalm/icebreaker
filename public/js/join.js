@@ -6,7 +6,9 @@ const vm = new Vue({
   data: {
     roomKey: "Enter room key:",
     enteredKey: "", //eventID
-    loggedInUser: {}
+    loggedInUser: {},
+    error: false,
+    errorMessage: "",
   },
   mounted() {
     console.log(window.sessionStorage.getItem("roomId"));
@@ -30,9 +32,16 @@ const vm = new Vue({
       socket.on(
         "userJoined",
         function(data) {
-          window.sessionStorage.setItem("eventID", data.eventID);
-          console.log(data.eventID);
-          this.goToSite("../user/user_question_screen.html");
+          if(data.joined == false){
+            this.error = true;
+            this.errorMessage = data.error;
+            console.log(data.error);
+          }else{
+            window.sessionStorage.setItem("eventID", data.eventID);
+            console.log(data.eventID);
+            this.goToSite("../user/user_question_screen.html");
+          }
+
         }.bind(this)
       );
     },
