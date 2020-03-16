@@ -123,6 +123,7 @@ const vm = new Vue({
     },
     startTimer: function() {
       //time since 1970 in milliseconds
+      clearInterval(this.timer);
       const now = Date.now();
       this.time = 900;
       this.timer = null;
@@ -131,7 +132,7 @@ const vm = new Vue({
       this.timer = setInterval(() => {
         const secondsLeft = Math.round(then - Date.now()) / 1000;
         if (secondsLeft < 1) {
-          this.cancelDate;
+          clearInterval(this.timer);
         }
         this.timeLeft(secondsLeft);
       }, 1000);
@@ -149,7 +150,7 @@ const vm = new Vue({
       this.display = `${minutes}:${seconds}`;
     },
     goToSite: function(link) {
-      clearInterval(this.timer);
+
       window.location.href = link;
     },
     getDate: function() {
@@ -161,6 +162,7 @@ const vm = new Vue({
       socket.on(
         "sendCancelRound",
         function(data) {
+          console.log("In here!!!!!");
           this.cancelDate();
         }.bind(this)
       );
@@ -173,12 +175,15 @@ const vm = new Vue({
       );
     },
     cancelDate: function() {
+      console.log("Currentinterval!");
+      console.log(this.timer);
       clearInterval(this.timer);
+      console.log("Cleared interaval!")
+      console.log(this.timer);
       this.seat = false;
       this.rate = true;
     },
     submitRating: function(event) {
-      clearInterval(this.timer);
       this.time = 900;
       this.display = null;
       this.seat = false;
