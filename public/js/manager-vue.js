@@ -155,9 +155,9 @@ const vm = new Vue({
       }
       document.getElementById("manager-round-timer").style.backgroundColor =
         "#399939";
-
       this.timePassed = 0;
       this.timeLeft = 0;
+      socket.emit("cancelRound", {});
     }
   },
   mounted() {

@@ -155,6 +155,12 @@ const vm = new Vue({
       document.getElementById("table-wrapper").style.display = "none";
       var seat = document.getElementById(this.tableID);
       seat.classList.remove("colorIn");
+      socket.on(
+        "sendCancelRound",
+        function(data) {
+          this.cancelDate();
+        }.bind(this)
+      );
 
       socket.on(
         "startTimer",
@@ -164,13 +170,15 @@ const vm = new Vue({
       );
     },
     cancelDate: function() {
+      console.log("In cancel Date!");
       clearInterval(this.timer);
+      this.time = 900;
+      this.timer = null;
       this.seat = false;
       this.rate = true;
     },
     submitRating: function(event) {
-      this.time = 900;
-      this.timer = null;
+     
       this.display = null;
 
       this.rate = false;

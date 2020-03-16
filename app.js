@@ -174,7 +174,7 @@ io.on("connection", function(socket) {
     for (let i = 0; i < currentSession.quotes.length; i++) {
       event.icebreakers.push(currentSession.quotes[i]);
     }
-      
+
     events.addEvent(event);
     console.log(events.getEvent(event.eventID));
   });
@@ -183,6 +183,9 @@ io.on("connection", function(socket) {
       io.emit("getRateDateAns", {
 	  user: data.user
     });
+  });
+  socket.on("cancelRound", function(data) {
+    io.emit("sendCancelRound", {});
   });
 
   //* start date timer
@@ -272,11 +275,11 @@ io.on("connection", function(socket) {
     }
   });
 
-    socket.on("sendMatchedPairs", function(data) {
-	console.log("Send mathed pairs");
-	console.log(data);
-	let event = events.getEvent(data.eventID);
-	console.log(event);
+  socket.on("sendMatchedPairs", function(data) {
+    console.log("Send mathed pairs");
+    console.log(data);
+    let event = events.getEvent(data.eventID);
+    console.log(event);
     let matchedPairs = data.matchedPairs;
     event.tables = matchedPairs;
 
