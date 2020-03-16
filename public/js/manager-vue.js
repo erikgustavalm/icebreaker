@@ -2,16 +2,14 @@
 const socket = io();
 
 const popVm = new Vue({
-    el: "#manager-profile-popup",
-    data: {
-	questions: [],
-	answers: [],
-	user: null
-    },
-    methods: {
-
-    }
-})
+  el: "#manager-profile-popup",
+  data: {
+    questions: [],
+    answers: [],
+    user: null
+  },
+  methods: {}
+});
 
 const vm = new Vue({
   el: "#manager-wrapper",
@@ -20,6 +18,7 @@ const vm = new Vue({
     tables: tables,
     users: null,
     round: 1,
+    cancel: false,
     session: { session_name: "" },
     showHelp: false,
     timerLabel: "START ROUND 1",
@@ -27,9 +26,8 @@ const vm = new Vue({
     timePassed: 0,
     timeLeft: 0,
     timerInterval: 0,
-      pairs: null,
-      event: null,
-
+    pairs: null,
+    event: null
   },
 
     methods: {
@@ -108,20 +106,25 @@ const vm = new Vue({
     },
 
     startTimer: function() {
-      console.log("hej");
-      socket.emit("startDateTimer", {});
-      this.timerInterval = setInterval(() => {
-        this.timePassed = this.timePassed += 1;
-        this.timeLeft = this.TIME_LIMIT - this.timePassed;
-        this.timerLabel = this.formatTime();
+      if (this.cancel == false) {
+        socket.emit("startDateTimer", {});
+        this.cancel = true;
+        this.timerInterval = setInterval(() => {
+          this.timePassed = this.timePassed += 1;
+          this.timeLeft = this.TIME_LIMIT - this.timePassed;
+          this.timerLabel = this.formatTime();
 
-        document.getElementById("manager-round-timer").style.backgroundColor =
-          "#ff3939";
+          document.getElementById("manager-round-timer").style.backgroundColor =
+            "#ff3939";
 
-        if (this.timeLeft === 0) {
-          this.onTimesUp();
-        }
-      }, 1000);
+          if (this.timeLeft === 0) {
+            this.onTimesUp();
+          }
+        }, 1000);
+      } else {
+        this.cancel = false;
+        this.onTimesUp();
+      }
     },
 
     formatTime: function() {
@@ -149,7 +152,6 @@ const vm = new Vue({
       } else {
         this.round = this.round + 1;
         this.timerLabel = "START ROUND" + " " + this.round;
-
       }
       document.getElementById("manager-round-timer").style.backgroundColor =
         "#399939";
@@ -169,11 +171,11 @@ const vm = new Vue({
       socket.on(
         "getEvent",
         function(event) {
-            this.event = event.event;
-            this.users = this.event.users;
-	    popVm.users = this.event.users;
-	    popVm.questions = this.event.questions;
-	    popVm.answers = this.event.answers;
+          this.event = event.event;
+          this.users = this.event.users;
+          popVm.users = this.event.users;
+          popVm.questions = this.event.questions;
+          popVm.answers = this.event.answers;
         }.bind(this)
       );
     }
@@ -181,10 +183,10 @@ const vm = new Vue({
     socket.on(
       "onUserJoin",
       function(data) {
-       //   vm.users.push(data.user);
-	  popVm.users.push(data.user);
-	  popVm.answers = data.user.answers;
-	  popVm.questions = this.event.questions;
+        //   vm.users.push(data.user);
+        popVm.users.push(data.user);
+        popVm.answers = data.user.answers;
+        popVm.questions = this.event.questions;
       }.bind(this)
     );
   }
