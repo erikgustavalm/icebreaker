@@ -209,6 +209,7 @@ body {
 }
 
 .manager-profile-popup {
+    overflow-y: scroll;
     height: 25vh;
     width: 15vw;
     display: none;

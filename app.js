@@ -143,7 +143,7 @@ io.on("connection", function(socket) {
 
     var bots = accounts.accounts;
     //initialize bots for the event
-    for (let i = 0; i < 19; i++) {
+    for (let i = 0; i < 10; i++) {
       event.users.push(bots[i]);
     }
 
@@ -163,7 +163,7 @@ io.on("connection", function(socket) {
     for (let i = 0; i < currentSession.quotes.length; i++) {
       event.icebreakers.push(currentSession.quotes[i]);
     }
-
+      
     events.addEvent(event);
     console.log(events.getEvent(event.eventID));
   });

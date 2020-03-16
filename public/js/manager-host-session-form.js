@@ -22,7 +22,7 @@ const mhsf = new Vue({
     addQuestion: function() {
       if (this.newQuestion != "") {
         this.session.questions.push(this.newQuestion);
-        this.newQuestion = "";
+          this.newQuestion = "";
         console.log(this.question);
       }
     },

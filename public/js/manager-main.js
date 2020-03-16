@@ -178,7 +178,7 @@ function onDrop(event) {
 
 function openProfile(event) {
     console.log("openProfile()");
-    console.log(vm.users);
+    console.log(popVm.questions[0].question);
     // if(mouseOverActive != mouseOverCall) return;
     // mouseOverActive = true;
     event.preventDefault();
@@ -189,13 +189,17 @@ function openProfile(event) {
     let name = document.getElementById("manager-profile-popup-name");
     let age = document.getElementById("manager-profile-popup-age");
     let gender = document.getElementById("manager-profile-popup-gender");
-    let img = document.getElementById("manager-profile-popup-img");
+    let answers = document.getElementById("manager-profile-popup-answers");
     let index = parseInt(profile.id.substring(4, profile.id.length), 10);
+
+    popVm.user = vm.users[index];
     console.log(index);
-    img.src = vm.users[index].img;
     name.innerHTML = "Name: " + vm.users[index].name;
     age.innerHTML = "Age: " + vm.users[index].age;
     gender.innerHTML = "Gender: " + vm.users[index].gender;
+    // for(let i = 0; i < vm.users[index].answers.length; i++){
+    // 	answers.innerHTML += vm.questions[i] + " " + vm.users[index].answers[i];
+    // }
     
     /* Disable draggable while profile window is active */
     profile.draggable = false;
@@ -324,4 +328,9 @@ function getTableId(id){
     }else{
 	return parseInt(id[0]+id[1]);
     }
+}
+
+function setUser(event){
+    console.log(event.target.id);
+    popVm.user = document.getElementById(event.target.id.id);
 }

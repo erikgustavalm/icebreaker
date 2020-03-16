@@ -1,6 +1,18 @@
 "use strict";
 const socket = io();
 
+const popVm = new Vue({
+    el: "#manager-profile-popup",
+    data: {
+	questions: [],
+	answers: [],
+	user: null
+    },
+    methods: {
+	
+    }
+})
+
 const vm = new Vue({
   el: "#manager-wrapper",
   data: {
@@ -14,8 +26,9 @@ const vm = new Vue({
     timePassed: 0,
     timeLeft: 0,
     timerInterval: 0,
-    pairs: null,
-    event: null
+      pairs: null,
+      event: null,
+      
   },
   methods: {
     autoMatch: function() {
@@ -176,7 +189,9 @@ const vm = new Vue({
         "getEvent",
         function(event) {
           this.event = event.event;
-          this.users = this.event.users;
+            this.users = this.event.users;
+	    popVm.users = this.event.users;
+	    popVm.questions = this.event.questions;
         }.bind(this)
       );
     }
@@ -184,7 +199,10 @@ const vm = new Vue({
     socket.on(
       "onUserJoin",
       function(data) {
-        this.users.push(data.user);
+          vm.users.push(data.user);
+	  popVm.users.push(data.user);
+	  popVm.answers = data.user.answers;
+	  popVm.questions = this.event.questions;
       }.bind(this)
     );
   }
