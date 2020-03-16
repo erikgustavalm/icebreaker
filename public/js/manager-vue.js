@@ -7,10 +7,11 @@ const vm = new Vue({
     eventID: "",
     tables: tables,
     users: null,
+    round: 1,
     session: { session_name: "" },
     showHelp: false,
-    timerLabel: "START ROUND",
-    TIME_LIMIT: 10,
+    timerLabel: "START ROUND 1",
+    TIME_LIMIT: 5,
     timePassed: 0,
     timeLeft: 0,
     timerInterval: 0,
@@ -87,17 +88,6 @@ const vm = new Vue({
       console.log("Switched show help");
     },
 
-    onTimesUp: function() {
-      clearInterval(this.timerInterval);
-      this.timerLabel = "START ROUND";
-
-      document.getElementById("manager-round-timer").style.backgroundColor =
-        "#399939";
-
-      this.timePassed = 0;
-      this.timeLeft = 0;
-    },
-
     startTimer: function() {
       console.log("hej");
       socket.emit("startDateTimer", {});
@@ -134,8 +124,14 @@ const vm = new Vue({
 
     onTimesUp: function() {
       clearInterval(this.timerInterval);
-      this.timerLabel = "START ROUND";
+      if (this.round + 1 == 4) {
+        this.timerLabel = "DONE";
+        document.getElementById("manager-round-timer").disabled = true;
+      } else {
+        this.round = this.round + 1;
+        this.timerLabel = "START ROUND" + " " + this.round;
 
+      }
       document.getElementById("manager-round-timer").style.backgroundColor =
         "#399939";
 
