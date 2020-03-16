@@ -2,16 +2,14 @@
 const socket = io();
 
 const popVm = new Vue({
-    el: "#manager-profile-popup",
-    data: {
-	questions: [],
-	answers: [],
-	user: null
-    },
-    methods: {
-	
-    }
-})
+  el: "#manager-profile-popup",
+  data: {
+    questions: [],
+    answers: [],
+    user: null
+  },
+  methods: {}
+});
 
 const vm = new Vue({
   el: "#manager-wrapper",
@@ -20,6 +18,7 @@ const vm = new Vue({
     tables: tables,
     users: null,
     round: 1,
+    cancel: false,
     session: { session_name: "" },
     showHelp: false,
     timerLabel: "START ROUND 1",
@@ -27,34 +26,39 @@ const vm = new Vue({
     timePassed: 0,
     timeLeft: 0,
     timerInterval: 0,
-      pairs: null,
-      event: null,
-      
+    pairs: null,
+    event: null
   },
-  methods: {
-    autoMatch: function() {
-      console.log("autoMatch()");
-      if (this.users.length == 0) {
-        console.log("No users to match, abort!");
-        return;
-      }
-      for (let i = 0; i < this.users.length; i++) {
-        if (this.users[i].matched == false) {
-          let pairIndex;
-          let seat;
-          if (i % 2 == 0) {
-            pairIndex = Math.floor(i / 2);
-            seat = 0;
-          } else {
-            pairIndex = Math.floor(i / 2);
-            seat = 1;
-          }
-          this.moveUserToPair(this.users[i], pairIndex, seat);
-        }
-      }
 
-      //* send seats to users
-      this.sendMatchedPairs();
+    methods: {
+    autoMatch: function() {
+	console.log("autoMatch()");
+	if (this.users.length == 0) {
+            console.log("No users to match, abort!");
+            return;
+	}
+	// Split the users in gender
+	let males = [];
+	let females = [];
+
+	for (let i = 0; i < this.users.length; i++) {
+	    if (this.users[i].gender == "male") {
+		males.push(this.users[i]);
+	    } else {
+		females.push(this.users[i]);
+	    }
+	}
+
+	// MOCKING, set pairs (needs to be the the same number of males and females)
+	for (let i = 0; i < males.length; i++) {
+            if (males[i].matched == false) {
+		this.moveUserToPair(males[i], i, 0);
+		this.moveUserToPair(females[i], i, 1);
+            }
+	}
+
+	//* send seats to users
+	this.sendMatchedPairs();
     },
 
     moveUserToPair: function(user, pairIndex, seat) {
@@ -102,20 +106,25 @@ const vm = new Vue({
     },
 
     startTimer: function() {
-      console.log("hej");
-      socket.emit("startDateTimer", {});
-      this.timerInterval = setInterval(() => {
-        this.timePassed = this.timePassed += 1;
-        this.timeLeft = this.TIME_LIMIT - this.timePassed;
-        this.timerLabel = this.formatTime();
+      if (this.cancel == false) {
+        socket.emit("startDateTimer", {});
+        this.cancel = true;
+        this.timerInterval = setInterval(() => {
+          this.timePassed = this.timePassed += 1;
+          this.timeLeft = this.TIME_LIMIT - this.timePassed;
+          this.timerLabel = this.formatTime();
 
-        document.getElementById("manager-round-timer").style.backgroundColor =
-          "#ff3939";
+          document.getElementById("manager-round-timer").style.backgroundColor =
+            "#ff3939";
 
-        if (this.timeLeft === 0) {
-          this.onTimesUp();
-        }
-      }, 1000);
+          if (this.timeLeft === 0) {
+            this.onTimesUp();
+          }
+        }, 1000);
+      } else {
+        this.cancel = false;
+        this.onTimesUp();
+      }
     },
 
     formatTime: function() {
@@ -143,7 +152,6 @@ const vm = new Vue({
       } else {
         this.round = this.round + 1;
         this.timerLabel = "START ROUND" + " " + this.round;
-
       }
       document.getElementById("manager-round-timer").style.backgroundColor =
         "#399939";
@@ -163,11 +171,11 @@ const vm = new Vue({
       socket.on(
         "getEvent",
         function(event) {
-            this.event = event.event;
-            this.users = this.event.users;
-	    popVm.users = this.event.users;
-	    popVm.questions = this.event.questions;
-	    popVm.answers = this.event.answers;
+          this.event = event.event;
+          this.users = this.event.users;
+          popVm.users = this.event.users;
+          popVm.questions = this.event.questions;
+          popVm.answers = this.event.answers;
         }.bind(this)
       );
     }
@@ -175,10 +183,10 @@ const vm = new Vue({
     socket.on(
       "onUserJoin",
       function(data) {
-       //   vm.users.push(data.user);
-	  popVm.users.push(data.user);
-	  popVm.answers = data.user.answers;
-	  popVm.questions = this.event.questions;
+        //   vm.users.push(data.user);
+        popVm.users.push(data.user);
+        popVm.answers = data.user.answers;
+        popVm.questions = this.event.questions;
       }.bind(this)
     );
       socket.on(

@@ -7,7 +7,7 @@
     <title>Icebreaker manager</title>
     <link rel="stylesheet" type="text/css" href="../css/reset.css" />
     <link rel="stylesheet" type="text/css" href="../css/host.css" />
-	<script src="/socket.io/socket.io.js" ></script>
+    <script src="/socket.io/socket.io.js" ></script>
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js" defer></script>
     <script src="../js/users_json.js" defer></script>
     <script src="../js/manager-main.js" defer></script>
@@ -30,7 +30,7 @@
 	<img
 	  draggable="false"
 	  id="manager-profile-popup-img"
-	  style="width:80%; height:50%; border-radius: 50%; display: none;"> 
+	  style="width:80%; height:50%; border-radius: 50%; display: none;">
 	<p id="manager-profile-popup-name"> </p>
 	<p id="manager-profile-popup-age"> </p>
 	<p id="manager-profile-popup-gender"> </p>
@@ -76,7 +76,7 @@
 
 	  <h1>Starting round</h1>
 	  <p>
-	    Starting a round is done by pressing the Start round button. A countdown of the remaining round time will then start. Once all rounds are finished the text "DONE" will be displayed on the button.
+	    Starting a round is done by pressing the Start round button. A countdown of the remaining round time will then start. Once all rounds are finished the text "DONE" will be displayed on the button. You can cancel the round at anytime by clicking the round timer once the event starts.
 	  </p>
 	</div>
 	<div id="manager-user-list-wrapper">
@@ -130,7 +130,7 @@
 		    class="manager-profile-wrapperview"
 		    pointer-events="none"
 		    draggable="false">
-      
+
 	  </div>
 	</div>
       </div>
@@ -139,7 +139,7 @@
 	      <div v-for="table in tables" class="manager-table" >
 	        <div
 	          :id="'' + table.tableID + '-1' "
-	          
+
 	          name="profile-wrapper-slot"
 	          :locked=false
 	          class="manager-slot-empty"
@@ -150,7 +150,7 @@
 	        </div>
 	        <div
 	          :id="'' + table.tableID + '-2' "
-	          
+
 	          name="profile-wrapper-slot"
 	          :locked=false
 	          class="manager-slot-empty"
