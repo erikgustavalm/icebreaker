@@ -180,9 +180,12 @@ const vm = new Vue({
         rating: this.rating,
         msg: this.message
       });
+	console.log(this.loggedInUser);
+	this.loggedInUser.ratings.push(this.rating[0]);
+	this.loggedInUser.messages.push(this.message);
+	console.log(this.loggedInUser);
       socket.emit("rateDateAns", {
-        rating: this.rating[0],
-        message: this.message
+	  user: this.loggedInUser
       });
       this.rating = ["1"];
       this.message = "";

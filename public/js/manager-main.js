@@ -197,6 +197,9 @@ function openProfile(event) {
     let questions = document.getElementById("manager-profile-popup-answers").children[0].children[0];
     let answers = document.getElementById("manager-profile-popup-answers").children[0].children[1];
     let index = parseInt(profile.id.substring(4, profile.id.length), 10);
+    let rating1 = document.getElementById("ratingId1");
+    let rating2 = document.getElementById("ratingId2");
+    let rating3 = document.getElementById("ratingId3");
 
     popVm.user = vm.users[index];
     console.log(questions);
@@ -204,9 +207,21 @@ function openProfile(event) {
     console.log(index);
     name.innerHTML = "Name: " + vm.users[index].name;
     age.innerHTML = "Age: " + vm.users[index].age;
-    gender.innerHTML = "Gender: " + vm.users[index].gender;
+    gender.innerHTML = "Gender: " + vm.users[index].gender + "<br><br>";
     for(let i = 0; i < vm.users[index].answers.length; i++){
-	document.getElementById("manager-profile-popup-answers").children[i].children[1].innerHTML = popVm.users[index].answers[i];	document.getElementById("manager-profile-popup-answers").children[i].children[0].innerHTML = popVm.questions[i].question;
+	document.getElementById("manager-profile-popup-answers").children[i].children[1].innerHTML = popVm.users[index].answers[i] + "<br><br>";	document.getElementById("manager-profile-popup-answers").children[i].children[0].innerHTML = popVm.questions[i].question + "<br>";
+    };
+
+    for(let i=0; i < popVm.users[index].ratings.length; i++){
+	if(i == 0){
+	    rating1.innerHTML = "<br><br>ROUND 1<br><br>Score: " + popVm.users[index].ratings[i] + "<br>" + "Message: " + popVm.users[index].messages[i] + "<br>";
+	}
+	else if(i == 1){
+	    rating2.innerHTML = "<br><br>ROUND 2:<br><br>Score: " + popVm.users[index].ratings[i] + "<br>" + "Message: " + popVm.users[index].messages[i] + "<br>";
+	}
+	else{
+	    rating3.innerHTML = "<br><br>ROUND 3:<br><br>Score: " + popVm.users[index].ratings[i] + "<br>" + "Message: " + popVm.users[index].messages[i] + "<br>";
+	}
     }
     
     /* Disable draggable while profile window is active */
@@ -243,6 +258,18 @@ function getUserById(userID){
 	}
     }
 }
+
+function getUserByName(name){
+    if(name == null){
+	return null;
+    }
+    for(let i=0; i<vm.users.length; i++){
+	if(vm.users[i].name == name){
+	    return vm.users[i];
+	}
+    }
+}
+
 
 function swapUsers(draggableElement, dropzone){
 

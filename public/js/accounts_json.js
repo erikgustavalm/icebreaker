@@ -12,7 +12,9 @@ let accounts = [
 	img: "../img/index.png",
 	matches: [],
 	loggedIn: false,
-	answers: ["Rock", "Vesuvio", "Trump", "Highschool", "Cat", "Lighter"]
+	answers: ["Rock", "Vesuvio", "Trump", "Highschool", "Cat", "Lighter"],
+	ratings: [6],
+	messages: ["Very nice person"]
     },
     {
 	showInfo: false,
@@ -27,7 +29,9 @@ let accounts = [
 	img: "../img/index.png",
 	matches: [],
 	loggedIn: false,
-	answers: ["Rock", "Vesuvio", "Trump", "Highschool", "Cat", "Lighter"]
+	answers: ["Rock", "Vesuvio", "Trump", "Highschool", "Cat", "Lighter"],
+	ratings: [6],
+	messages: ["Very nice person"]
     },
     {
 	showInfo: false,
@@ -42,7 +46,9 @@ let accounts = [
 	img: "../img/index.png",
 	matches: [],
 	loggedIn: false,
-	answers: ["Rock", "Vesuvio", "Trump", "Highschool", "Cat", "Lighter"]
+	answers: ["Rock", "Vesuvio", "Trump", "Highschool", "Cat", "Lighter"],
+	ratings: [6],
+	messages: ["Very nice person"]
     },
     {
 	showInfo: false,
@@ -57,7 +63,9 @@ let accounts = [
 	img: "../img/index.png",
 	matches: [],
 	loggedIn: false,
-	answers: ["Rock", "Vesuvio", "Trump", "Highschool", "Cat", "Lighter"]
+	answers: ["Rock", "Vesuvio", "Trump", "Highschool", "Cat", "Lighter"],
+	ratings: [6],
+	messages: ["Very nice person"]
     },
     {
 	showInfo: false,
@@ -72,7 +80,9 @@ let accounts = [
 	img: "../img/index.png",
 	matches: [],
 	loggedIn: false,
-	answers: ["Rock", "Vesuvio", "Trump", "Highschool", "Cat", "Lighter"]
+	answers: ["Rock", "Vesuvio", "Trump", "Highschool", "Cat", "Lighter"],
+	ratings: [6],
+	messages: ["Very nice person"]
     },
     {
 	showInfo: false,
@@ -87,7 +97,9 @@ let accounts = [
 	img: "../img/index.png",
 	matches: [],
 	loggedIn: false,
-	answers: ["Rock", "Vesuvio", "Trump", "Highschool", "Cat", "Lighter"]
+	answers: ["Rock", "Vesuvio", "Trump", "Highschool", "Cat", "Lighter"],
+	ratings: [6],
+	messages: ["Very nice person"]
     },
     {
 	showInfo: false,
@@ -102,7 +114,9 @@ let accounts = [
 	img: "../img/index.png",
 	matches: [],
 	loggedIn: false,
-	answers: ["Rock", "Vesuvio", "Trump", "Highschool", "Cat", "Lighter"]
+	answers: ["Rock", "Vesuvio", "Trump", "Highschool", "Cat", "Lighter"],
+	ratings: [6],
+	messages: ["Very nice person"]
     },
     {
 	showInfo: false,
@@ -117,7 +131,9 @@ let accounts = [
 	img: "../img/index.png",
 	matches: [],
 	loggedIn: false,
-	answers: ["Rock", "Vesuvio", "Trump", "Highschool", "Cat", "Lighter"]
+	answers: ["Rock", "Vesuvio", "Trump", "Highschool", "Cat", "Lighter"],
+	ratings: [6],
+	messages: ["Very nice person"]
     },
     {
 	showInfo: false,
@@ -132,7 +148,9 @@ let accounts = [
 	img: "../img/index.png",
 	matches: [],
 	loggedIn: false,
-	answers: ["Rock", "Vesuvio", "Trump", "Highschool", "Cat", "Lighter"]
+	answers: ["Rock", "Vesuvio", "Trump", "Highschool", "Cat", "Lighter"],
+	ratings: [6],
+	messages: ["Very nice person"]
     },
     {
 	showInfo: false,
@@ -147,7 +165,9 @@ let accounts = [
 	img: "../img/index.png",
 	matches: [],
 	loggedIn: false,
-	answers: ["Rock", "Vesuvio", "Trump", "Highschool", "Cat", "Lighter"]
+	answers: ["Rock", "Vesuvio", "Trump", "Highschool", "Cat", "Lighter"],
+	ratings: [6],
+	messages: ["Very nice person"]
     },
     {
 	showInfo: false,
@@ -162,7 +182,9 @@ let accounts = [
 	img: "../img/index.png",
 	matches: [],
 	loggedIn: false,
-	answers: ["Rock", "Vesuvio", "Trump", "Highschool", "Cat", "Lighter"]
+	answers: ["Rock", "Vesuvio", "Trump", "Highschool", "Cat", "Lighter"],
+	ratings: [6],
+	messages: ["Very nice person"]
     },
     {
 	showInfo: false,
@@ -177,7 +199,9 @@ let accounts = [
 	img: "../img/index.png",
 	matches: [],
 	loggedIn: false,
-	answers: ["Rock", "Vesuvio", "Trump", "Highschool", "Cat", "Lighter"]
+	answers: ["Rock", "Vesuvio", "Trump", "Highschool", "Cat", "Lighter"],
+	ratings: [6],
+	messages: ["Very nice person"]
     },
     {
     	showInfo: false,
@@ -192,7 +216,9 @@ let accounts = [
     	img: "../img/index.png",
     	matches: [],
     	loggedIn: false,
-    	answers: ["Rock", "Vesuvio", "Trump", "Highschool", "Cat", "Lighter"]
+    	answers: ["Rock", "Vesuvio", "Trump", "Highschool", "Cat", "Lighter"],
+	ratings: [6],
+	messages: ["Very nice person"]
     },
     {
     	showInfo: false,
@@ -207,7 +233,9 @@ let accounts = [
     	img: "../img/index.png",
     	matches: [],
     	loggedIn: false,
-    	answers: ["Rock", "Vesuvio", "Trump", "Highschool", "Cat", "Lighter"]
+    	answers: ["Rock", "Vesuvio", "Trump", "Highschool", "Cat", "Lighter"],
+	ratings: [6],
+	messages: ["Very nice person"]
     },
     {
     	showInfo: false,
@@ -222,7 +250,9 @@ let accounts = [
     	img: "../img/index.png",
     	matches: [],
     	loggedIn: false,
-    	answers: ["Rock", "Vesuvio", "Trump", "Highschool", "Cat", "Lighter"]
+    	answers: ["Rock", "Vesuvio", "Trump", "Highschool", "Cat", "Lighter"],
+	ratings: [6],
+	messages: ["Very nice person"]
     },
     {
     	showInfo: false,
@@ -237,7 +267,9 @@ let accounts = [
     	img: "../img/index.png",
     	matches: [],
     	loggedIn: false,
-    	answers: ["Rock", "Vesuvio", "Trump", "Highschool", "Cat", "Lighter"]
+    	answers: ["Rock", "Vesuvio", "Trump", "Highschool", "Cat", "Lighter"],
+	ratings: [6],
+	messages: ["Very nice person"]
     },
     {
     	showInfo: false,
@@ -252,7 +284,9 @@ let accounts = [
     	img: "../img/index.png",
     	matches: [],
     	loggedIn: false,
-    	answers: ["Rock", "Vesuvio", "Trump", "Highschool", "Cat", "Lighter"]
+    	answers: ["Rock", "Vesuvio", "Trump", "Highschool", "Cat", "Lighter"],
+	ratings: [6],
+	messages: ["Very nice person"]
     },
     {
     	showInfo: false,
@@ -267,7 +301,9 @@ let accounts = [
     	img: "../img/index.png",
     	matches: [],
     	loggedIn: false,
-    	answers: ["Rock", "Vesuvio", "Trump", "Highschool", "Cat", "Lighter"]
+    	answers: ["Rock", "Vesuvio", "Trump", "Highschool", "Cat", "Lighter"],
+	ratings: [6],
+	messages: ["Very nice person"]
     },
     {
     	showInfo: false,
@@ -282,7 +318,9 @@ let accounts = [
     	img: "../img/index.png",
     	matches: [],
     	loggedIn: false,
-    	answers: ["Rock", "Vesuvio", "Trump", "Highschool", "Cat", "Lighter"]
+    	answers: ["Rock", "Vesuvio", "Trump", "Highschool", "Cat", "Lighter"],
+	ratings: [6],
+	messages: ["Very nice person"]
     },
     {
     	showInfo: false,
@@ -297,7 +335,9 @@ let accounts = [
     	img: "../img/index.png",
     	matches: [],
     	loggedIn: false,
-    	answers: []
+    	answers: [],
+	ratings: [],
+	messages: []
     },
     {
     	showInfo: false,
@@ -312,7 +352,9 @@ let accounts = [
     	img: "../img/index.png",
     	matches: [],
     	loggedIn: false,
-    	answers: ["Rock", "Vesuvio", "Trump", "Highschool", "Cat", "Lighter"]
+    	answers: ["Rock", "Vesuvio", "Trump", "Highschool", "Cat", "Lighter"],
+	ratings: [6],
+	messages: ["Very nice person"]
     },
     {
     	showInfo: false,
@@ -327,7 +369,9 @@ let accounts = [
     	img: "../img/index.png",
     	matches: [],
     	loggedIn: false,
-    	answers: []
+    	answers: [],
+	ratings: [6],
+	messages: ["Very nice person"]
     },
     {
 	showInfo: false,
@@ -342,7 +386,9 @@ let accounts = [
 	img: "../img/index.png",
 	matches: [],
 	loggedIn: false,
-	answers: []
+	answers: [],
+	ratings: [],
+	messages: []
     }
 ];
 

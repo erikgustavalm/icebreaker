@@ -181,5 +181,17 @@ const vm = new Vue({
 	  popVm.questions = this.event.questions;
       }.bind(this)
     );
+      socket.on(
+	  "getRateDateAns",
+	  function(data) {
+	      let user = getUserByName(data.user.name);
+	      user.ratings.push(data.user.ratings[data.user.ratings.length-1]);
+	      user.messages.push(data.user.messages[data.user.messages.length-1]);
+
+	      console.log(user.ratings[0]);
+	      console.log(user.messages[0]);
+	  }.bind(this)
+    );
+
   }
 });

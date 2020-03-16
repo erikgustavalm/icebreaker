@@ -22,7 +22,9 @@ const vm = new Vue({
       img: "",
       picture: null,
       matches: [],
-      answers:[],
+	answers:[],
+	ratings: [],
+	messages: []
     },
     loggedInUser: {}
   },

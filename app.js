@@ -180,9 +180,8 @@ io.on("connection", function(socket) {
   });
 
   socket.on("rateDateAns", function(data) {
-    io.emit("getRateDateAns", {
-      rating: data.exists,
-      message: data.message
+      io.emit("getRateDateAns", {
+	  user: data.user
     });
   });
 
