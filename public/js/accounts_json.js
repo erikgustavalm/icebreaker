@@ -53,7 +53,7 @@ let accounts = [
 	email: "1@hotmail.com",
 	name: "Sukram Nitram",
 	age: "23",
-	gender: "make",
+	gender: "male",
 	img: "../img/index.png",
 	matches: [],
 	loggedIn: false,
@@ -347,4 +347,3 @@ let accounts = [
 ];
 
 exports.totalAccounts = accounts;
-

@@ -29,30 +29,36 @@ const vm = new Vue({
     pairs: null,
     event: null
   },
-  methods: {
-    autoMatch: function() {
-      console.log("autoMatch()");
-      if (this.users.length == 0) {
-        console.log("No users to match, abort!");
-        return;
-      }
-      for (let i = 0; i < this.users.length; i++) {
-        if (this.users[i].matched == false) {
-          let pairIndex;
-          let seat;
-          if (i % 2 == 0) {
-            pairIndex = Math.floor(i / 2);
-            seat = 0;
-          } else {
-            pairIndex = Math.floor(i / 2);
-            seat = 1;
-          }
-          this.moveUserToPair(this.users[i], pairIndex, seat);
-        }
-      }
 
-      //* send seats to users
-      this.sendMatchedPairs();
+    methods: {
+    autoMatch: function() {
+	console.log("autoMatch()");
+	if (this.users.length == 0) {
+            console.log("No users to match, abort!");
+            return;
+	}
+	// Split the users in gender
+	let males = [];
+	let females = [];
+
+	for (let i = 0; i < this.users.length; i++) {
+	    if (this.users[i].gender == "male") {
+		males.push(this.users[i]);
+	    } else {
+		females.push(this.users[i]);
+	    }
+	}
+
+	// MOCKING, set pairs (needs to be the the same number of males and females)
+	for (let i = 0; i < males.length; i++) {
+            if (males[i].matched == false) {
+		this.moveUserToPair(males[i], i, 0);
+		this.moveUserToPair(females[i], i, 1);
+            }
+	}
+
+	//* send seats to users
+	this.sendMatchedPairs();
     },
 
     moveUserToPair: function(user, pairIndex, seat) {
