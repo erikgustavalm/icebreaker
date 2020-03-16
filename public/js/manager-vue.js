@@ -112,6 +112,8 @@ const vm = new Vue({
     },
 
     startTimer: function() {
+      console.log("hej");
+      socket.emit("startDateTimer", {});
       this.timerInterval = setInterval(() => {
         this.timePassed = this.timePassed += 1;
         this.timeLeft = this.TIME_LIMIT - this.timePassed;
@@ -127,8 +129,8 @@ const vm = new Vue({
     },
 
     formatTime: function() {
-      m = Math.floor(this.timeLeft / 60);
-      s = this.timeLeft % 60;
+      var m = Math.floor(this.timeLeft / 60);
+      var s = this.timeLeft % 60;
       if (s < 10) {
         s = `0${s}`;
       }
@@ -136,9 +138,10 @@ const vm = new Vue({
     },
 
     sendMatchedPairs: function() {
-	  console.log(this.tables);
+      console.log(this.tables);
       socket.emit("sendMatchedPairs", {
         matchedPairs: this.tables,
+        eventID: window.sessionStorage.getItem("eventID")
       });
     },
 
@@ -151,30 +154,6 @@ const vm = new Vue({
 
       this.timePassed = 0;
       this.timeLeft = 0;
-    },
-
-    startTimer: function() {
-      this.timerInterval = setInterval(() => {
-        this.timePassed = this.timePassed += 1;
-        this.timeLeft = this.TIME_LIMIT - this.timePassed;
-        this.timerLabel = this.formatTime();
-
-        document.getElementById("manager-round-timer").style.backgroundColor =
-          "#ff3939";
-
-        if (this.timeLeft === 0) {
-          this.onTimesUp();
-        }
-      }, 1000);
-    },
-
-    formatTime: function() {
-      m = Math.floor(this.timeLeft / 60);
-      s = this.timeLeft % 60;
-      if (s < 10) {
-        s = `0${s}`;
-      }
-      return `${m}:${s}`;
     }
   },
   mounted() {
@@ -188,10 +167,11 @@ const vm = new Vue({
       socket.on(
         "getEvent",
         function(event) {
-          this.event = event.event;
+            this.event = event.event;
             this.users = this.event.users;
 	    popVm.users = this.event.users;
 	    popVm.questions = this.event.questions;
+	    popVm.answers = this.event.answers;
         }.bind(this)
       );
     }
@@ -199,7 +179,7 @@ const vm = new Vue({
     socket.on(
       "onUserJoin",
       function(data) {
-          vm.users.push(data.user);
+       //   vm.users.push(data.user);
 	  popVm.users.push(data.user);
 	  popVm.answers = data.user.answers;
 	  popVm.questions = this.event.questions;

@@ -35,11 +35,9 @@
 	<p id="manager-profile-popup-age"> </p>
 	<p id="manager-profile-popup-gender"> </p>
 	<div id="manager-profile-popup-answers">
-	  Answers:
 	  <div v-for="(answer, index) in questions">
-	    <p>{{ questions[index].question }}
-
-	     </p>
+	    <p></p>
+	    <p></p>
 	   </div>
 	</div>
 	<p></p>
@@ -80,108 +78,113 @@
 	</div>
 	<div id="manager-user-list-wrapper">
 	  <div v-for="user in users"
-               :id="user.id"
+         :id="user.id"
 	       onclick="openProfile(event)"
-               class="manager-list-slot"
-               draggable="true"
-               ondragstart="onDragStart(event)"
+         class="manager-list-slot"
+         draggable="true"
+         ondragstart="onDragStart(event)"
 	       name="profile"
 	       user="user"
 	       onmouseover="setUser(event)">
 	    <div class="manager-profile-listview">
 	      <div
-		pointer-events="none"
-		draggable="false"
-		class="manager-profile-listview-name"
-		name="profile-name"
-		>
-		{{ user.name }}
+		      pointer-events="none"
+		      draggable="false"
+		      class="manager-profile-listview-name"
+		      name="profile-name"
+		      >
+		      {{ user.name }}
 	      </div>
 	      <div
-		pointer-events="none"
-		draggable="false"
-		class="manager-profile-listview-age"
-		name="profile-age">
-		{{ user.age }}
+		      pointer-events="none"
+		      draggable="false"
+		      class="manager-profile-listview-age"
+		      name="profile-age">
+		      {{ user.age }}
 	      </div>
 	      <div
-		v-if="user.gender == 'male'"
-		pointer-events="none"
-		draggable="false"
-		class="manager-profile-listview-gender fas fa-mars"
-		name="profile-gender">
+		      v-if="user.gender == 'male'"
+		      pointer-events="none"
+		      draggable="false"
+		      class="manager-profile-listview-gender fas fa-mars"
+		      name="profile-gender">
 	      </div>
 	      <div
-		v-else
-		pointer-events="none"
-		draggable="false"
-		class="manager-profile-listview-gender fas fa-venus"
-		name="profile-gender">
+		      v-else
+		      pointer-events="none"
+		      draggable="false"
+		      class="manager-profile-listview-gender fas fa-venus"
+		      name="profile-gender">
 	      </div>
 	    </div>
-	    <img
-		:src="user.img"
-		class="manager-profile-wrapperview"
-		pointer-events="none"
-		draggable="false">
-	      <!-- <p onclick="openProfile(event)">{{ user.name }}</p> -->
+	    <img v-if="user.loggedIn"
+		    :src="user.imgPath"
+		    class="manager-profile-wrapperview"
+		    pointer-events="none"
+        draggable="false">
+      <img v-else
+		    :src="user.img"
+		    class="manager-profile-wrapperview"
+		    pointer-events="none"
+		    draggable="false">
+      
 	  </div>
-	</div>
-    </div>
-
-    <div id="manager-pairs-wrapper">
-	<div v-for="table in tables" class="manager-table" >
-	  <div
-	    :id="'' + table.tableID + '-1' "
-	    
-	    name="profile-wrapper-slot"
-	    :locked=false
-	    class="manager-slot-empty"
-	    ondragover="onDragOver(event)"
-	    ondragexit="onDragExit(event)"
-	    ondrop="onDrop(event)">
-	    <!-- <h2>{{table.id1}}</h2> -->
-	  </div>
-	  <div
-	    :id="'' + table.tableID + '-2' "
-	    
-	    name="profile-wrapper-slot"
-	    :locked=false
-	    class="manager-slot-empty"
-	    ondragover="onDragOver(event)"
-	    ondragexit="onDragExit(event)"
-	    ondrop="onDrop(event)">
-	    <!-- <h2>{{table.id2}}</h2> -->
-	  </div>
-
 	</div>
       </div>
 
+      <div id="manager-pairs-wrapper">
+	      <div v-for="table in tables" class="manager-table" >
+	        <div
+	          :id="'' + table.tableID + '-1' "
+	          
+	          name="profile-wrapper-slot"
+	          :locked=false
+	          class="manager-slot-empty"
+	          ondragover="onDragOver(event)"
+	          ondragexit="onDragExit(event)"
+	          ondrop="onDrop(event)">
+	          <!-- <h2>{{table.id1}}</h2> -->
+	        </div>
+	        <div
+	          :id="'' + table.tableID + '-2' "
+	          
+	          name="profile-wrapper-slot"
+	          :locked=false
+	          class="manager-slot-empty"
+	          ondragover="onDragOver(event)"
+	          ondragexit="onDragExit(event)"
+	          ondrop="onDrop(event)">
+	          <!-- <h2>{{table.id2}}</h2> -->
+	        </div>
+
+	      </div>
+      </div>
+
       <div id="manager-control-panel-wrapper">
-	<button
-	  class="control-panel-btn"
-	  v-on:click="startTimer"
-	  id="manager-round-timer"
-	  >
-	  {{timerLabel}}
-	</button>
-	<button
-	  class="control-panel-btn"
-	  v-on:click="autoMatch"
-	  >
-	  AUTO MATCH
-	</button>
-	<button
-	  class="control-panel-btn"
-	  v-on:click="switchShowHelp"
-	  >
-	  HELP
-	</button>
-	<button
-	  class="control-panel-btn"
-	  >
-	  QUIT
-	</button>
+	      <button
+	        class="control-panel-btn"
+	        v-on:click="startTimer"
+	        id="manager-round-timer"
+	        >
+	        {{timerLabel}}
+	      </button>
+	      <button
+	        class="control-panel-btn"
+	        v-on:click="autoMatch"
+	        >
+	        AUTO MATCH
+	      </button>
+	      <button
+	        class="control-panel-btn"
+	        v-on:click="switchShowHelp"
+	        >
+	        HELP
+	      </button>
+	      <button
+	        class="control-panel-btn"
+	        >
+	        QUIT
+	      </button>
       </div>
       <!-- ONLY FOR DEMONSTRATION PURPOSE -->
       <!-- <div -->
@@ -189,7 +192,7 @@
       <!--   class="manager-slot-taken" -->
       <!--   draggable="true" -->
       <!--   ondragstart="onDragStart(event)"> -->
-	<!-- </div> -->
+	    <!-- </div> -->
     </div>
   </body>
 </html>

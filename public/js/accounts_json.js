@@ -12,7 +12,7 @@ let accounts = [
 	img: "../img/index.png",
 	matches: [],
 	loggedIn: false,
-	answers: ["kuk", "bajs", "u-horunge"]
+	answers: ["Rock", "Vesuvio", "Trump", "Highschool", "Cat", "Lighter"]
     },
     {
 	showInfo: false,
@@ -27,7 +27,7 @@ let accounts = [
 	img: "../img/index.png",
 	matches: [],
 	loggedIn: false,
-	answers: ["kuk", "bajs", "u-horunge"]
+	answers: ["Rock", "Vesuvio", "Trump", "Highschool", "Cat", "Lighter"]
     },
     {
 	showInfo: false,
@@ -42,7 +42,7 @@ let accounts = [
 	img: "../img/index.png",
 	matches: [],
 	loggedIn: false,
-	answers: ["kuk", "bajs", "u-horunge"]
+	answers: ["Rock", "Vesuvio", "Trump", "Highschool", "Cat", "Lighter"]
     },
     {
 	showInfo: false,
@@ -57,7 +57,7 @@ let accounts = [
 	img: "../img/index.png",
 	matches: [],
 	loggedIn: false,
-	answers: ["kuk", "bajs", "u-horunge"]
+	answers: ["Rock", "Vesuvio", "Trump", "Highschool", "Cat", "Lighter"]
     },
     {
 	showInfo: false,
@@ -72,7 +72,7 @@ let accounts = [
 	img: "../img/index.png",
 	matches: [],
 	loggedIn: false,
-	answers: ["kuk", "bajs", "u-horunge"]
+	answers: ["Rock", "Vesuvio", "Trump", "Highschool", "Cat", "Lighter"]
     },
     {
 	showInfo: false,
@@ -87,7 +87,7 @@ let accounts = [
 	img: "../img/index.png",
 	matches: [],
 	loggedIn: false,
-	answers: ["kuk", "bajs", "u-horunge"]
+	answers: ["Rock", "Vesuvio", "Trump", "Highschool", "Cat", "Lighter"]
     },
     {
 	showInfo: false,
@@ -102,7 +102,7 @@ let accounts = [
 	img: "../img/index.png",
 	matches: [],
 	loggedIn: false,
-	answers: ["kuk", "bajs", "u-horunge"]
+	answers: ["Rock", "Vesuvio", "Trump", "Highschool", "Cat", "Lighter"]
     },
     {
 	showInfo: false,
@@ -117,7 +117,7 @@ let accounts = [
 	img: "../img/index.png",
 	matches: [],
 	loggedIn: false,
-	answers: ["kuk", "bajs", "u-horunge"]
+	answers: ["Rock", "Vesuvio", "Trump", "Highschool", "Cat", "Lighter"]
     },
     {
 	showInfo: false,
@@ -132,7 +132,7 @@ let accounts = [
 	img: "../img/index.png",
 	matches: [],
 	loggedIn: false,
-	answers: ["kuk", "bajs", "u-horunge"]
+	answers: ["Rock", "Vesuvio", "Trump", "Highschool", "Cat", "Lighter"]
     },
     {
 	showInfo: false,
@@ -147,7 +147,7 @@ let accounts = [
 	img: "../img/index.png",
 	matches: [],
 	loggedIn: false,
-	answers: ["kuk", "bajs", "u-horunge"]
+	answers: ["Rock", "Vesuvio", "Trump", "Highschool", "Cat", "Lighter"]
     },
     {
 	showInfo: false,
@@ -162,7 +162,7 @@ let accounts = [
 	img: "../img/index.png",
 	matches: [],
 	loggedIn: false,
-	answers: ["kuk", "bajs", "u-horunge"]
+	answers: ["Rock", "Vesuvio", "Trump", "Highschool", "Cat", "Lighter"]
     },
     {
 	showInfo: false,
@@ -177,7 +177,7 @@ let accounts = [
 	img: "../img/index.png",
 	matches: [],
 	loggedIn: false,
-	answers: ["kuk", "bajs", "u-horunge"]
+	answers: ["Rock", "Vesuvio", "Trump", "Highschool", "Cat", "Lighter"]
     },
     {
     	showInfo: false,
@@ -192,7 +192,7 @@ let accounts = [
     	img: "../img/index.png",
     	matches: [],
     	loggedIn: false,
-    	answers: ["kuk", "bajs", "u-horunge"]
+    	answers: ["Rock", "Vesuvio", "Trump", "Highschool", "Cat", "Lighter"]
     },
     {
     	showInfo: false,
@@ -207,7 +207,7 @@ let accounts = [
     	img: "../img/index.png",
     	matches: [],
     	loggedIn: false,
-    	answers: ["kuk", "bajs", "u-horunge"]
+    	answers: ["Rock", "Vesuvio", "Trump", "Highschool", "Cat", "Lighter"]
     },
     {
     	showInfo: false,
@@ -222,7 +222,7 @@ let accounts = [
     	img: "../img/index.png",
     	matches: [],
     	loggedIn: false,
-    	answers: ["kuk", "bajs", "u-horunge"]
+    	answers: ["Rock", "Vesuvio", "Trump", "Highschool", "Cat", "Lighter"]
     },
     {
     	showInfo: false,
@@ -237,7 +237,7 @@ let accounts = [
     	img: "../img/index.png",
     	matches: [],
     	loggedIn: false,
-    	answers: ["kuk", "bajs", "u-horunge"]
+    	answers: ["Rock", "Vesuvio", "Trump", "Highschool", "Cat", "Lighter"]
     },
     {
     	showInfo: false,
@@ -252,7 +252,7 @@ let accounts = [
     	img: "../img/index.png",
     	matches: [],
     	loggedIn: false,
-    	answers: ["kuk", "bajs", "u-horunge"]
+    	answers: ["Rock", "Vesuvio", "Trump", "Highschool", "Cat", "Lighter"]
     },
     {
     	showInfo: false,
@@ -267,7 +267,7 @@ let accounts = [
     	img: "../img/index.png",
     	matches: [],
     	loggedIn: false,
-    	answers: ["kuk", "bajs", "u-horunge"]
+    	answers: ["Rock", "Vesuvio", "Trump", "Highschool", "Cat", "Lighter"]
     },
     {
     	showInfo: false,
@@ -282,7 +282,7 @@ let accounts = [
     	img: "../img/index.png",
     	matches: [],
     	loggedIn: false,
-    	answers: ["kuk", "bajs", "u-horunge"]
+    	answers: ["Rock", "Vesuvio", "Trump", "Highschool", "Cat", "Lighter"]
     },
     {
     	showInfo: false,
@@ -297,7 +297,7 @@ let accounts = [
     	img: "../img/index.png",
     	matches: [],
     	loggedIn: false,
-    	answers: ["kuk", "bajs", "u-horunge"]
+    	answers: []
     },
     {
     	showInfo: false,
@@ -312,7 +312,7 @@ let accounts = [
     	img: "../img/index.png",
     	matches: [],
     	loggedIn: false,
-    	answers: ["kuk", "bajs", "u-horunge"]
+    	answers: ["Rock", "Vesuvio", "Trump", "Highschool", "Cat", "Lighter"]
     },
     {
     	showInfo: false,
@@ -342,7 +342,7 @@ let accounts = [
 	img: "../img/index.png",
 	matches: [],
 	loggedIn: false,
-	answers: ["kuk", "bajs", "u-horunge"]
+	answers: []
     }
 ];
 

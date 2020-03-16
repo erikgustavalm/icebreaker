@@ -11,6 +11,7 @@
     <title>Waiting for next match</title>
   </head>
   <body>
+    <div class ="container">
     <section id="loader-wrapper">
       <div class="loader">
         <div class="loader__bar"></div>
@@ -21,7 +22,6 @@
         <div class="loader__ball"></div>
       </div>
     </section>
-
     <div id="text-wrapper">
       <!-- ? the overlay div that is always present when turning on a popup window -->
       <div class="overlay" v-if="overlayOff == false"></div>
@@ -44,7 +44,7 @@
           <div class="table" id="9"></div>
           <div class="table" id="10"></div>
         </section>
-        <button class="date" v-on:click="goToSite('./dating.html')">Ready to start!</button>
+        <button class="date" v-on:click="getDate()">Ready to start!</button>
         <div class="help-button" v-on:click="showInfo()">?</div>
       </section>
       <div v-if="hideIcebreaker">
@@ -56,5 +56,78 @@
       <div v-if="visible" id="icebreaker">{{icebreaker}}</div>
     </div>
     <div id="sequence"></div>
+    <div id="your-date-container" v-if="seat">
+      <div id="your-match">
+        <h1 id="date-header">This is your date!</h1>
+        <img
+          id="current-date-img"
+          :src="dateImg"
+          alt="your date"
+        />
+        <h1 id="date-name">{{myDate.name}}</h1>
+      </div>
+      <div id="countdown">
+        Remaining Time:
+        <span id="time">{{display}} </span>
+      </div>
+      <div id="button-container">
+        <button id="exit-date" v-on:click="cancelDate()">
+          Exit date!
+        </button>
+      </div>
+    </div>
+    <div id="rate-date-container" v-if="rate">
+      <h1 id="rate-header">Rate your date!</h1>
+      <div id="current-date">
+        <img
+        id="current-date-img"
+        :src="dateImg"
+        alt="your date"
+      />
+      <h1 id="date-name">{{myDate.name}}</h1>
+      </div>
+      <div
+        id="slide-container"
+        
+        v-for="(item,index) in questions"
+      > 
+        <p class="question">{{item}}</p>
+        <p>{{rating[index]}}</p>
+        <div class="rangeslider">
+          <input
+            type="range"
+            min="1"
+            max="10"
+            step="1"
+            class="slider"
+            v-model="rating[index]"
+            id="fstAttribute"
+          />
+        </div>
+
+      </div>
+      <p></p>
+        <textarea v-model="message" id="text-box" cols="30" rows="10" placeholder="Aything you would like to tell the host?"></textarea>
+
+      <div id="button-container">
+        <button id="submit-rating-button"  @click="submitRating">
+          Done!
+        </button>
+      </div>
+    </div>
+    <div id="user-final-screen" v-if="final">
+      <h1 class="swipe-title">Send your contact info!</h1>
+      <div v-for="(item, index) in dates" class="user-selection" v-on:touchstart="touchStart($event)"
+        v-on:touchmove="touchMove($event)" v-on:touchend="touchEnd($event)">
+        <p class="names">{{dates[index].date.name}}</p>
+       <img :src="dates[index].date.img" :id="'date-'+index" class="flipable"> 
+      </div>
+      <button id="done-btn" v-on:click="matchedDates">
+        Done!
+      </button>
+      <p class="help helpswipe" v-if="toggleHelp">Swipe right if you want to share contacts, otherwise swipe left.</p>
+      <div class="help-button helpswipe-button" v-on:click="showInfo()">?</div>
+    </div>
+  </div>
   </body>
 </html>

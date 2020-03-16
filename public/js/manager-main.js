@@ -1,4 +1,5 @@
 // Here we write json and functionalities.
+
 let tables = [
     {
 	tableID: 1,
@@ -70,6 +71,7 @@ function unlockSlot(slot){
     slot.setAttribute('locked', false);
 }
 
+
 function onDragStart(event) {
 
     if(event.target == null){
@@ -118,6 +120,7 @@ function onDragExit(event) {
 function onDrop(event) {
     event.preventDefault();
     const id = event.dataTransfer.getData("text");
+
     const draggableElement = document.getElementById(id);
 
 
@@ -176,8 +179,10 @@ function onDrop(event) {
     dropzone.appendChild(draggableElement);
 }
 
+
 function openProfile(event) {
     console.log("openProfile()");
+    console.log(popVm);
     console.log(popVm.questions[0].question);
     // if(mouseOverActive != mouseOverCall) return;
     // mouseOverActive = true;
@@ -189,17 +194,20 @@ function openProfile(event) {
     let name = document.getElementById("manager-profile-popup-name");
     let age = document.getElementById("manager-profile-popup-age");
     let gender = document.getElementById("manager-profile-popup-gender");
-    let answers = document.getElementById("manager-profile-popup-answers");
+    let questions = document.getElementById("manager-profile-popup-answers").children[0].children[0];
+    let answers = document.getElementById("manager-profile-popup-answers").children[0].children[1];
     let index = parseInt(profile.id.substring(4, profile.id.length), 10);
 
     popVm.user = vm.users[index];
+    console.log(questions);
+    console.log(answers);
     console.log(index);
     name.innerHTML = "Name: " + vm.users[index].name;
     age.innerHTML = "Age: " + vm.users[index].age;
     gender.innerHTML = "Gender: " + vm.users[index].gender;
-    // for(let i = 0; i < vm.users[index].answers.length; i++){
-    // 	answers.innerHTML += vm.questions[i] + " " + vm.users[index].answers[i];
-    // }
+    for(let i = 0; i < vm.users[index].answers.length; i++){
+	document.getElementById("manager-profile-popup-answers").children[i].children[1].innerHTML = popVm.users[index].answers[i];	document.getElementById("manager-profile-popup-answers").children[i].children[0].innerHTML = popVm.questions[i].question;
+    }
     
     /* Disable draggable while profile window is active */
     profile.draggable = false;

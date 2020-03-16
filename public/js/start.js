@@ -19,9 +19,10 @@ const vm = new Vue({
       name: "",
       age: "",
       gender: "",
-      imgPath: "",
+      img: "",
       picture: null,
-      matches: []
+      matches: [],
+      answers:[],
     },
     loggedInUser: {}
   },
@@ -234,12 +235,14 @@ const vm = new Vue({
                   document.getElementById("profile-pic").src = event2.target.result;   
               };
               picReader.readAsDataURL(event.target.files[0]);
+              this.newUser.imgPath = "../uploads/profile_pictures/" + this.newUser.username + ".jpeg";
           }
           
       },
 
     toggleCard: function(card, index) {
       var el = document.getElementById("card-" + index);
+      console.log(el.childNodes);
       if (el.classList.contains("expand")) {
         el.classList.remove("expand");
         el.childNodes[2].childNodes[4].classList.add("toggle-off");
@@ -249,6 +252,7 @@ const vm = new Vue({
         el.childNodes[2].childNodes[4].classList.remove("toggle-off");
         el.childNodes[2].childNodes[6].classList.remove("toggle-off");
       }
-    }
+    },
   }
-});
+})
+

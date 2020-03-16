@@ -132,7 +132,9 @@ io.on("connection", function(socket) {
       icebreakers: [],
       questionAnswers: [],
       max: 20,
-      attended: 19, //starts at 20 because of our bots? Else manager should send attended count.
+      females: 0, //can be a max of 10 females
+      males: 0, //can be a max of 10 males
+      attended: 0,
       tables: [], //seats should be updated by manager only when done, no need to update it on every drag
       round: 0,
       usersMatched: [], //array of [[2],[2]..] arrays, where the [2] array contains 2 users.
@@ -143,8 +145,17 @@ io.on("connection", function(socket) {
 
     var bots = accounts.accounts;
     //initialize bots for the event
-    for (let i = 0; i < 10; i++) {
+
+    //change 19 to lower digit to remove bots. Do not increase to 20 unless
+    //you want no "real" players - if num exceeds 20 the game wont work.
+    for (let i = 0; i < 19; i++) {
       event.users.push(bots[i]);
+      if(bots[i].gender === "female"){
+        event.females++;
+      }else{
+        event.males++;
+      }
+      event.attended++;
     }
 
     //initial questions for event
@@ -168,6 +179,11 @@ io.on("connection", function(socket) {
     console.log(events.getEvent(event.eventID));
   });
 
+  //* start date timer
+  socket.on("startDateTimer", function(data) {
+    console.log("in timer!");
+    io.emit("startTimer", {});
+  });
   //* send the questionaire to answer for the event
   socket.on("requestQuestions", function(data) {
     let event = events.getEvent(data.eventID);
@@ -177,14 +193,12 @@ io.on("connection", function(socket) {
   });
 
   //* send the icebreakers to show whilst waiting
-  socket.on('requestIcebreakers', function(data){
+  socket.on("requestIcebreakers", function(data) {
     let event = events.getEvent(data.eventID);
-    console.log(event);
-    console.log(data.roomId);
     io.to(data.roomId).emit("sendIcebreakers", {
-      icebreakers: event.icebreakers,
+      icebreakers: event.icebreakers
     });
-  })
+  });
 
   socket.on("sendAnswers", function(data) {
     let event = events.getEvent(data.eventID);
@@ -196,7 +210,7 @@ io.on("connection", function(socket) {
     let id = event.users.length - 1;
     let userId = "user" + id;
     user.id = userId;
-
+    console.log(user.answers);
     socket.to(event.eventID).emit("onUserJoin", { user: user });
   });
 
@@ -206,19 +220,38 @@ io.on("connection", function(socket) {
     let event = events.getEvent(data.eventID);
     let user = data.user;
     let hasJoined = false;
+    let msg = "";
+    //* First case - event is full
     if (event.attended < event.max) {
-      events.addUser(event.eventID, user);
-      hasJoined = true;
-      console.log(event);
-      // let id = event.users.length - 1;
-      // let userId = "user" + id;
-      // user.id = userId;
-      // socket.to(event.eventID).emit("onUserJoin", {user:user});
+      //* Second case - user female
+      if(user.gender === "female" && event.females < 10){
+        events.addUser(event.eventID, user);
+        hasJoined = true;
+        event.females++;
+      }
+      //* third case - user female but event full of females
+      else if(user.gender === "female" && event.females == 10 ) {
+        msg = "Event is already full of females!";
+      }
+      //* fourth case - user male 
+      else if(user.gender === "male" && event.males < 10 ){
+        events.addUser(event.eventID, user);
+        hasJoined = true;
+        event.males++;
+      }
+      //* fifth case - user male but event full of males
+      else{
+        msg = "Event is already full of males!";
+      }
+    }
+    else {
+      msg = "Event is full!";
     }
 
     io.to(user.username).emit("userJoined", {
       eventID: event.eventID,
-      joined: hasJoined
+      joined: hasJoined,
+      error: msg,
     });
   });
 
@@ -234,8 +267,13 @@ io.on("connection", function(socket) {
     }
   });
 
-  socket.on("sendMatchedPairs", function(data) {
+    socket.on("sendMatchedPairs", function(data) {
+	console.log("Send mathed pairs");
+	console.log(data);
+	let event = events.getEvent(data.eventID);
+	console.log(event);
     let matchedPairs = data.matchedPairs;
+    event.tables = matchedPairs;
 
     for (let i = 0; i < matchedPairs.length; i++) {
       const userRoom1 = matchedPairs[i].seat1.username;
@@ -248,6 +286,15 @@ io.on("connection", function(socket) {
         seat: matchedPairs[i]
       });
     }
+  });
+
+  //* event is done for user so lets add the matched users to that account
+  socket.on("datesDone", function(data){
+    var user = accounts.getAccount(data.userID);
+    for (let i = 0; i < data.matches.length; i++) {
+      user.matches.push(data.matches[i]);
+    }
+    console.log(user.matches);
   });
 
   //* 'loginUser' is sent by starting page when a user tries to log in
@@ -316,10 +363,6 @@ io.on("connection", function(socket) {
     }
   });
 
-
-    
-
-
   //* When user wants to log out we remove room id from roomSessions and
   //* set online status to false in accounts
   socket.on("logoutUser", function(user) {
@@ -351,12 +394,17 @@ io.on("connection", function(socket) {
   socket.on("createdUser", function(acc) {
     accounts.addAccount(acc.account);
     console.log("Created a new account:");
-      console.log(acc.account.picture);
-      fs.writeFile("public/uploads/profile_pictures/"+ acc.account.username + ".jpeg", acc.account.picture, {encoding: "binary"}, function(error){console.log(error)})
-      
+    console.log(acc.account.picture);
+    fs.writeFile(
+      "public/uploads/profile_pictures/" + acc.account.username + ".jpeg",
+      acc.account.picture,
+      { encoding: "binary" },
+      function(error) {
+        console.log(error);
+      }
+    );
   });
 });
-
 
 /* eslint-disable-next-line no-unused-vars */
 const server = http.listen(app.get("port"), function() {
