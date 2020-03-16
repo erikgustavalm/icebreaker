@@ -210,8 +210,9 @@ body {
 }
 
 .manager-profile-popup {
-    height: 25vh;
-    width: 15vw;
+    overflow-y: scroll;
+    height: 40vh;
+    width: 30vw;
     display: none;
     justify-content: center;
     background-color: #e1e1e1;

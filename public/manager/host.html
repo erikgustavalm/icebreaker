@@ -34,6 +34,12 @@
 	<p id="manager-profile-popup-name"> </p>
 	<p id="manager-profile-popup-age"> </p>
 	<p id="manager-profile-popup-gender"> </p>
+	<div id="manager-profile-popup-answers">
+	  <div v-for="(answer, index) in questions">
+	    <p></p>
+	    <p></p>
+	   </div>
+	</div>
 	<p></p>
       </div>
     </div>
@@ -78,7 +84,8 @@
          draggable="true"
          ondragstart="onDragStart(event)"
 	       name="profile"
-	       user="user">
+	       user="user"
+	       onmouseover="setUser(event)">
 	    <div class="manager-profile-listview">
 	      <div
 		      pointer-events="none"

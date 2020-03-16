@@ -145,6 +145,7 @@ io.on("connection", function(socket) {
 
     var bots = accounts.accounts;
     //initialize bots for the event
+
     //change 19 to lower digit to remove bots. Do not increase to 20 unless
     //you want no "real" players - if num exceeds 20 the game wont work.
     for (let i = 0; i < 19; i++) {
@@ -173,7 +174,7 @@ io.on("connection", function(socket) {
     for (let i = 0; i < currentSession.quotes.length; i++) {
       event.icebreakers.push(currentSession.quotes[i]);
     }
-
+      
     events.addEvent(event);
     console.log(events.getEvent(event.eventID));
   });
@@ -216,7 +217,7 @@ io.on("connection", function(socket) {
     let id = event.users.length - 1;
     let userId = "user" + id;
     user.id = userId;
-    console.log(user);
+    console.log(user.answers);
     socket.to(event.eventID).emit("onUserJoin", { user: user });
   });
 
@@ -272,8 +273,11 @@ io.on("connection", function(socket) {
     }
   });
 
-  socket.on("sendMatchedPairs", function(data) {
-    let event = events.getEvent(data.eventID);
+    socket.on("sendMatchedPairs", function(data) {
+	console.log("Send mathed pairs");
+	console.log(data);
+	let event = events.getEvent(data.eventID);
+	console.log(event);
     let matchedPairs = data.matchedPairs;
     event.tables = matchedPairs;
 

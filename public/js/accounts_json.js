@@ -12,7 +12,7 @@ let accounts = [
 	img: "../img/index.png",
 	matches: [],
 	loggedIn: false,
-	answers: []
+	answers: ["Rock", "Vesuvio", "Trump", "Highschool", "Cat", "Lighter"]
     },
     {
 	showInfo: false,
@@ -27,7 +27,7 @@ let accounts = [
 	img: "../img/index.png",
 	matches: [],
 	loggedIn: false,
-	answers: []
+	answers: ["Rock", "Vesuvio", "Trump", "Highschool", "Cat", "Lighter"]
     },
     {
 	showInfo: false,
@@ -42,7 +42,7 @@ let accounts = [
 	img: "../img/index.png",
 	matches: [],
 	loggedIn: false,
-	answers: []
+	answers: ["Rock", "Vesuvio", "Trump", "Highschool", "Cat", "Lighter"]
     },
     {
 	showInfo: false,
@@ -57,7 +57,7 @@ let accounts = [
 	img: "../img/index.png",
 	matches: [],
 	loggedIn: false,
-	answers: []
+	answers: ["Rock", "Vesuvio", "Trump", "Highschool", "Cat", "Lighter"]
     },
     {
 	showInfo: false,
@@ -72,7 +72,7 @@ let accounts = [
 	img: "../img/index.png",
 	matches: [],
 	loggedIn: false,
-	answers: []
+	answers: ["Rock", "Vesuvio", "Trump", "Highschool", "Cat", "Lighter"]
     },
     {
 	showInfo: false,
@@ -87,7 +87,7 @@ let accounts = [
 	img: "../img/index.png",
 	matches: [],
 	loggedIn: false,
-	answers: []
+	answers: ["Rock", "Vesuvio", "Trump", "Highschool", "Cat", "Lighter"]
     },
     {
 	showInfo: false,
@@ -102,7 +102,7 @@ let accounts = [
 	img: "../img/index.png",
 	matches: [],
 	loggedIn: false,
-	answers: []
+	answers: ["Rock", "Vesuvio", "Trump", "Highschool", "Cat", "Lighter"]
     },
     {
 	showInfo: false,
@@ -117,7 +117,7 @@ let accounts = [
 	img: "../img/index.png",
 	matches: [],
 	loggedIn: false,
-	answers: []
+	answers: ["Rock", "Vesuvio", "Trump", "Highschool", "Cat", "Lighter"]
     },
     {
 	showInfo: false,
@@ -132,7 +132,7 @@ let accounts = [
 	img: "../img/index.png",
 	matches: [],
 	loggedIn: false,
-	answers: []
+	answers: ["Rock", "Vesuvio", "Trump", "Highschool", "Cat", "Lighter"]
     },
     {
 	showInfo: false,
@@ -147,7 +147,7 @@ let accounts = [
 	img: "../img/index.png",
 	matches: [],
 	loggedIn: false,
-	answers: []
+	answers: ["Rock", "Vesuvio", "Trump", "Highschool", "Cat", "Lighter"]
     },
     {
 	showInfo: false,
@@ -162,7 +162,7 @@ let accounts = [
 	img: "../img/index.png",
 	matches: [],
 	loggedIn: false,
-	answers: []
+	answers: ["Rock", "Vesuvio", "Trump", "Highschool", "Cat", "Lighter"]
     },
     {
 	showInfo: false,
@@ -177,157 +177,157 @@ let accounts = [
 	img: "../img/index.png",
 	matches: [],
 	loggedIn: false,
-	answers: []
+	answers: ["Rock", "Vesuvio", "Trump", "Highschool", "Cat", "Lighter"]
     },
     {
-	showInfo: false,
-	matched: false,
-	id: "user12",
-	username: "Birgitta1",
-	password: "123",
-	email: "1@hotmail.com",
-	name: "Birgitta Hysen",
-	age: "28",
-	gender: "female",
-	img: "../img/index.png",
-	matches: [],
-	loggedIn: false,
-	answers: []
+    	showInfo: false,
+    	matched: false,
+    	id: "user12",
+    	username: "Birgitta1",
+    	password: "123",
+    	email: "1@hotmail.com",
+    	name: "Birgitta Hysen",
+    	age: "28",
+    	gender: "female",
+    	img: "../img/index.png",
+    	matches: [],
+    	loggedIn: false,
+    	answers: ["Rock", "Vesuvio", "Trump", "Highschool", "Cat", "Lighter"]
     },
     {
-	showInfo: false,
-	matched: false,
-	id: "user13",
-	username: "Yaki1",
-	password: "123",
-	email: "1@hotmail.com",
-	name: "Yaki Naki",
-	age: "30",
-	gender: "female",
-	img: "../img/index.png",
-	matches: [],
-	loggedIn: false,
-	answers: []
+    	showInfo: false,
+    	matched: false,
+    	id: "user13",
+    	username: "Yaki1",
+    	password: "123",
+    	email: "1@hotmail.com",
+    	name: "Yaki Naki",
+    	age: "30",
+    	gender: "female",
+    	img: "../img/index.png",
+    	matches: [],
+    	loggedIn: false,
+    	answers: ["Rock", "Vesuvio", "Trump", "Highschool", "Cat", "Lighter"]
     },
     {
-	showInfo: false,
-	matched: false,
-	id: "user14",
-	username: "Ellie1",
-	password: "123",
-	email: "1@hotmail.com",
-	name: "Ellie Nitram",
-	age: "29",
-	gender: "female",
-	img: "../img/index.png",
-	matches: [],
-	loggedIn: false,
-	answers: []
+    	showInfo: false,
+    	matched: false,
+    	id: "user14",
+    	username: "Ellie1",
+    	password: "123",
+    	email: "1@hotmail.com",
+    	name: "Ellie Nitram",
+    	age: "29",
+    	gender: "female",
+    	img: "../img/index.png",
+    	matches: [],
+    	loggedIn: false,
+    	answers: ["Rock", "Vesuvio", "Trump", "Highschool", "Cat", "Lighter"]
     },
     {
-	showInfo: false,
-	matched: false,
-	id: "user15",
-	username: "Dylan1",
-	password: "123",
-	email: "1@hotmail.com",
-	name: "Dylan Reece",
-	age: "25",
-	gender: "female",
-	img: "../img/index.png",
-	matches: [],
-	loggedIn: false,
-	answers: []
+    	showInfo: false,
+    	matched: false,
+    	id: "user15",
+    	username: "Dylan1",
+    	password: "123",
+    	email: "1@hotmail.com",
+    	name: "Dylan Reece",
+    	age: "25",
+    	gender: "female",
+    	img: "../img/index.png",
+    	matches: [],
+    	loggedIn: false,
+    	answers: ["Rock", "Vesuvio", "Trump", "Highschool", "Cat", "Lighter"]
     },
     {
-	showInfo: false,
-	matched: false,
-	id: "user16",
-	username: "Tora1",
-	password: "123",
-	email: "1@hotmail.com",
-	name: "Tora Torah",
-	age: "28",
-	gender: "female",
-	img: "../img/index.png",
-	matches: [],
-	loggedIn: false,
-	answers: []
+    	showInfo: false,
+    	matched: false,
+    	id: "user16",
+    	username: "Tora1",
+    	password: "123",
+    	email: "1@hotmail.com",
+    	name: "Tora Torah",
+    	age: "28",
+    	gender: "female",
+    	img: "../img/index.png",
+    	matches: [],
+    	loggedIn: false,
+    	answers: ["Rock", "Vesuvio", "Trump", "Highschool", "Cat", "Lighter"]
     },
     {
-	showInfo: false,
-	matched: false,
-	id: "user17",
-	username: "Sabina1",
-	password: "123",
-	email: "1@hotmail.com",
-	name: "Sabina Jungman",
-	age: "21",
-	gender: "female",
-	img: "../img/index.png",
-	matches: [],
-	loggedIn: false,
-	answers: []
+    	showInfo: false,
+    	matched: false,
+    	id: "user17",
+    	username: "Sabina1",
+    	password: "123",
+    	email: "1@hotmail.com",
+    	name: "Sabina Jungman",
+    	age: "21",
+    	gender: "female",
+    	img: "../img/index.png",
+    	matches: [],
+    	loggedIn: false,
+    	answers: ["Rock", "Vesuvio", "Trump", "Highschool", "Cat", "Lighter"]
     },
     {
-	showInfo: false,
-	matched: false,
-	id: "user18",
-	username: "Joakina1",
-	password: "123",
-	email: "1@hotmail.com",
-	name: "Joakina Wimhof",
-	age: "27",
-	gender: "female",
-	img: "../img/index.png",
-	matches: [],
-	loggedIn: false,
-	answers: []
+    	showInfo: false,
+    	matched: false,
+    	id: "user18",
+    	username: "Joakina1",
+    	password: "123",
+    	email: "1@hotmail.com",
+    	name: "Joakina Wimhof",
+    	age: "27",
+    	gender: "female",
+    	img: "../img/index.png",
+    	matches: [],
+    	loggedIn: false,
+    	answers: ["Rock", "Vesuvio", "Trump", "Highschool", "Cat", "Lighter"]
     },
     {
-	showInfo: false,
-	matched: false,
-	id: "user19",
-	username: "Markina1",
-	password: "123",
-	email: "1@hotmail.com",
-	name: "Markina Markson",
-	age: "23",
-	gender: "female",
-	img: "../img/index.png",
-	matches: [],
-	loggedIn: false,
-	answers: []
+    	showInfo: false,
+    	matched: false,
+    	id: "user19",
+    	username: "Markina1",
+    	password: "123",
+    	email: "1@hotmail.com",
+    	name: "Markina Markson",
+    	age: "23",
+    	gender: "female",
+    	img: "../img/index.png",
+    	matches: [],
+    	loggedIn: false,
+    	answers: []
     },
     {
-	showInfo: false,
-	matched: false,
-	id: "user20",
-	username: "Erika1",
-	password: "123",
-	email: "1@hotmail.com",
-	name: "Erika Person",
-	age: "26",
-	gender: "female",
-	img: "../img/index.png",
-	matches: [],
-	loggedIn: false,
-	answers: []
+    	showInfo: false,
+    	matched: false,
+    	id: "user20",
+    	username: "Erika1",
+    	password: "123",
+    	email: "1@hotmail.com",
+    	name: "Erika Person",
+    	age: "26",
+    	gender: "female",
+    	img: "../img/index.png",
+    	matches: [],
+    	loggedIn: false,
+    	answers: ["Rock", "Vesuvio", "Trump", "Highschool", "Cat", "Lighter"]
     },
     {
-	showInfo: false,
-	matched: false,
-	id: "user21",
-	username: "Roger1",
-	password: "123",
-	email: "1@hotmail.com",
-	name: "Roger Pontare",
-	age: "37",
-	gender: "male",
-	img: "../img/index.png",
-	matches: [],
-	loggedIn: false,
-	answers: []
+    	showInfo: false,
+    	matched: false,
+    	id: "user21",
+    	username: "Roger1",
+    	password: "123",
+    	email: "1@hotmail.com",
+    	name: "Roger Pontare",
+    	age: "37",
+    	gender: "male",
+    	img: "../img/index.png",
+    	matches: [],
+    	loggedIn: false,
+    	answers: []
     },
     {
 	showInfo: false,
