@@ -40,7 +40,7 @@ const vm = new Vue({
     //* will contain the swipes
     swipes: [false, false, false],
     //* will contain the matched people
-    matched: [],
+    matched: []
   },
   mounted() {
     socket.emit("requestUser", {
@@ -48,7 +48,7 @@ const vm = new Vue({
     });
     socket.on(
       "getUser",
-      function (user) {
+      function(user) {
         this.loggedInUser = user.data;
         console.log(this.loggedInUser.username + " is logged in on this page");
       }.bind(this)
@@ -61,7 +61,7 @@ const vm = new Vue({
 
     socket.on(
       "sendIcebreakers",
-      function (data) {
+      function(data) {
         this.icebreakers = data.icebreakers;
         this.numOfIcebreakers = data.icebreakers.length;
       }.bind(this)
@@ -69,7 +69,7 @@ const vm = new Vue({
 
     socket.on(
       "yourDate",
-      function (data) {
+      function(data) {
         console.log(data.seat);
         this.wait = false;
         this.overlayOff = false;
@@ -86,7 +86,7 @@ const vm = new Vue({
     );
   },
   methods: {
-    showIcebreaker: async function () {
+    showIcebreaker: async function() {
       while (this.wait) {
         this.visible = false;
         this.hideIcebreaker = true;
@@ -101,27 +101,27 @@ const vm = new Vue({
         this.icebreaker = "";
       }
     },
-    sleep: function (ms) {
+    sleep: function(ms) {
       return new Promise(resolve => setTimeout(resolve, ms));
     },
-    setTable: function (data) {
+    setTable: function(data) {
       document.getElementById("table-wrapper").style.display = "flex";
       var seat = document.getElementById(data.seat.tableID);
       this.tableID = data.seat.tableID;
       seat.classList.add("colorIn");
     },
 
-    goToSite: function (link) {
+    goToSite: function(link) {
       window.location.href = link;
     },
-    showInfo: function () {
+    showInfo: function() {
       if (this.toggleHelp == false) {
         this.toggleHelp = true;
       } else {
         this.toggleHelp = false;
       }
     },
-    startTimer: function () {
+    startTimer: function() {
       //time since 1970 in milliseconds
       const now = Date.now();
 
@@ -134,7 +134,7 @@ const vm = new Vue({
         this.timeLeft(secondsLeft);
       }, 1000);
     },
-    timeLeft: function (secondsLeft) {
+    timeLeft: function(secondsLeft) {
       let minutes = "" + Math.floor(secondsLeft / 60);
       let seconds = "" + Math.floor(secondsLeft % 60);
       if (minutes < 10) {
@@ -146,11 +146,11 @@ const vm = new Vue({
 
       this.display = `${minutes}:${seconds}`;
     },
-    goToSite: function (link) {
+    goToSite: function(link) {
       clearInterval(this.timer);
       window.location.href = link;
     },
-    getDate: function () {
+    getDate: function() {
       this.seat = true;
       document.getElementById("table-wrapper").style.display = "none";
       var seat = document.getElementById(this.tableID);
@@ -158,24 +158,32 @@ const vm = new Vue({
 
       socket.on(
         "startTimer",
-        function (data) {
+        function(data) {
           this.startTimer();
         }.bind(this)
       );
     },
-    cancelDate: function () {
+    cancelDate: function() {
       clearInterval(this.timer);
       this.seat = false;
-      this.rate = true
+      this.rate = true;
     },
-    submitRating: function (event) {
+    submitRating: function(event) {
       this.time = 900;
       this.timer = null;
       this.display = null;
 
       this.rate = false;
       this.overlayOff = true;
-      this.dates.push({ date: this.myDate, rating: this.rating, msg: this.message })
+      this.dates.push({
+        date: this.myDate,
+        rating: this.rating,
+        msg: this.message
+      });
+      socket.emit("rateDateAns", {
+        rating: this.rating[0],
+        message: this.message
+      });
       this.rating = ["1"];
       this.message = "";
       console.log("All your current dates:");
@@ -196,12 +204,12 @@ const vm = new Vue({
         console.log("show matches");
       }
     },
-    touchStart: function (event) {
+    touchStart: function(event) {
       event.preventDefault();
       this.startX = event.touches[0].clientX;
     },
 
-    touchMove: function (event) {
+    touchMove: function(event) {
       this.currX = event.touches[0].clientX;
       this.distance = Math.floor(this.startX - this.currX);
       // if (this.distance > 200 || this.distance < -200) {
@@ -215,8 +223,7 @@ const vm = new Vue({
       // }
     },
 
-    touchEnd: function (event) {
-
+    touchEnd: function(event) {
       if (!event.target.classList.contains("flipable")) {
         this.distance = 0;
         return;
@@ -229,11 +236,9 @@ const vm = new Vue({
         event.target.style.animationFillMode = "forwards";
         if (event.target.id === "date-0") {
           this.swipes[0] = false;
-        }
-        else if (event.target.id === "date-1") {
+        } else if (event.target.id === "date-1") {
           this.swipes[1] = false;
-        }
-        else {
+        } else {
           this.swipes[2] = false;
         }
       } else if (this.distance < this.limitX * -1) {
@@ -244,11 +249,9 @@ const vm = new Vue({
         event.target.style.animationFillMode = "forwards";
         if (event.target.id === "date-0") {
           this.swipes[0] = true;
-        }
-        else if (event.target.id === "date-1") {
+        } else if (event.target.id === "date-1") {
           this.swipes[1] = true;
-        }
-        else {
+        } else {
           this.swipes[2] = true;
         }
       }
@@ -256,21 +259,21 @@ const vm = new Vue({
       this.distance = 0;
       //event.target.style.animation = "None";
     },
-    matchedDates: function () {
-      console.log(this.swipes)
+    matchedDates: function() {
+      console.log(this.swipes);
       this.matched = [];
       for (let i = 0; i < this.swipes.length; i++) {
-        if(this.swipes[i]==true){
+        if (this.swipes[i] == true) {
           this.matched.push(this.dates[i]);
         }
       }
       socket.emit("datesDone", {
         userID: this.loggedInUser.username,
-        matches: this.matched,
-      })
+        matches: this.matched
+      });
       console.log(this.matched);
       this.goToSite("../index.html");
-    },
+    }
   },
   created() {
     this.showIcebreaker();

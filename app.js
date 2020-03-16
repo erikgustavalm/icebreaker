@@ -149,9 +149,9 @@ io.on("connection", function(socket) {
     //you want no "real" players - if num exceeds 20 the game wont work.
     for (let i = 0; i < 19; i++) {
       event.users.push(bots[i]);
-      if(bots[i].gender === "female"){
+      if (bots[i].gender === "female") {
         event.females++;
-      }else{
+      } else {
         event.males++;
       }
       event.attended++;
@@ -176,6 +176,13 @@ io.on("connection", function(socket) {
 
     events.addEvent(event);
     console.log(events.getEvent(event.eventID));
+  });
+
+  socket.on("rateDateAns", function(data) {
+    io.emit("getRateDateAns", {
+      rating: data.exists,
+      message: data.message
+    });
   });
 
   //* start date timer
@@ -223,34 +230,33 @@ io.on("connection", function(socket) {
     //* First case - event is full
     if (event.attended < event.max) {
       //* Second case - user female
-      if(user.gender === "female" && event.females < 10){
+      if (user.gender === "female" && event.females < 10) {
         events.addUser(event.eventID, user);
         hasJoined = true;
         event.females++;
       }
       //* third case - user female but event full of females
-      else if(user.gender === "female" && event.females == 10 ) {
+      else if (user.gender === "female" && event.females == 10) {
         msg = "Event is already full of females!";
       }
-      //* fourth case - user male 
-      else if(user.gender === "male" && event.males < 10 ){
+      //* fourth case - user male
+      else if (user.gender === "male" && event.males < 10) {
         events.addUser(event.eventID, user);
         hasJoined = true;
         event.males++;
       }
       //* fifth case - user male but event full of males
-      else{
+      else {
         msg = "Event is already full of males!";
       }
-    }
-    else {
+    } else {
       msg = "Event is full!";
     }
 
     io.to(user.username).emit("userJoined", {
       eventID: event.eventID,
       joined: hasJoined,
-      error: msg,
+      error: msg
     });
   });
 
@@ -285,7 +291,7 @@ io.on("connection", function(socket) {
   });
 
   //* event is done for user so lets add the matched users to that account
-  socket.on("datesDone", function(data){
+  socket.on("datesDone", function(data) {
     var user = accounts.getAccount(data.userID);
     for (let i = 0; i < data.matches.length; i++) {
       user.matches.push(data.matches[i]);
