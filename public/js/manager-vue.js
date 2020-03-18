@@ -21,7 +21,8 @@ const vm = new Vue({
     cancel: false,
     session: { session_name: "" },
     showHelp: false,
-    timerLabel: "START ROUND 1",
+      seated: false,
+    timerLabel: "SEND SEATS",
     TIME_LIMIT: 5,
     timePassed: 0,
     timeLeft: 0,
@@ -56,9 +57,6 @@ const vm = new Vue({
 		this.moveUserToPair(females[i], i, 1);
             }
 	}
-
-	//* send seats to users
-	this.sendMatchedPairs();
     },
 
     moveUserToPair: function(user, pairIndex, seat) {
@@ -106,25 +104,32 @@ const vm = new Vue({
     },
 
     startTimer: function() {
-      if (this.cancel == false) {
-        socket.emit("startDateTimer", {});
-        this.cancel = true;
-        this.timerInterval = setInterval(() => {
-          this.timePassed = this.timePassed += 1;
-          this.timeLeft = this.TIME_LIMIT - this.timePassed;
-          this.timerLabel = this.formatTime();
+	if (this.seated == false) {
+	    // Should be checking if all are matched
+	    this.sendMatchedPairs();
+	    this.seated = true;
+	    this.timerLabel = "START R" + this.round;
+	} else {
+	    if (this.cancel == false || this.seated) {
+		socket.emit("startDateTimer", {});
+		this.cancel = true;
+		this.timerInterval = setInterval(() => {
+		    this.timePassed = this.timePassed += 1;
+		    this.timeLeft = this.TIME_LIMIT - this.timePassed;
+		    this.timerLabel = this.formatTime();
+		    document.getElementById("manager-round-timer").style.backgroundColor =
+			"#ff3939";
 
-          document.getElementById("manager-round-timer").style.backgroundColor =
-            "#ff3939";
+		    if (this.timeLeft === 0) {
+			this.onTimesUp();
+		    }
+		}, 1000);
 
-          if (this.timeLeft === 0) {
-            this.onTimesUp();
-          }
-        }, 1000);
-      } else {
-        this.cancel = false;
-        this.onTimesUp();
-      }
+	    } else {
+		this.cancel = false;
+		this.onTimesUp();
+	    }
+	}
     },
 
     formatTime: function() {
@@ -147,11 +152,12 @@ const vm = new Vue({
     onTimesUp: function() {
       clearInterval(this.timerInterval);
       if (this.round + 1 == 4) {
-        this.timerLabel = "DONE";
-        document.getElementById("manager-round-timer").disabled = true;
+          this.timerLabel = "DONE";
+          document.getElementById("manager-round-timer").disabled = true;
       } else {
-        this.round = this.round + 1;
-        this.timerLabel = "START ROUND" + " " + this.round;
+          this.round = this.round + 1;
+	  this.seated = false;
+	  this.timerLabel = "SEND SEATS";
       }
       document.getElementById("manager-round-timer").style.backgroundColor =
         "#399939";
