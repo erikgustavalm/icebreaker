@@ -118,6 +118,7 @@ const vm = new Vue({
             "#ff3939";
 
           if (this.timeLeft === 0) {
+            this.cancel = false;
             this.onTimesUp();
           }
         }, 1000);
