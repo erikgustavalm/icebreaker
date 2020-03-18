@@ -123,13 +123,16 @@ const vm = new Vue({
     },
     startTimer: function() {
       //time since 1970 in milliseconds
+      clearInterval(this.timer);
       const now = Date.now();
-
+      this.time = 900;
+      this.timer = null;
+      this.display = null;
       const then = now + this.time * 1000;
       this.timer = setInterval(() => {
         const secondsLeft = Math.round(then - Date.now()) / 1000;
         if (secondsLeft < 1) {
-          this.goToSite("../user/rating.html");
+          clearInterval(this.timer);
         }
         this.timeLeft(secondsLeft);
       }, 1000);
@@ -147,10 +150,11 @@ const vm = new Vue({
       this.display = `${minutes}:${seconds}`;
     },
     goToSite: function(link) {
-      clearInterval(this.timer);
+
       window.location.href = link;
     },
     getDate: function() {
+      
       this.seat = true;
       document.getElementById("table-wrapper").style.display = "none";
       var seat = document.getElementById(this.tableID);
@@ -158,6 +162,7 @@ const vm = new Vue({
       socket.on(
         "sendCancelRound",
         function(data) {
+          console.log("In here!!!!!");
           this.cancelDate();
         }.bind(this)
       );
@@ -170,17 +175,18 @@ const vm = new Vue({
       );
     },
     cancelDate: function() {
-      console.log("In cancel Date!");
+      console.log("Currentinterval!");
+      console.log(this.timer);
       clearInterval(this.timer);
-      this.time = 900;
-      this.timer = null;
+      console.log("Cleared interaval!")
+      console.log(this.timer);
       this.seat = false;
       this.rate = true;
     },
     submitRating: function(event) {
-     
+      this.time = 900;
       this.display = null;
-
+      this.seat = false;
       this.rate = false;
       this.overlayOff = true;
       this.dates.push({
