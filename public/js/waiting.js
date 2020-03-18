@@ -175,11 +175,9 @@ const vm = new Vue({
       );
     },
     cancelDate: function() {
-      console.log("Currentinterval!");
-      console.log(this.timer);
+  
       clearInterval(this.timer);
-      console.log("Cleared interaval!")
-      console.log(this.timer);
+    
       this.seat = false;
       this.rate = true;
     },
