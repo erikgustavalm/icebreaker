@@ -32,6 +32,9 @@ const vm = new Vue({
   },
 
     methods: {
+      goToSite: function() {
+        window.location.href = "../index.html";
+      },
     autoMatch: function() {
 	console.log("autoMatch()");
 	if (this.users.length == 0) {
