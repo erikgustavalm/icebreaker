@@ -79,7 +79,7 @@ body {
 .manager-slot-empty {
     box-sizing: border-box;
     background-color: #393939;
-    opacity: 0.5;
+    opacity: 1;
     text-align: center;
     margin: 0.5vh;
     width: auto;

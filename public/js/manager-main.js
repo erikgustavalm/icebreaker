@@ -73,7 +73,7 @@ function unlockSlot(slot){
 
 
 function onDragStart(event) {
-
+    console.log(event.target);
     if(event.target == null){
 	console.log("Invalid element!!");
 	event.preventDefault();
@@ -86,9 +86,10 @@ function onDragStart(event) {
 	return;
     }
 
-    if(event.target.parentElement.classList.contains("manager-slot-empty")){
-	event.target.parentElement.style.opacity = 0.2;
-    }
+    if(event.target.parentElement.classList.contains("manager-slot-taken")){
+     	event.target.parentElement.style.opacity = 0.2;
+     	console.log(event.target.parentElement);
+     }
 
     if(!event.target.classList.contains("manager-slot-taken") && !event.target.classList.contains("manager-list-slot")){
 	console.log("Invalid element!!");
@@ -99,16 +100,17 @@ function onDragStart(event) {
     event.dataTransfer.setData("text", event.target.id);
     event.currentTarget.style.backgroundColor = "#eab9c1";
     startingSlot = event.currentTarget.parentNode;
-    if(event.currentTarget.parentNode.getAttribute('name') == "profile-wrapper-slot"){
-	unlockSlot(event.currentTarget.parentNode);
-    }
+    console.log(startingSlot);
+    // if(event.currentTarget.parentNode.getAttribute('name') == "profile-wrapper-slot"){
+    // 	unlockSlot(event.currentTarget.parentNode);
+    // }
 }
 
 function onDragOver(event) {
     event.preventDefault();
     const dropzone = event.currentTarget;
     if(dropzone.classList == "manager-slot-empty"){
-	dropzone.classList.add("manager-slot-hover");
+    	dropzone.classList.add("manager-slot-hover");
     }
 }
 
@@ -119,12 +121,16 @@ function onDragExit(event) {
 }
 function onDrop(event) {
     event.preventDefault();
+    console.log(event.target.getAttribute("name"));
+    let n = event.target.getAttribute("name");
+    
+    if(n == null){
+	console.log("Abort!");
+//	return;
+    }
     const id = event.dataTransfer.getData("text");
 
     const draggableElement = document.getElementById(id);
-
-
-
     if(draggableElement == null){
 	console.log("Invalid element!!");
 	return
@@ -136,6 +142,13 @@ function onDrop(event) {
 
     draggableElement.style.backgroundColor = "#e19ba7";
     let dropzone = event.currentTarget;
+    console.log(dropzone.getAttribute("value"))
+    if(slotTaken(dropzone) == 'true'){
+	console.log("ALERT!");
+	if(draggableElement.classList.contains("manager-list-slot")){
+	    return;
+	}
+    }
     dropzone.classList.remove("manager-slot-hover");
 
     let userInfo = draggableElement.children[0];
@@ -165,16 +178,23 @@ function onDrop(event) {
 	}else{
 	    lockSlot(dropzone);
 	    draggableElement.classList.remove("manager-list-slot");
+	    draggableElement.classList.remove("manager-slot-empty");
 	    draggableElement.classList.add("manager-slot-taken");
 	    dropzone.style.opacity = "1";
+	    console.log(draggableElement);
 	    userInfo.style.display = "none";
 	    userImg.style.display = "block";
 	    getUserById(draggableElement.id).matched = true;
 	    rearrange_table(id, dropzone.id, getSeatId(dropzone.id));
 	    if(startingSlot.getAttribute('name') == "profile-wrapper-slot"){
+	//	console.log(startingSlot);
+	//	unlockSlot(startingSlot);
 		rearrange_table(null, startingSlot.id, getSeatId(startingSlot.id));
 	    }
 	}
+    }
+    if(startingSlot.getAttribute('name') == "profile-wrapper-slot"){
+	unlockSlot(startingSlot);
     }
     dropzone.appendChild(draggableElement);
 }
@@ -213,13 +233,13 @@ function openProfile(event) {
     };
 
     for(let i=0; i < popVm.users[index].ratings.length; i++){
-	if(i == 0){
+	if(i == 0 && vm.round == 2 ){
 	    rating1.innerHTML = "<br><br>ROUND 1<br><br>Score: " + popVm.users[index].ratings[i] + "<br>" + "Message: " + popVm.users[index].messages[i] + "<br>";
 	}
-	else if(i == 1){
+	else if(i == 1 && vm.round == 3){
 	    rating2.innerHTML = "<br><br>ROUND 2:<br><br>Score: " + popVm.users[index].ratings[i] + "<br>" + "Message: " + popVm.users[index].messages[i] + "<br>";
 	}
-	else{
+	else if(vm.round == 4){
 	    rating3.innerHTML = "<br><br>ROUND 3:<br><br>Score: " + popVm.users[index].ratings[i] + "<br>" + "Message: " + popVm.users[index].messages[i] + "<br>";
 	}
     }
@@ -329,7 +349,7 @@ function swapUsers(draggableElement, dropzone){
     }
     
     startingSlot.appendChild(element2);
-    startingSlot.style.opacity = "1";
+   // startingSlot.style.opacity = "1";
     dropzone.appendChild(draggableElement);
     lockSlot(startingSlot);
 }

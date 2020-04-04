@@ -148,7 +148,7 @@ io.on("connection", function(socket) {
 
     //change 19 to lower digit to remove bots. Do not increase to 20 unless
     //you want no "real" players - if num exceeds 20 the game wont work.
-    for (let i = 0; i < 19; i++) {
+    for (let i = 0; i < 18; i++) {
       event.users.push(bots[i]);
       if (bots[i].gender === "female") {
         event.females++;

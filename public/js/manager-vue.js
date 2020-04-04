@@ -155,7 +155,8 @@ const vm = new Vue({
 
     onTimesUp: function() {
       clearInterval(this.timerInterval);
-      if (this.round + 1 == 4) {
+	if (this.round + 1 == 4) {
+	    this.round = 4;
           this.timerLabel = "DONE";
           document.getElementById("manager-round-timer").disabled = true;
       } else {

@@ -85,11 +85,11 @@
 	       onclick="openProfile(event)"
          class="manager-list-slot"
          draggable="true"
-         ondragstart="onDragStart(event)"
+               ondragstart="onDragStart(event)"
 	       name="profile"
 	       user="user"
 	       onmouseover="setUser(event)">
-	    <div class="manager-profile-listview">
+	    <div class="manager-profile-listview" name="profile">
 	      <div
 		      pointer-events="none"
 		      draggable="false"
@@ -124,18 +124,20 @@
 		    :src="user.imgPath"
 		    class="manager-profile-wrapperview"
 		    pointer-events="none"
-        draggable="false">
+		 draggable="false"
+		 name="profile-img">
       <img v-else
 		    :src="user.img"
 		    class="manager-profile-wrapperview"
 		    pointer-events="none"
-		    draggable="false">
+	   draggable="false"
+	   name="profile-img">
 
 	  </div>
 	</div>
       </div>
 
-      <div id="manager-pairs-wrapper">
+      <div id="manager-pairs-wrapper" >
 	      <div v-for="table in tables" class="manager-table" >
 	        <div
 	          :id="'' + table.tableID + '-1' "

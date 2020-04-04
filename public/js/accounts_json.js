@@ -372,24 +372,24 @@ let accounts = [
     	answers: [],
 	ratings: [6],
 	messages: ["Very nice person"]
-    },
-    {
-	showInfo: false,
-	matched: false,
-	id: "user22",
-	username: "Regina1",
-	password: "123",
-	email: "1@hotmail.com",
-	name: "Regina Mengina",
-	age: "21",
-	gender: "female",
-	img: "../img/index.png",
-	matches: [],
-	loggedIn: false,
-	answers: [],
-	ratings: [],
-	messages: []
     }
+    // {
+    // 	showInfo: false,
+    // 	matched: false,
+    // 	id: "user22",
+    // 	username: "Regina1",
+    // 	password: "123",
+    // 	email: "1@hotmail.com",
+    // 	name: "Regina Mengina",
+    // 	age: "21",
+    // 	gender: "female",
+    // 	img: "../img/index.png",
+    // 	matches: [],
+    // 	loggedIn: false,
+    // 	answers: [],
+    // 	ratings: [],
+    // 	messages: []
+    // }
 ];
 
 exports.totalAccounts = accounts;
