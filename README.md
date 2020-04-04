@@ -16,7 +16,7 @@ go to localhost:3000 in the web-browser to show the contents. It's automatically
 
 
 
-NOTE!!!!
+## NOTE TO THE TEACHERS / USERS!!!!
 
 Since we are using window.sessionStorage for storing roomIDs/eventIDs so that our socket.io in the server always can give the right information to the right user (since socket IDs are not the same when you change html site) if something goes wrong or crashes you need to:`CLOSE AND REOPPEN THE TAB`and then restart the server
 
