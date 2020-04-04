@@ -40,7 +40,8 @@ const vm = new Vue({
     //* will contain the swipes
     swipes: [false, false, false],
     //* will contain the matched people
-    matched: []
+    matched: [],
+    showDoneButton : false,
   },
   mounted() {
     socket.emit("requestUser", {
@@ -278,21 +279,30 @@ const vm = new Vue({
     },
     matchedDates: function() {
       console.log(this.swipes);
-      this.matched = [];
-      for (let i = 0; i < this.swipes.length; i++) {
-        if (this.swipes[i] == true) {
-          this.matched.push(this.dates[i]);
+
+        const done = document.getElementById("done-btn");
+        done.disabled = true;
+        done.classList.add("donebt")
+
+        this.matched = [];
+        for (let i = 0; i < this.swipes.length; i++) {
+          if (this.swipes[i] == true) {
+            this.matched.push(this.dates[i]);
+          }
         }
-      }
-      socket.emit("datesDone", {
-        userID: this.loggedInUser.username,
-        matches: this.matched
-      });
-      console.log(this.matched);
-      this.goToSite("../index.html");
+        socket.emit("datesDone", {
+          userID: this.loggedInUser.username,
+          matches: this.matched,
+          eventID: window.sessionStorage.getItem("eventID"),
+        });
+        console.log(this.matched)
+
     }
   },
   created() {
     this.showIcebreaker();
+    socket.on("backToHome", function(data){
+      this.goToSite("../index.html");
+    }.bind(this));
   }
 });
