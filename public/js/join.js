@@ -27,6 +27,7 @@ const vm = new Vue({
     joinRoom: function() {
       this.error = false;
       this.errorMessage = "";
+
       socket.emit("joinEvent", {
         user: this.loggedInUser,
         eventID: this.enteredKey

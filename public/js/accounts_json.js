@@ -325,23 +325,6 @@ let accounts = [
     {
     	showInfo: false,
     	matched: false,
-    	id: "user19",
-    	username: "Markina1",
-    	password: "123",
-    	email: "1@hotmail.com",
-    	name: "Markina Markson",
-    	age: "23",
-    	gender: "female",
-    	img: "../img/index.png",
-    	matches: [],
-    	loggedIn: false,
-    	answers: [],
-	ratings: [],
-	messages: []
-    },
-    {
-    	showInfo: false,
-    	matched: false,
     	id: "user20",
     	username: "Erika1",
     	password: "123",
@@ -355,6 +338,23 @@ let accounts = [
     	answers: ["Rock", "Vesuvio", "Trump", "Highschool", "Cat", "Lighter"],
 	ratings: [6],
 	messages: ["Very nice person"]
+	},
+	{
+    	showInfo: false,
+    	matched: false,
+    	id: "user19",
+    	username: "Markina1",
+    	password: "123",
+    	email: "1@hotmail.com",
+    	name: "Markina Markson",
+    	age: "23",
+    	gender: "female",
+    	img: "../img/index.png",
+    	matches: [],
+    	loggedIn: false,
+    	answers: [],
+	ratings: [],
+	messages: []
     },
     {
     	showInfo: false,

@@ -71,9 +71,6 @@
         <span id="time">{{display}} </span>
       </div>
       <div id="button-container">
-        <button id="exit-date" v-on:click="cancelDate()">
-          Exit date!
-        </button>
       </div>
     </div>
     <div id="rate-date-container" v-if="rate">
@@ -125,7 +122,11 @@
       <button id="done-btn" v-on:click="matchedDates">
         Done!
       </button>
-      <p class="help helpswipe" v-if="toggleHelp">Swipe right if you want to share contacts, otherwise swipe left.</p>
+      <p class="help helpswipe" v-if="toggleHelp">
+        Swipe right if you want to share contacts, otherwise swipe left.
+        After you press Done, wait for the Manager to end the event. A 
+        left out swipe counts as a left swipe.
+      </p>
       <div class="help-button helpswipe-button" v-on:click="showInfo()">?</div>
     </div>
   </div>

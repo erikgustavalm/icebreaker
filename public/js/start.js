@@ -243,6 +243,7 @@ const vm = new Vue({
       },
 
     toggleCard: function(card, index) {
+      console.log(card);
       var el = document.getElementById("card-" + index);
       console.log(el.childNodes);
       if (el.classList.contains("expand")) {

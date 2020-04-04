@@ -6,9 +6,9 @@ const popVm = new Vue({
   data: {
     questions: [],
     answers: [],
-    user: null
+    user: null,
   },
-  methods: {}
+  methods: {},
 });
 
 const vm = new Vue({
@@ -21,48 +21,53 @@ const vm = new Vue({
     cancel: false,
     session: { session_name: "" },
     showHelp: false,
-      seated: false,
+    seated: false,
     timerLabel: "SEND SEATS",
     TIME_LIMIT: 5,
     timePassed: 0,
     timeLeft: 0,
     timerInterval: 0,
     pairs: null,
-    event: null
+    event: null,
+    realUsers: 0,
+    usersDone: 0,
   },
 
-    methods: {
-      goToSite: function() {
-        window.location.href = "../index.html";
-      },
-    autoMatch: function() {
-	console.log("autoMatch()");
-	if (this.users.length == 0) {
-            console.log("No users to match, abort!");
-            return;
-	}
-	// Split the users in gender
-	let males = [];
-	let females = [];
+  methods: {
+    goToSite: function () {
+      socket.emit("exitEvent", {
+        eventID: window.sessionStorage.getItem("eventID"),
+      });
+      window.location.href = "../index.html";
+    },
+    autoMatch: function () {
+      console.log("autoMatch()");
+      if (this.users.length == 0) {
+        console.log("No users to match, abort!");
+        return;
+      }
+      // Split the users in gender
+      let males = [];
+      let females = [];
 
-	for (let i = 0; i < this.users.length; i++) {
-	    if (this.users[i].gender == "male") {
-		males.push(this.users[i]);
-	    } else {
-		females.push(this.users[i]);
-	    }
-	}
+      for (let i = 0; i < this.users.length; i++) {
+        if (this.users[i].gender == "male") {
+          males.push(this.users[i]);
+        } else {
+          females.push(this.users[i]);
+        }
+      }
 
-	// MOCKING, set pairs (needs to be the the same number of males and females)
-	for (let i = 0; i < males.length; i++) {
-            if (males[i].matched == false) {
-		this.moveUserToPair(males[i], i, 0);
-		this.moveUserToPair(females[i], i, 1);
-            }
-	}
+      // MOCKING, set pairs (needs to be the the same number of males and females)
+      for (let i = 0; i < males.length; i++) {
+        if (males[i].matched == false) {
+          this.moveUserToPair(males[i], i, 0);
+          this.moveUserToPair(females[i], i, 1);
+        }
+      }
     },
 
-    moveUserToPair: function(user, pairIndex, seat) {
+    moveUserToPair: function (user, pairIndex, seat) {
       const userElement = document.getElementById(user.id);
       console.log(userElement);
       const userName = userElement.children[0];
@@ -97,7 +102,7 @@ const vm = new Vue({
       user.matched = true;
     },
 
-    switchShowHelp: function() {
+    switchShowHelp: function () {
       if (this.showHelp) {
         this.showHelp = false;
       } else {
@@ -106,37 +111,37 @@ const vm = new Vue({
       console.log("Switched show help");
     },
 
-    startTimer: function() {
-	if (this.seated == false) {
-	    // Should be checking if all are matched
-	    this.sendMatchedPairs();
-	    this.seated = true;
-	    this.timerLabel = "START R" + this.round;
-	} else {
-	    if (this.cancel == false || this.seated) {
-		socket.emit("startDateTimer", {});
-		this.cancel = true;
-		this.timerInterval = setInterval(() => {
-		    this.timePassed = this.timePassed += 1;
-		    this.timeLeft = this.TIME_LIMIT - this.timePassed;
-		    this.timerLabel = this.formatTime();
-		    document.getElementById("manager-round-timer").style.backgroundColor =
-			"#ff3939";
+    startTimer: function () {
+      if (this.seated == false) {
+        // Should be checking if all are matched
+        this.sendMatchedPairs();
+        this.seated = true;
+        this.timerLabel = "START R" + this.round;
+      } else {
+        if (this.cancel == false || this.seated) {
+          socket.emit("startDateTimer", {});
+          this.cancel = true;
+          this.timerInterval = setInterval(() => {
+            this.timePassed = this.timePassed += 1;
+            this.timeLeft = this.TIME_LIMIT - this.timePassed;
+            this.timerLabel = this.formatTime();
+            document.getElementById(
+              "manager-round-timer"
+            ).style.backgroundColor = "#ff3939";
 
-		    if (this.timeLeft === 0) {
+            if (this.timeLeft === 0) {
+              this.cancel = false;
+              this.onTimesUp();
+            }
+          }, 1000);
+        } else {
           this.cancel = false;
-			this.onTimesUp();
-		    }
-		}, 1000);
-
-	    } else {
-		this.cancel = false;
-		this.onTimesUp();
-	    }
-	}
+          this.onTimesUp();
+        }
+      }
     },
 
-    formatTime: function() {
+    formatTime: function () {
       var m = Math.floor(this.timeLeft / 60);
       var s = this.timeLeft % 60;
       if (s < 10) {
@@ -145,30 +150,30 @@ const vm = new Vue({
       return `${m}:${s}`;
     },
 
-    sendMatchedPairs: function() {
+    sendMatchedPairs: function () {
       console.log(this.tables);
       socket.emit("sendMatchedPairs", {
         matchedPairs: this.tables,
-        eventID: window.sessionStorage.getItem("eventID")
+        eventID: window.sessionStorage.getItem("eventID"),
       });
     },
 
-    onTimesUp: function() {
+    onTimesUp: function () {
       clearInterval(this.timerInterval);
       if (this.round + 1 == 4) {
-          this.timerLabel = "DONE";
-          document.getElementById("manager-round-timer").disabled = true;
+        this.timerLabel = "DONE";
+        document.getElementById("manager-round-timer").disabled = true;
       } else {
-          this.round = this.round + 1;
-	  this.seated = false;
-	  this.timerLabel = "SEND SEATS";
+        this.round = this.round + 1;
+        this.seated = false;
+        this.timerLabel = "SEND SEATS";
       }
       document.getElementById("manager-round-timer").style.backgroundColor =
         "#399939";
       this.timePassed = 0;
       this.timeLeft = 0;
       socket.emit("cancelRound", {});
-    }
+    },
   },
   mounted() {
     this.pairs = document.getElementById("manager-pairs-wrapper").children;
@@ -176,11 +181,11 @@ const vm = new Vue({
 
     if (window.sessionStorage.getItem("eventID") != null) {
       socket.emit("requestEvent", {
-        eventID: window.sessionStorage.getItem("eventID")
+        eventID: window.sessionStorage.getItem("eventID"),
       });
       socket.on(
         "getEvent",
-        function(event) {
+        function (event) {
           this.event = event.event;
           this.users = this.event.users;
           popVm.users = this.event.users;
@@ -189,27 +194,38 @@ const vm = new Vue({
         }.bind(this)
       );
     }
-
+    const button = document.getElementById("exit");
+    console.log(button);
+    button.disabled = true;
     socket.on(
       "onUserJoin",
-      function(data) {
+      function (data) {
         //   vm.users.push(data.user);
         popVm.users.push(data.user);
         popVm.answers = data.user.answers;
         popVm.questions = this.event.questions;
+        this.realUsers++;
       }.bind(this)
     );
-      socket.on(
-	  "getRateDateAns",
-	  function(data) {
-	      let user = getUserByName(data.user.name);
-	      user.ratings.push(data.user.ratings[data.user.ratings.length-1]);
-	      user.messages.push(data.user.messages[data.user.messages.length-1]);
 
-	      console.log(user.ratings[0]);
-	      console.log(user.messages[0]);
-	  }.bind(this)
+    socket.on("userIsDone", function(data){
+      this.usersDone++;
+      if(this.usersDone == this.realUsers){
+        button.disabled = false;
+        button.classList.remove("exitbt");
+      }
+    }.bind(this));
+
+    socket.on(
+      "getRateDateAns",
+      function (data) {
+        let user = getUserByName(data.user.name);
+        user.ratings.push(data.user.ratings[data.user.ratings.length - 1]);
+        user.messages.push(data.user.messages[data.user.messages.length - 1]);
+
+        console.log(user.ratings[0]);
+        console.log(user.messages[0]);
+      }.bind(this)
     );
-
-  }
+  },
 });
