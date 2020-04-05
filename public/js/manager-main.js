@@ -272,9 +272,9 @@ function getUserById(userID){
     if(userID == null){
 	return null;
     }
-    for(let i=0; i<vm.users.length; i++){
-	if(vm.users[i].id == userID){
-	    return vm.users[i];
+    for(let i=0; i<popVm.users.length; i++){
+	if(popVm.users[i].id == userID){
+	    return popVm.users[i];
 	}
     }
 }
@@ -283,9 +283,9 @@ function getUserByName(name){
     if(name == null){
 	return null;
     }
-    for(let i=0; i<vm.users.length; i++){
-	if(vm.users[i].name == name){
-	    return vm.users[i];
+    for(let i=0; i<popVm.users.length; i++){
+	if(popVm.users[i].name == name){
+	    return popVm.users[i];
 	}
     }
 }

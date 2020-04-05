@@ -25,7 +25,7 @@ app.use(
   express.static(path.join(__dirname, "/node_modules/vue/dist/"))
 );
 // Serve index.html directly as root page
-app.get("/", function(req, res) {
+app.get("/", function (req, res) {
   res.sendFile(path.join(__dirname, "public/index.html"));
 });
 
@@ -36,19 +36,19 @@ function Data() {
   this.accounts = [];
 }
 
-Data.prototype.addAccount = function(account) {
+Data.prototype.addAccount = function (account) {
   this.accounts.push(account);
 };
 
-Data.prototype.size = function() {
+Data.prototype.size = function () {
   return this.accounts.length;
 };
 
-Data.prototype.getAllAccounts = function() {
+Data.prototype.getAllAccounts = function () {
   return this.accounts;
 };
 
-Data.prototype.getAccount = function(username) {
+Data.prototype.getAccount = function (username) {
   for (var i = 0; i < this.accounts.length; i++) {
     if (this.accounts[i].username == username) {
       return this.accounts[i];
@@ -57,7 +57,7 @@ Data.prototype.getAccount = function(username) {
   return null;
 };
 
-Data.prototype.removeAccount = function(username) {
+Data.prototype.removeAccount = function (username) {
   const index = this.accounts.indexOf(username);
   if (index > -1) {
     this.accounts.splice(index, 1);
@@ -71,11 +71,11 @@ const accounts = new Data();
 
 let events = new Array();
 
-Array.prototype.addEvent = function(event) {
+Array.prototype.addEvent = function (event) {
   events.push(event);
 };
 
-Array.prototype.getEvent = function(eventID) {
+Array.prototype.getEvent = function (eventID) {
   for (let event of events) {
     if (event.eventID === eventID) {
       return event;
@@ -83,11 +83,11 @@ Array.prototype.getEvent = function(eventID) {
   }
   return null;
 };
-Array.prototype.nextRound = function(eventID) {
+Array.prototype.nextRound = function (eventID) {
   let event = events.getEvent(eventID);
   event.round++;
 };
-Array.prototype.eventIsFull = function(eventID) {
+Array.prototype.eventIsFull = function (eventID) {
   let event = events.getEvent(eventID);
   if (event.max == event.attended) {
     event.eventIsFull = true;
@@ -96,16 +96,16 @@ Array.prototype.eventIsFull = function(eventID) {
   }
 };
 
-Array.prototype.addUser = function(eventID, user) {
+Array.prototype.addUser = function (eventID, user) {
   let event = events.getEvent(eventID);
   event.users.push(user);
   event.attended++;
 };
-Array.prototype.addMatchingPair = function(eventID, matchedPair) {
+Array.prototype.addMatchingPair = function (eventID, matchedPair) {
   let event = events.getEvent(eventID);
   event.usersMatched.push(matchedPair);
 };
-Array.prototype.addAnswers = function(eventID, answers) {
+Array.prototype.addAnswers = function (eventID, answers) {
   let event = events.getEvent(eventID);
   event.questionAnswers.push(answers);
 };
@@ -123,8 +123,8 @@ var roomSessions = [];
 //* by the manager. E.g starting a session would update seats & usersMatched and send these values
 //* to the right destinations could change at any time
 //* stores all events in an array
-io.on("connection", function(socket) {
-  socket.on("newEvent", function(currentSession) {
+io.on("connection", function (socket) {
+  socket.on("newEvent", function (currentSession) {
     let event = {
       eventID: currentSession.eventID,
       users: [], // array of 19 users defined in the JSON file. Manager could add these during mount for our bots. Joining a room also adds it
@@ -140,14 +140,15 @@ io.on("connection", function(socket) {
       usersMatched: [], //array of [[2],[2]..] arrays, where the [2] array contains 2 users.
       //Should probably be created in manager and sent through emit
       startTimer: false,
-      eventIsFull: false
+      eventIsFull: false,
+      endOfEventMatches: [],
     };
 
     var bots = accounts.accounts;
     //initialize bots for the event
 
-    //change 19 to lower digit to remove bots. Do not increase to 20 unless
-    //you want no "real" players - if num exceeds 20 the game wont work.
+    //!change 19 to lower digit to remove bots. Do not increase to 20 unless
+    //!you want no "real" players - if num exceeds 20 the game wont work.
     for (let i = 0; i < 18; i++) {
       event.users.push(bots[i]);
       if (bots[i].gender === "female") {
@@ -179,37 +180,37 @@ io.on("connection", function(socket) {
     console.log(events.getEvent(event.eventID));
   });
 
-  socket.on("rateDateAns", function(data) {
-      io.emit("getRateDateAns", {
-	  user: data.user
+  socket.on("rateDateAns", function (data) {
+    io.emit("getRateDateAns", {
+      user: data.user,
     });
   });
-  socket.on("cancelRound", function(data) {
+  socket.on("cancelRound", function (data) {
     io.emit("sendCancelRound", {});
   });
 
   //* start date timer
-  socket.on("startDateTimer", function(data) {
+  socket.on("startDateTimer", function (data) {
     console.log("in timer!");
     io.emit("startTimer", {});
   });
   //* send the questionaire to answer for the event
-  socket.on("requestQuestions", function(data) {
+  socket.on("requestQuestions", function (data) {
     let event = events.getEvent(data.eventID);
     io.to(data.roomId).emit("sendQuestions", {
-      questions: event.questions
+      questions: event.questions,
     });
   });
 
   //* send the icebreakers to show whilst waiting
-  socket.on("requestIcebreakers", function(data) {
+  socket.on("requestIcebreakers", function (data) {
     let event = events.getEvent(data.eventID);
     io.to(data.roomId).emit("sendIcebreakers", {
-      icebreakers: event.icebreakers
+      icebreakers: event.icebreakers,
     });
   });
 
-  socket.on("sendAnswers", function(data) {
+  socket.on("sendAnswers", function (data) {
     let event = events.getEvent(data.eventID);
     let user = accounts.getAccount(data.user);
     let newAnswers = data.answers;
@@ -225,57 +226,69 @@ io.on("connection", function(socket) {
 
   //* let user join an exisiting event if attended <
   //TODO Need to add error handling if event is full
-  socket.on("joinEvent", function(data) {
+  socket.on("joinEvent", function (data) {
     let event = events.getEvent(data.eventID);
     let user = data.user;
     let hasJoined = false;
     let msg = "";
-    //* First case - event is full
-    if (event.attended < event.max) {
-      //* Second case - user female
-      if (user.gender === "female" && event.females < 10) {
-        events.addUser(event.eventID, user);
-        hasJoined = true;
-        event.females++;
-      }
-      //* third case - user female but event full of females
-      else if (user.gender === "female" && event.females == 10) {
-        msg = "Event is already full of females!";
-      }
-      //* fourth case - user male
-      else if (user.gender === "male" && event.males < 10) {
-        events.addUser(event.eventID, user);
-        hasJoined = true;
-        event.males++;
-      }
-      //* fifth case - user male but event full of males
-      else {
-        msg = "Event is already full of males!";
-      }
+
+    //* zero case - event doesn't exist
+    if ((event == null)) {
+      msg = "Event doesn't exist";
+      io.to(user.username).emit("userJoined", {
+        eventID: null,
+        joined: hasJoined,
+        error: msg,
+      });
     } else {
-      msg = "Event is full!";
+      //* First case - event is full
+      if (event.attended < event.max) {
+        //* Second case - user female
+        if (user.gender === "female" && event.females < 10) {
+          events.addUser(event.eventID, user);
+          hasJoined = true;
+          event.females++;
+        }
+        //* third case - user female but event full of females
+        else if (user.gender === "female" && event.females == 10) {
+          msg = "Event is already full of females!";
+        }
+        //* fourth case - user male
+        else if (user.gender === "male" && event.males < 10) {
+          events.addUser(event.eventID, user);
+          hasJoined = true;
+          event.males++;
+        }
+        //* fifth case - user male but event full of males
+        else {
+          msg = "Event is already full of males!";
+        }
+      } else {
+        msg = "Event is full!";
+      }
+      io.to(user.username).emit("userJoined", {
+        eventID: event.eventID,
+        joined: hasJoined,
+        error: msg,
+      });
     }
 
-    io.to(user.username).emit("userJoined", {
-      eventID: event.eventID,
-      joined: hasJoined,
-      error: msg
-    });
+
   });
 
   //* get the event ID of event and send it back
-  socket.on("requestEvent", function(eventID) {
+  socket.on("requestEvent", function (eventID) {
     let event = events.getEvent(eventID.eventID);
 
     socket.join(eventID.eventID);
     if (eventID.eventID != null) {
       io.to(eventID.eventID).emit("getEvent", {
-        event: event
+        event: event,
       });
     }
   });
 
-  socket.on("sendMatchedPairs", function(data) {
+  socket.on("sendMatchedPairs", function (data) {
     console.log("Send mathed pairs");
     console.log(data);
     let event = events.getEvent(data.eventID);
@@ -288,25 +301,82 @@ io.on("connection", function(socket) {
       const userRoom2 = matchedPairs[i].seat2.username;
 
       socket.to(userRoom1).emit("yourDate", {
-        seat: matchedPairs[i]
+        seat: matchedPairs[i],
       });
       socket.to(userRoom2).emit("yourDate", {
-        seat: matchedPairs[i]
+        seat: matchedPairs[i],
       });
     }
   });
 
   //* event is done for user so lets add the matched users to that account
-  socket.on("datesDone", function(data) {
+  socket.on("datesDone", function (data) {
     var user = accounts.getAccount(data.userID);
+
+    var needsAproval = [];
+
     for (let i = 0; i < data.matches.length; i++) {
-      user.matches.push(data.matches[i]);
+      if (data.matches[i].date.loggedIn == false) {
+        user.matches.push(data.matches[i]); // add bots as matches
+      } else {
+        needsAproval.push(data.matches[i]);
+      }
     }
+    console.log("in datesDone");
+    console.log(user);
     console.log(user.matches);
+    let event = events.getEvent(data.eventID);
+
+    socket.to(data.eventID).emit("userIsDone", {
+      data: true,
+    });
+
+    //populate endOfEventMatches - fix the correct matches in exitEvent socket
+    event.endOfEventMatches.push({
+      user: user.username,
+      matches: needsAproval,
+    });
+  });
+
+  socket.on("exitEvent", function (data) {
+    console.log("I'm in exit event!");
+    let event = events.getEvent(data.eventID);
+    console.log(event.endOfEventMatches);
+
+    var arr = event.endOfEventMatches;
+    //fix the correct matches
+
+    for (var i = 0; i < arr.length; i++) {
+      for (var k = i + 1; k < arr.length; k++) {
+        for (var l = 0; l < arr[k].matches.length; l++) {
+          if (arr[i].user === arr[k].matches[l].date.username) {
+            for (var m = 0; m < arr[i].matches.length; m++) {
+              if (arr[k].user === arr[i].matches[m].date.username) {
+                var useri = accounts.getAccount(arr[i].user);
+                var userk = accounts.getAccount(arr[k].user);
+                useri.matches.push(arr[k].matches[l]);
+                userk.matches.push(arr[i].matches[m]);
+                console.log(useri.matches);
+                console.log(userk.matches);
+              }
+            }
+          }
+        }
+      }
+    }
+
+    event.endOfEventMatches = []; //reset the endOfEventMatches
+
+    //send all logged in users to start site
+    for (let index = 0; index < arr.length; index++) {
+      socket.to(arr[index].user).emit("backToHome", {
+        data: true,
+      });
+    }
   });
 
   //* 'loginUser' is sent by starting page when a user tries to log in
-  socket.on("loginUser", function(info) {
+  socket.on("loginUser", function (info) {
     var user = null;
     var allAccounts = accounts.getAllAccounts();
     for (var i = 0; i < allAccounts.length; i++) {
@@ -341,13 +411,13 @@ io.on("connection", function(socket) {
       //* successfull login - send right account info
       io.to(socket.room).emit("accountInfo", {
         exists: exists,
-        data: user
+        data: user,
       });
     } else {
       //* unsuccessfull login - send back false
       socket.emit("accountInfo", {
         exists: exists,
-        data: user
+        data: user,
       });
     }
   });
@@ -357,7 +427,7 @@ io.on("connection", function(socket) {
   //* also subscribes the socket to the room attached to that user since
   //* this request should only hapen from pages that has a user logged in
   //* and should be requested in the created() part of the pages vue object
-  socket.on("requestUser", function(user) {
+  socket.on("requestUser", function (user) {
     var account = accounts.getAccount(user.username);
     //* socket connected who sent 'requestUser' will be attached to the room
     //* with the room id of username
@@ -366,14 +436,14 @@ io.on("connection", function(socket) {
       //* only emit to specific room channel
       //* we will do this aswell in HOST backend when sending to specific
       io.to(account.username).emit("getUser", {
-        data: account
+        data: account,
       });
     }
   });
 
   //* When user wants to log out we remove room id from roomSessions and
   //* set online status to false in accounts
-  socket.on("logoutUser", function(user) {
+  socket.on("logoutUser", function (user) {
     var account = accounts.getAccount(user.username);
 
     const index = roomSessions.indexOf(account.username);
@@ -387,19 +457,19 @@ io.on("connection", function(socket) {
   });
 
   //* checks username validity
-  socket.on("isValidUsername", function(username) {
+  socket.on("isValidUsername", function (username) {
     if (accounts.getAccount(username.username) == null) {
       socket.emit("validUsername", {
-        valid: true
+        valid: true,
       });
     } else {
       socket.emit("validUsername", {
-        valid: false
+        valid: false,
       });
     }
   });
 
-  socket.on("createdUser", function(acc) {
+  socket.on("createdUser", function (acc) {
     accounts.addAccount(acc.account);
     console.log("Created a new account:");
     console.log(acc.account.picture);
@@ -407,7 +477,7 @@ io.on("connection", function(socket) {
       "public/uploads/profile_pictures/" + acc.account.username + ".jpeg",
       acc.account.picture,
       { encoding: "binary" },
-      function(error) {
+      function (error) {
         console.log(error);
       }
     );
@@ -415,7 +485,7 @@ io.on("connection", function(socket) {
 });
 
 /* eslint-disable-next-line no-unused-vars */
-const server = http.listen(app.get("port"), function() {
+const server = http.listen(app.get("port"), function () {
   console.log("Server listening on port " + app.get("port"));
 
   //* add all initial accounts from json file to our accounts variable

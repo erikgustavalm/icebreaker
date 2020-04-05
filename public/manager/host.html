@@ -78,6 +78,11 @@
 	  <p>
 	    Starting a round is done by pressing the Start round button. A countdown of the remaining round time will then start. Once all rounds are finished the text "DONE" will be displayed on the button. You can cancel the round at anytime by clicking the round timer once the event starts.
 	  </p>
+
+	  <h1>Ending the event</h1>
+	  <p>
+	    The QUIT button will become available as soon as the event is done and all real users (those who are not bots) have done their corresponding swipes and pressed done
+	  </p>
 	</div>
 	<div id="manager-user-list-wrapper">
 	  <div v-for="user in users"
@@ -185,8 +190,9 @@
 	        >
 	        HELP
 	      </button>
-	      <button
-			class="control-panel-btn"
+		  <button
+		  	id="exit"
+			class="control-panel-btn exitbt"
 			v-on:click="goToSite()"
 	        >
 	        QUIT

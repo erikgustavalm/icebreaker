@@ -12,7 +12,9 @@ const vm = new Vue({
     registrationHidden: true,
     accountDetails: true,
     incorrectLogin: false,
-    newUser: {
+      newUser: {
+	  matched: false,
+	  id: "",
       username: "",
       password: "",
       email: "",
@@ -24,7 +26,7 @@ const vm = new Vue({
       matches: [],
 	answers:[],
 	ratings: [],
-	messages: []
+	  messages: []
     },
     loggedInUser: {}
   },
@@ -243,6 +245,7 @@ const vm = new Vue({
       },
 
     toggleCard: function(card, index) {
+      console.log(card);
       var el = document.getElementById("card-" + index);
       console.log(el.childNodes);
       if (el.classList.contains("expand")) {
