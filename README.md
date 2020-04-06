@@ -32,7 +32,12 @@ Our app can work without any bots or with as many real users as youd like as lon
 
 To remove bots change the 18 number to a lower one in App.js on for loop at line 152: You can use cmd + f and search for "!change" to get to the right place in App.js
 
-Standard is 18 bots so that you need a real female, and a real male to create, and join the event.
+Standard is 18 bots so that you need a real female, and a real male to create, and join the event. 
+
+## other important info
+
+You cannot QUIT an event before all REAL users have done their swiping left and right in the last stage of the event. 
+As soon as all real users are done. You can press QUIT which will send the manager and all real users to the starting screen where the real users can check out their matches :).
 
 
 
