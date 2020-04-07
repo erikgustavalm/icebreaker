@@ -354,8 +354,8 @@ io.on("connection", function (socket) {
               if (arr[k].user === arr[i].matches[m].date.username) {
                 var useri = accounts.getAccount(arr[i].user);
                 var userk = accounts.getAccount(arr[k].user);
-                useri.matches.push(arr[k].matches[l]);
-                userk.matches.push(arr[i].matches[m]);
+                useri.matches.push(arr[i].matches[m]);
+                userk.matches.push(arr[k].matches[l]);
                 console.log(useri.matches);
                 console.log(userk.matches);
               }
