@@ -17,7 +17,7 @@
   <body>
     <div
       id="manager-profile-popup"
-      onmouseleave="closeProfile(event)"
+      onmouseleave=""
       onclick="closeProfile(event)"
       class="manager-profile-popup"
       ondragstart="skipDrag(event)">
@@ -71,7 +71,7 @@
 
 	  <h1>Drag & Drop</h1>
 	  <p>
-	    Drag profiles from the listview out to the tableview to match them. You can also swap two profiles by drag and drop one of them over the other.
+	    Drag profiles from the listview out to the tableview to match them. You can also swap two profiles by drag and drop one of them over the other. Males can only be placed in the "top" seats and females can only be placed at the "bottom" seats.
 	  </p>
 
 	  <h1>Starting round</h1>
@@ -125,14 +125,14 @@
 		      name="profile-gender">
 	      </div>
 	    </div>
-	    <img v-if="user.loggedIn"
-		    :src="user.imgPath"
+	    <img v-if="user.gender == 'male'"
+		    src="../img/male.jpg"
 		    class="manager-profile-wrapperview"
 		    pointer-events="none"
 		 draggable="false"
 		 name="profile-img">
       <img v-else
-		    :src="user.img"
+		    src="../img/female.jpg"
 		    class="manager-profile-wrapperview"
 		    pointer-events="none"
 	   draggable="false"

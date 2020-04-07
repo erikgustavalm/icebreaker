@@ -122,6 +122,7 @@ function onDragExit(event) {
 function onDrop(event) {
     event.preventDefault();
     console.log(event.target.getAttribute("name"));
+    
     let n = event.target.getAttribute("name");
     
     if(n == null){
@@ -153,7 +154,18 @@ function onDrop(event) {
 
     let userInfo = draggableElement.children[0];
     let userImg = draggableElement.children[1];
+    let userGender = getUserById(draggableElement.id).gender;
+    console.log(userGender);
+    console.log(getSeatId(dropzone.id));
+    if(userGender == "male" && getSeatId(dropzone.id) % 2 == 0){
+	console.log("Cannot match males here");
+	return;
+    }
 
+    if(userGender == "female" && getSeatId(dropzone.id) % 2 == 1){
+	console.log("Cannot match females here");
+	return;
+    }
     //console.log(dropzone.id);
     //console.log(getSeatId(dropzone.id));
     
@@ -251,8 +263,8 @@ function openProfile(event) {
     document.querySelector('.manager-profile-popup').style.display = "flex";
 
     /* Place profile window relative to the profile picture*/
-    popupWindow.style.top = profile.offsetTop + 'px';
-    popupWindow.style.left = (profile.offsetLeft + (profile.offsetWidth/2)) - (popupWindow.offsetWidth/2) + 'px';
+    popupWindow.style.top = (screen.height/4) + 'px'//(profile.offsetTop) + 'px';
+    popupWindow.style.left = (screen.width - (screen.width/2) - popupWindow.offsetWidth/2) + 'px'//(profile.offsetLeft + (profile.offsetWidth/2)) - (popupWindow.offsetWidth/2) + 'px';
 }
 
 function closeProfile(event) {
