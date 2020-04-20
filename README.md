@@ -39,6 +39,9 @@ Standard is 18 bots so that you need a real female, and a real male to create, a
 You cannot QUIT an event before all REAL users have done their swiping left and right in the last stage of the event. 
 As soon as all real users are done. You can press QUIT which will send the manager and all real users to the starting screen where the real users can check out their matches :).
 
+  
+It's up to the event manager to make sure that two REAL users are not matched twice and that female and male participents are matched together. (press help button in event manager view for explanation in the app aswell :) )
+
 
 
 #### This should be everything you need to know to use the app! We've fixed all points that was given to us in the "komplettering"
