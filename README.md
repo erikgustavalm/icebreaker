@@ -16,9 +16,9 @@ go to localhost:3000 in the web-browser to show the contents. It's automatically
 
 
 
-## NOTE TO THE TEACHERS / OR OUR USERS!!!!
+## NOTE TO THE TEACHERS / OUR USERS
 
-We are using window.sessionStorage to store a userID/roomID so that when we land on different html pages we can just request the correct data from the backend. This happens aswell with eventIDs when creating new events. This makes it possible to create different events and users and use them in the same server :D
+We are using window.sessionStorage to store a userID/roomID so that when we land on different html pages we can just request the correct data from the backend. This happens aswell with eventIDs when creating new events. This makes it possible to create different events and users and use them in the same server.
 
 ### If you experience crashes
 Since we are using window.sessionStorage for storing roomIDs/eventIDs so that our socket.io in the server always can give the right information to the right user (since socket IDs are not the same when you change html site) if something goes wrong or crashes you need to:`CLOSE AND REOPPEN THE TAB`and then restart the server. It is extremely important that you do this so that the sessionStorage on your tab gets reset -> otherwise you would experience undefined behaviour. 
@@ -41,4 +41,4 @@ As soon as all real users are done. You can press QUIT which will send the manag
 
 
 
-#### This should be everything you need to know to use the app! We've fixed all points that was givven to us in the "komplettering"
+#### This should be everything you need to know to use the app! We've fixed all points that was given to us in the "komplettering"
