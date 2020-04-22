@@ -87,7 +87,7 @@ function onDragStart(event) {
     }
 
     if(event.target.parentElement.classList.contains("manager-slot-taken")){
-     	event.target.parentElement.style.opacity = 0.2;
+//     	event.target.parentElement.style.opacity = 0.2;
      	console.log(event.target.parentElement);
      }
 
@@ -241,18 +241,28 @@ function openProfile(event) {
     age.innerHTML = "Age: " + vm.users[index].age;
     gender.innerHTML = "Gender: " + vm.users[index].gender + "<br><br>";
     for(let i = 0; i < vm.users[index].answers.length; i++){
-	document.getElementById("manager-profile-popup-answers").children[i].children[1].innerHTML = popVm.users[index].answers[i] + "<br><br>";	document.getElementById("manager-profile-popup-answers").children[i].children[0].innerHTML = popVm.questions[i].question + "<br>";
+
+	 
+	     document.getElementById("manager-profile-popup-answers").children[i].children[1].innerHTML = popVm.users[index].answers[i] + "<br><br>";	document.getElementById("manager-profile-popup-answers").children[i].children[0].innerHTML = popVm.questions[i].question + "<br>";
+	
+
+	 
     };
 
-    for(let i=0; i < popVm.users[index].ratings.length; i++){
-	if(i == 0 && vm.round == 2 ){
-	    rating1.innerHTML = "<br><br>ROUND 1<br><br>Score: " + popVm.users[index].ratings[i] + "<br>" + "Message: " + popVm.users[index].messages[i] + "<br>";
-	}
-	else if(i == 1 && vm.round == 3){
-	    rating2.innerHTML = "<br><br>ROUND 2:<br><br>Score: " + popVm.users[index].ratings[i] + "<br>" + "Message: " + popVm.users[index].messages[i] + "<br>";
-	}
-	else if(vm.round == 4){
-	    rating3.innerHTML = "<br><br>ROUND 3:<br><br>Score: " + popVm.users[index].ratings[i] + "<br>" + "Message: " + popVm.users[index].messages[i] + "<br>";
+    if(popVm.users[index].tesmp == true){
+	for(let i=0; i < popVm.users[index].ratings.length; i++){
+	    if(i == 0 && vm.round == 2 ){
+		rating1.innerHTML = "<br><br>ROUND 1<br><br>Score: " + popVm.users[index].ratings[i] + "<br>" + "Message: " + popVm.users[index].messages[i] + "<br>";
+	    }
+	    else if(i == 1 && vm.round == 3){
+		rating1.innerHTML = "<br><br>ROUND 1<br><br>Score: " + popVm.users[index].ratings[i-1] + "<br>" + "Message: " + popVm.users[index].messages[i-1] + "<br>";
+		rating2.innerHTML = "<br><br>ROUND 2:<br><br>Score: " + popVm.users[index].ratings[i] + "<br>" + "Message: " + popVm.users[index].messages[i] + "<br>";
+	    }
+	    else if(vm.round == 4){
+		rating1.innerHTML = "<br><br>ROUND 1<br><br>Score: " + popVm.users[index].ratings[i-2] + "<br>" + "Message: " + popVm.users[index].messages[i-2] + "<br>";
+		rating2.innerHTML = "<br><br>ROUND 2<br><br>Score: " + popVm.users[index].ratings[i-1] + "<br>" + "Message: " + popVm.users[index].messages[i-1] + "<br>";
+		rating3.innerHTML = "<br><br>ROUND 3:<br><br>Score: " + popVm.users[index].ratings[i] + "<br>" + "Message: " + popVm.users[index].messages[i] + "<br>";
+	    }
 	}
     }
     
@@ -273,9 +283,22 @@ function closeProfile(event) {
 
     const id = idContainer;
     const profile = document.getElementById(id);
+    const popupWindow = document.getElementById("manager-profile-popup");
+    let index = parseInt(profile.id.substring(4, profile.id.length), 10);
+    for(let i = 0; i < vm.users[index].answers.length; i++){
 
+	 
+	document.getElementById("manager-profile-popup-answers").children[i].children[1].innerHTML = "";	document.getElementById("manager-profile-popup-answers").children[i].children[0].innerHTML = "";
+	
+
+	 
+    };
+
+    document.getElementById("ratingId1").innerHTML = "";
+    document.getElementById("ratingId2").innerHTML = "";
+    document.getElementById("ratingId3").innerHTML = "";
     profile.draggable = true;
-
+    
     document.querySelector('.manager-profile-popup').style.display = "none";
 
     // if(mouseOverActive != mouseOverCall) mouseOverActive = false;

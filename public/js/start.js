@@ -26,7 +26,8 @@ const vm = new Vue({
       matches: [],
 	answers:[],
 	ratings: [],
-	  messages: []
+	  messages: [],
+	  tesmp: true
     },
     loggedInUser: {}
   },
